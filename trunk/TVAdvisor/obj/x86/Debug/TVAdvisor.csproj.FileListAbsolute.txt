@@ -1,0 +1,16 @@
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\TVAdvisor\bin\Debug\TVAdvisor.exe
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\TVAdvisor\bin\Debug\TVAdvisor.pdb
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\TVAdvisor\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\TVAdvisor\obj\x86\Debug\MainWindow.baml
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\TVAdvisor\obj\x86\Debug\MainWindow.g.cs
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\TVAdvisor\obj\x86\Debug\App.g.cs
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\TVAdvisor\obj\x86\Debug\TVAdvisor_MarkupCompile.cache
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\TVAdvisor\obj\x86\Debug\TVAdvisor.g.resources
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\TVAdvisor\obj\x86\Debug\TVAdvisor.Properties.Resources.resources
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\TVAdvisor\obj\x86\Debug\GenerateResource.read.1.tlog
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\TVAdvisor\obj\x86\Debug\GenerateResource.write.1.tlog
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\TVAdvisor\obj\x86\Debug\TVAdvisor.exe
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\TVAdvisor\obj\x86\Debug\TVAdvisor.pdb
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\TVAdvisor\bin\Debug\LogicLayer.dll
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\TVAdvisor\bin\Debug\LogicLayer.pdb
+C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\TVAdvisor\bin\Debug\TVAdvisor.exe.config

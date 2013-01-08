@@ -1,0 +1,15 @@
+C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\EPGGruberService\bin\Debug\EPGGruberService.exe.config
+C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\EPGGruberService\bin\Debug\EPGGruberService.exe
+C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\EPGGruberService\bin\Debug\EPGGruberService.pdb
+C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\EPGGruberService\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\EPGGruberService\obj\x86\Debug\EPGGruberService.EPGUpdaterService.resources
+C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\EPGGruberService\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\EPGGruberService\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\EPGGruberService\obj\x86\Debug\EPGGruberService.exe
+C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\EPGGruberService\obj\x86\Debug\EPGGruberService.pdb
+C:\Users\Maor\Documents\Visual Studio 2010\Projects\TVAdvisor\EPGGruberService\bin\Debug\LogicLayer.dll
+C:\Users\Maor\Documents\Visual Studio 2010\Projects\TVAdvisor\EPGGruberService\bin\Debug\CommonLayer.dll
+C:\Users\Maor\Documents\Visual Studio 2010\Projects\TVAdvisor\EPGGruberService\bin\Debug\DataLayer.dll
+C:\Users\Maor\Documents\Visual Studio 2010\Projects\TVAdvisor\EPGGruberService\bin\Debug\LogicLayer.pdb
+C:\Users\Maor\Documents\Visual Studio 2010\Projects\TVAdvisor\EPGGruberService\bin\Debug\CommonLayer.pdb
+C:\Users\Maor\Documents\Visual Studio 2010\Projects\TVAdvisor\EPGGruberService\bin\Debug\DataLayer.pdb
