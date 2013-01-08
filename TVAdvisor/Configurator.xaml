@@ -1,0 +1,8 @@
+﻿<Window xmlns:my="clr-namespace:TVAdvisor"  x:Class="TVAdvisor.Configurator"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Configurator" Height="300" Width="300" WindowState="Maximized">
+    <Grid>
+        <my:UCConfigurator />
+    </Grid>
+</Window>

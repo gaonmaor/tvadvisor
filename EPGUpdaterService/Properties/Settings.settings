@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="EPGGruberService.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SleepTime" Type="System.Double" Scope="Application">
+      <Value Profile="(Default)">500</Value>
+    </Setting>
+    <Setting Name="XMLTVPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Users\Maor\Documents\visual studio 2010\Projects\TVAdvisor\xmltv\xmltv.exe</Value>
+    </Setting>
+    <Setting Name="GrabSource" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">tv_grab_il</Value>
+    </Setting>
+    <Setting Name="OutputFile" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">epg.xml</Value>
+    </Setting>
+    <Setting Name="Days" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="NewFile" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">newEPG.xml</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

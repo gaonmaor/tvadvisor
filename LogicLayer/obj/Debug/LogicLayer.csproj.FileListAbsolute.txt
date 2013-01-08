@@ -1,0 +1,9 @@
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\LogicLayer\obj\Debug\ResolveAssemblyReference.cache
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\LogicLayer\bin\Debug\LogicLayer.dll
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\LogicLayer\bin\Debug\LogicLayer.pdb
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\LogicLayer\obj\Debug\LogicLayer.dll
+c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\LogicLayer\obj\Debug\LogicLayer.pdb
+C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\LogicLayer\bin\Debug\CommonLayer.dll
+C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\LogicLayer\bin\Debug\CommonLayer.pdb
+C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\LogicLayer\bin\Debug\DataLayer.dll
+C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\LogicLayer\bin\Debug\DataLayer.pdb

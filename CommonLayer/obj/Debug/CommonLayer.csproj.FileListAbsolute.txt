@@ -1,0 +1,5 @@
+C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\CommonLayer\bin\Debug\CommonLayer.dll
+C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\CommonLayer\bin\Debug\CommonLayer.pdb
+C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\CommonLayer\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\CommonLayer\obj\Debug\CommonLayer.dll
+C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\CommonLayer\obj\Debug\CommonLayer.pdb

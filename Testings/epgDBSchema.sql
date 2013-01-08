@@ -1,0 +1,58 @@
+CREATE TABLE channel(
+	id VARCHAR(30) PRIMARY KEY,
+	display_name VARCHAR(30)
+)
+
+CREATE TABLE title(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	Value VARCHAR(30) NOT NULL,
+	lang VARCHAR(30) NOT NULL
+)
+
+CREATE TABLE sub_title(
+id INT PRIMARY KEY AUTO_INCREMENT,
+Value VARCHAR(30) NOT NULL,
+lang VARCHAR(30) NOT NULL
+)
+
+CREATE TABLE category(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	Value VARCHAR(30) NOT NULL,
+	lang VARCHAR(30) NOT NULL
+)
+
+CREATE TABLE description(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	Value VARCHAR(30) NOT NULL,
+	lang VARCHAR(30) NOT NULL
+)
+
+CREATE TABLE title(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	Value VARCHAR(30) NOT NULL,
+	lang VARCHAR(30) NOT NULL
+)
+
+CREATE TABLE episode_num(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	Value INT NOT NULL,
+	system VARCHAR(30) NOT NULL
+)
+
+CREATE TABLE programme(
+	title_id       INT NOT NULL,
+	sub_title_id   INT,
+	desc_id        INT,
+	category_id    INT,
+	episode_num_id INT,
+	start          DATETIME NOT NULL,
+	stop           DATETIME NOT NULL,
+	channel_id VARCHAR(30) NOT NULL,
+	PRIMARY KEY (channel_id, start, stop),
+	FOREIGN KEY (title_id)       REFERENCES title(id)       ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (sub_title_id)   REFERENCES sub_title(id)   ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (desc_id)        REFERENCES description(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (category_id)    REFERENCES category(id)    ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (episode_num_id) REFERENCES episode_num(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (channel_id)     REFERENCES channel(id)     ON DELETE CASCADE ON UPDATE CASCADE
+)
