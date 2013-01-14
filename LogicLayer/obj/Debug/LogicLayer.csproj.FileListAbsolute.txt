@@ -16,3 +16,12 @@ C:\Users\Ran\Desktop\TVAdvisor\LogicLayer\bin\Debug\DataLayer.pdb
 C:\Users\Ran\Desktop\TVAdvisor\LogicLayer\obj\Debug\LogicLayer.csprojResolveAssemblyReference.cache
 C:\Users\Ran\Desktop\TVAdvisor\LogicLayer\obj\Debug\LogicLayer.dll
 C:\Users\Ran\Desktop\TVAdvisor\LogicLayer\obj\Debug\LogicLayer.pdb
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\LogicLayer\bin\Debug\LogicLayer.dll
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\LogicLayer\bin\Debug\LogicLayer.pdb
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\LogicLayer\bin\Debug\CommonLayer.dll
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\LogicLayer\bin\Debug\DataLayer.dll
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\LogicLayer\bin\Debug\CommonLayer.pdb
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\LogicLayer\bin\Debug\DataLayer.pdb
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\LogicLayer\obj\Debug\LogicLayer.csprojResolveAssemblyReference.cache
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\LogicLayer\obj\Debug\LogicLayer.dll
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\LogicLayer\obj\Debug\LogicLayer.pdb
