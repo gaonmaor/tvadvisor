@@ -13,3 +13,17 @@ C:\Users\Maor\Documents\Visual Studio 2010\Projects\TVAdvisor\EPGGruberService\b
 C:\Users\Maor\Documents\Visual Studio 2010\Projects\TVAdvisor\EPGGruberService\bin\Debug\LogicLayer.pdb
 C:\Users\Maor\Documents\Visual Studio 2010\Projects\TVAdvisor\EPGGruberService\bin\Debug\CommonLayer.pdb
 C:\Users\Maor\Documents\Visual Studio 2010\Projects\TVAdvisor\EPGGruberService\bin\Debug\DataLayer.pdb
+C:\Users\Ran\Desktop\TVAdvisor\EPGUpdaterService\bin\Debug\EPGGruberService.exe.config
+C:\Users\Ran\Desktop\TVAdvisor\EPGUpdaterService\bin\Debug\EPGGruberService.exe
+C:\Users\Ran\Desktop\TVAdvisor\EPGUpdaterService\bin\Debug\EPGGruberService.pdb
+C:\Users\Ran\Desktop\TVAdvisor\EPGUpdaterService\bin\Debug\LogicLayer.dll
+C:\Users\Ran\Desktop\TVAdvisor\EPGUpdaterService\bin\Debug\CommonLayer.dll
+C:\Users\Ran\Desktop\TVAdvisor\EPGUpdaterService\bin\Debug\DataLayer.dll
+C:\Users\Ran\Desktop\TVAdvisor\EPGUpdaterService\bin\Debug\LogicLayer.pdb
+C:\Users\Ran\Desktop\TVAdvisor\EPGUpdaterService\bin\Debug\CommonLayer.pdb
+C:\Users\Ran\Desktop\TVAdvisor\EPGUpdaterService\bin\Debug\DataLayer.pdb
+C:\Users\Ran\Desktop\TVAdvisor\EPGUpdaterService\obj\x86\Debug\EPGUpdaterService.csprojResolveAssemblyReference.cache
+C:\Users\Ran\Desktop\TVAdvisor\EPGUpdaterService\obj\x86\Debug\EPGGruberService.EPGUpdaterService.resources
+C:\Users\Ran\Desktop\TVAdvisor\EPGUpdaterService\obj\x86\Debug\EPGUpdaterService.csproj.GenerateResource.Cache
+C:\Users\Ran\Desktop\TVAdvisor\EPGUpdaterService\obj\x86\Debug\EPGGruberService.exe
+C:\Users\Ran\Desktop\TVAdvisor\EPGUpdaterService\obj\x86\Debug\EPGGruberService.pdb

@@ -124,7 +124,43 @@ namespace DataLayer
                 }
             }
         }
+        public void GetRating()
+        {
+            // Variables
 
+            // The sql transaction.
+            SqlTransaction transaction;
+
+            // The SQL data command.
+            SqlCommand cmd;
+
+            // Code
+
+            lock (m_lockObject)
+            {
+                m_connection.Open();
+                transaction = m_connection.BeginTransaction();
+
+                try
+                {
+                    cmd = new SqlCommand("");
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+                finally
+                {
+                    m_connection.Close();
+                }
+            }
+            throw new NotImplementedException();
+        }
         #endregion
+
+     
     }
 }
