@@ -57,3 +57,32 @@ C:\Users\Ran\Desktop\TVAdvisor\TVAdvisor\obj\x86\Debug\MainWindow.baml
 C:\Users\Ran\Desktop\TVAdvisor\TVAdvisor\obj\x86\Debug\TVAdvisor.g.resources
 C:\Users\Ran\Desktop\TVAdvisor\TVAdvisor\obj\x86\Debug\TVAdvisor.Properties.Resources.resources
 C:\Users\Ran\Desktop\TVAdvisor\TVAdvisor\obj\x86\Debug\GUILayer.csproj.GenerateResource.Cache
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\bin\Debug\TVAdvisor.exe.config
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\TVAdvisor.exe
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\TVAdvisor.pdb
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\bin\Debug\TVAdvisor.exe
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\bin\Debug\TVAdvisor.pdb
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\bin\Debug\CommonLayer.dll
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\bin\Debug\LogicLayer.dll
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\bin\Debug\DataLayer.dll
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\bin\Debug\CommonLayer.pdb
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\bin\Debug\LogicLayer.pdb
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\bin\Debug\DataLayer.pdb
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\GUILayer.csprojResolveAssemblyReference.cache
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\UCConfigurator.baml
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\UCEPGViewer.baml
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\Configurator.g.cs
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\EPGViewer.g.cs
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\UCConfigurator.g.cs
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\UCEPGViewer.g.cs
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\App.g.cs
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\TVAdvisor_MarkupCompile.cache
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\TVAdvisor_MarkupCompile.lref
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\Configurator.baml
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\EPGViewer.baml
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\MainWindow.baml
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\TVAdvisor.g.resources
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\TVAdvisor.Properties.Resources.resources
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\TVAdvisor\obj\x86\Debug\GUILayer.csproj.GenerateResource.Cache

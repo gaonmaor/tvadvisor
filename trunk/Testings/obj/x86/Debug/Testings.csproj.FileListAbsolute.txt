@@ -24,3 +24,16 @@ C:\Users\Ran\Desktop\TVAdvisor\Testings\obj\x86\Debug\Testings.csprojResolveAsse
 C:\Users\Ran\Desktop\TVAdvisor\Testings\obj\x86\Debug\Testings.g.resources
 C:\Users\Ran\Desktop\TVAdvisor\Testings\obj\x86\Debug\Testings.exe
 C:\Users\Ran\Desktop\TVAdvisor\Testings\obj\x86\Debug\Testings.pdb
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\bin\Debug\Testings.exe.config
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\bin\Debug\Testings.exe
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\bin\Debug\Testings.pdb
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\bin\Debug\CommonLayer.dll
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\bin\Debug\LogicLayer.dll
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\bin\Debug\DataLayer.dll
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\bin\Debug\CommonLayer.pdb
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\bin\Debug\LogicLayer.pdb
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\bin\Debug\DataLayer.pdb
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\obj\x86\Debug\Testings.csprojResolveAssemblyReference.cache
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\obj\x86\Debug\Testings.g.resources
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\obj\x86\Debug\Testings.exe
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\obj\x86\Debug\Testings.pdb
