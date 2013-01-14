@@ -410,7 +410,7 @@ namespace TVAdvisor
                         {
                             ParentWindow = epgViewer,
                             LinkedContent = item,
-                            Content = item.Program.title[0].Value,
+                            Content = Utils.GetEPGDate(item.Program.start).ToShortTimeString() + " : " + item.Channel.displayname[0].Value +  " : " + item.Program.title[0].Value,
                             WindowStart = this.WindowStart,
                             WindowStop = this.WindowStop,
                             ChanIdx = m_chanIdx
