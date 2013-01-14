@@ -24,7 +24,7 @@ namespace LogicLayer
         /// <summary>
         /// The singleton property.
         /// </summary>
-        public static LogicManager Insance 
+        public static LogicManager Instance 
         {
             get
             {
@@ -81,6 +81,7 @@ namespace LogicLayer
             d.Value = Convert.ToString((ms.ToArray()));
             l.Add(d);
             p.desc = l.ToArray();
+            DataManager.Instance.GetRating();
 
             // Create the new file.
             Utils.SerializeXML<tv>(epg, newFile);

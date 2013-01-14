@@ -11,3 +11,16 @@ C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\Testings\bin\Debug
 C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\Testings\bin\Debug\LogicLayer.pdb
 C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\Testings\bin\Debug\DataLayer.dll
 C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\Testings\bin\Debug\DataLayer.pdb
+C:\Users\Ran\Desktop\TVAdvisor\Testings\bin\Debug\Testings.exe.config
+C:\Users\Ran\Desktop\TVAdvisor\Testings\bin\Debug\Testings.exe
+C:\Users\Ran\Desktop\TVAdvisor\Testings\bin\Debug\Testings.pdb
+C:\Users\Ran\Desktop\TVAdvisor\Testings\bin\Debug\CommonLayer.dll
+C:\Users\Ran\Desktop\TVAdvisor\Testings\bin\Debug\LogicLayer.dll
+C:\Users\Ran\Desktop\TVAdvisor\Testings\bin\Debug\DataLayer.dll
+C:\Users\Ran\Desktop\TVAdvisor\Testings\bin\Debug\CommonLayer.pdb
+C:\Users\Ran\Desktop\TVAdvisor\Testings\bin\Debug\LogicLayer.pdb
+C:\Users\Ran\Desktop\TVAdvisor\Testings\bin\Debug\DataLayer.pdb
+C:\Users\Ran\Desktop\TVAdvisor\Testings\obj\x86\Debug\Testings.csprojResolveAssemblyReference.cache
+C:\Users\Ran\Desktop\TVAdvisor\Testings\obj\x86\Debug\Testings.g.resources
+C:\Users\Ran\Desktop\TVAdvisor\Testings\obj\x86\Debug\Testings.exe
+C:\Users\Ran\Desktop\TVAdvisor\Testings\obj\x86\Debug\Testings.pdb

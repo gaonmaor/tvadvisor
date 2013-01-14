@@ -6,3 +6,11 @@ c:\users\maor\documents\visual studio 2010\Projects\TVAdvisor\DataLayer\obj\Debu
 C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\DataLayer\bin\Debug\CommonLayer.dll
 C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\DataLayer\bin\Debug\CommonLayer.pdb
 C:\Users\Maor\documents\visual studio 2010\Projects\TVAdvisor\DataLayer\bin\Debug\DataLayer.dll.config
+C:\Users\Ran\Desktop\TVAdvisor\DataLayer\bin\Debug\DataLayer.dll.config
+C:\Users\Ran\Desktop\TVAdvisor\DataLayer\bin\Debug\DataLayer.dll
+C:\Users\Ran\Desktop\TVAdvisor\DataLayer\bin\Debug\DataLayer.pdb
+C:\Users\Ran\Desktop\TVAdvisor\DataLayer\bin\Debug\CommonLayer.dll
+C:\Users\Ran\Desktop\TVAdvisor\DataLayer\bin\Debug\CommonLayer.pdb
+C:\Users\Ran\Desktop\TVAdvisor\DataLayer\obj\Debug\DataLayer.csprojResolveAssemblyReference.cache
+C:\Users\Ran\Desktop\TVAdvisor\DataLayer\obj\Debug\DataLayer.dll
+C:\Users\Ran\Desktop\TVAdvisor\DataLayer\obj\Debug\DataLayer.pdb
