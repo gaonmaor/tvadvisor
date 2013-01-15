@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using DataLayer.Properties;
 using System.Data;
 using MySql.Data.MySqlClient;
+using System.IO;
 
 namespace DataLayer
 {
@@ -30,6 +31,8 @@ namespace DataLayer
         /// The singleton instance.
         /// </summary>
         private static DataManager m_instance;
+
+        private static int id = 0;
 
         #endregion
 
@@ -163,6 +166,20 @@ namespace DataLayer
                 }
             }
             throw new NotImplementedException();
+        }
+
+        public void getFreeBaseData()
+        {
+            StreamReader reader = new StreamReader(@"C:\tv_program.tsv");
+            string[] a;
+            string str;
+
+            for (int i = 0; i < 1000; i++)
+            {
+                str = reader.ReadLine();
+                a = str.Split('\t');
+                string query = "INSERT INTO Program (id, name, country_of_origin) (" + i + ", " + a[0] + ", " + a[7] + ");";
+            }
         }
         #endregion
 

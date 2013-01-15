@@ -1,0 +1,3 @@
+C:\Users\Ran\Desktop\TVAdvisor\Project1\obj\x86\Debug\Temp.Properties.Resources.resources
+C:\Users\Ran\Desktop\TVAdvisor\Project1\obj\x86\Debug\Temp.csproj.GenerateResource.Cache
+C:\Users\Ran\Desktop\TVAdvisor\Project1\obj\x86\Debug\Temp.csprojResolveAssemblyReference.cache
