@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.SqlClient;
 using DataLayer.Properties;
 using System.Data;
+using MySql.Data.MySqlClient;
 
 namespace DataLayer
 {
@@ -23,7 +24,7 @@ namespace DataLayer
         /// <summary>
         /// The SQL data connection. 
         /// </summary>
-        private SqlConnection m_connection;
+        private MySqlConnection m_connection;
 
         /// <summary>
         /// The singleton instance.
@@ -62,7 +63,11 @@ namespace DataLayer
         /// </summary>
         private DataManager()
         {
-            m_connection = new SqlConnection(Settings.Default.ConString);
+            // server=localhost;User Id=DbMysql05;Persist Security Info=True;Ssl Mode=None;port=3305;database=DbMysql05
+            //string s = "Server=localhost;Port=3305;Database=DbMysql05;Uid=DbMysql05;Pwd=DbMysql05;";
+            m_connection = new MySqlConnection(Settings.Default.ConString);
+            //m_connection = new SqlConnection("server=localhost;User Id=DbMysql05;Persist Security Info=True;Ssl Mode=None;port=3305;database=DbMysql05");
+            //m_connection = new SqlConnection(Settings.Default.ConString);
         }
 
         #endregion
@@ -78,10 +83,10 @@ namespace DataLayer
             // Variables
 
             // The sql transaction.
-            SqlTransaction transaction;
+            MySqlTransaction transaction;
 
             // The SQL data command.
-            SqlCommand cmd;
+            MySqlCommand cmd;
 
             // Code
 
@@ -95,17 +100,17 @@ namespace DataLayer
                     // Save the channels.
                     foreach (var channel in epg.channel)
                     {
-                        cmd = new SqlCommand("INSERT INTO tvadviser.channel (id, display_name) VALUES ('" +
+                        cmd = new MySqlCommand("INSERT INTO tvadviser.channel (id, display_name) VALUES ('" +
                             channel.id + "','" + channel.displayname + "')", m_connection, transaction);
                         cmd.ExecuteNonQuery();
                     }
                     // Save the programs.
                     foreach (var program in epg.programme)
                     {
-                        cmd = new SqlCommand("INSERT INTO tvadviser.category (Value, lang) VALUES ('" +
+                        cmd = new MySqlCommand("INSERT INTO tvadviser.category (Value, lang) VALUES ('" +
                             (from c in program.category select c.Value) + "', '" + (from c in program.category select c.lang) + "'");
                         cmd.ExecuteNonQuery();
-                        cmd = new SqlCommand("INSERT INTO tvadviser.programme " + 
+                        cmd = new MySqlCommand("INSERT INTO tvadviser.programme " + 
                             "(title_id, sub_title_id, desc_id, category_id, episode_num_id, start, stop, channel_id)" +
                             " VALUES (,,,,,'','',);", m_connection, transaction);
                         cmd.ExecuteNonQuery();
@@ -129,10 +134,10 @@ namespace DataLayer
             // Variables
 
             // The sql transaction.
-            SqlTransaction transaction;
+            MySqlTransaction transaction;
 
             // The SQL data command.
-            SqlCommand cmd;
+            MySqlCommand cmd;
 
             // Code
 
@@ -143,8 +148,8 @@ namespace DataLayer
 
                 try
                 {
-                    cmd = new SqlCommand("");
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    cmd = new MySqlCommand("");
+                    MySqlDataReader reader = cmd.ExecuteReader();
                     transaction.Commit();
                 }
                 catch
