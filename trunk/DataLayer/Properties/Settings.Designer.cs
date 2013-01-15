@@ -27,7 +27,7 @@ namespace DataLayer.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("server=localhost;User Id=DbMysql05;password=DbMysql05;Persist Security Info=True;" +
-            "Ssl Mode=None;port=3305;database=DbMysql05")]
+            "port=3305;database=DbMysql05")]
         public string ConString {
             get {
                 return ((string)(this["ConString"]));
