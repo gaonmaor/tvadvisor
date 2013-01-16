@@ -5,7 +5,7 @@ using System.Text;
 using System.Net;
 using System.IO;
 
-namespace Temp
+namespace ObjectLayer
 {
     class Importer
     {
@@ -52,7 +52,7 @@ namespace Temp
         {
             String pQuery = "\"type\":\"/tv/tv_program\",\"name\":\"" + name + "\",\"mid\":null";
             String version = Properties.Resources.queryVersion2;//MQL format query
-            String fq = Properties.Resources.APIURL + version + "?query={" + pQuery + "}&key=" + Properties.Resources.APIkey;
+            String fq =Properties.Resources.APIURL + version + "?query={" + pQuery + "}&key=" + Properties.Resources.APIkey;
             String fr = null;
             try
             {
