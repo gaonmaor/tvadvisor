@@ -1,0 +1,5 @@
+C:\Users\Ran\Desktop\TVAdvisor\CommonLayer\bin\Release\CommonLayer.dll
+C:\Users\Ran\Desktop\TVAdvisor\CommonLayer\bin\Release\CommonLayer.pdb
+C:\Users\Ran\Desktop\TVAdvisor\CommonLayer\obj\Release\CommonLayer.dll
+C:\Users\Ran\Desktop\TVAdvisor\CommonLayer\obj\Release\CommonLayer.pdb
+C:\Users\Ran\Desktop\TVAdvisor\CommonLayer\obj\Release\CommonLayer.csprojResolveAssemblyReference.cache

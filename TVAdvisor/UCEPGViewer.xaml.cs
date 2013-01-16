@@ -140,7 +140,7 @@ namespace TVAdvisor
             WindowStop = new DateTime(WindowStart.Ticks);
             WindowStep = 30;
             WindowStop = WindowStop.AddMinutes(WindowStep * 3);
-
+            
             try
             {
                 Epg = Utils.DeserializeXml<tv>(Environment.CurrentDirectory +  @"\epg.xml");
