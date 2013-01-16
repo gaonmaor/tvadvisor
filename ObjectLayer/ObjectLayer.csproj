@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Importer.cs" />
     <Compile Include="JSONResult.cs" />
+    <Compile Include="multiResult.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

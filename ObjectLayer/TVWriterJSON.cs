@@ -1129,5 +1129,11 @@ namespace TVWriter
             }
             return result;
         }
+
+        public String getMID()
+        {
+            String result = id;
+            return result;
+        }
     }
 }

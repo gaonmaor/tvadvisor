@@ -1034,6 +1034,62 @@ public class Property
             }
             return result;
         }
+
+        public List<String> getActorIDs()
+        {
+            TvTvProgramRegularCast cast = property._tv_tv_program_regular_cast;
+            List<Value33> values = cast.values;//list of actors
+            List<String> results = new List<String>();
+            Value33 v = null;
+            //String result = null;
+            for (int i = 0; i < values.Count; i++)
+            {
+                v = values[i];
+                if (v != null)
+                {
+                    //result = v.text;
+                    List<Value34> p = v.property._tv_regular_tv_appearance_actor.values;
+                    Value34 v2 = p.First();
+                    if (v2 != null)
+                    {
+                        results.Add(v2.id);
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        public List<String> getActorNames()
+        {
+            TvTvProgramRegularCast cast = property._tv_tv_program_regular_cast;
+            List<Value33> values = cast.values;//list of actors
+            List<String> results = new List<String>();
+            Value33 v = null;
+            //String result = null;
+            for (int i = 0; i < values.Count; i++)
+            {
+                v = values[i];
+                if (v != null)
+                {
+                    //result = v.text;
+                    List<Value34> p = v.property._tv_regular_tv_appearance_actor.values;
+                    Value34 v2 = p.First();
+                    if (v2 != null)
+                    {
+                        results.Add(v2.text);
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        public String getMID()
+        {
+            String result = id;
+            return result;
+        }
     }
 
 }
