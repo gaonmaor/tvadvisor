@@ -6,7 +6,7 @@ using System.Text;
 
 using System.Runtime.Serialization.Json;
 
-namespace Temp
+namespace ObjectLayer
 {
     //[Serializable]
     public class Result
