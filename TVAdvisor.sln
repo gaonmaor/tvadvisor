@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPGUpdaterService", "EPGUpd
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "EPGUpdaterSetup", "EPGUpdaterSetup\EPGUpdaterSetup.vdproj", "{88C10A16-7423-4CB2-A467-1A742CB532FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Temp", "Project1\Temp.csproj", "{3A425505-4D89-48B5-A894-4C4A0CE03C2A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectLayer", "ObjectLayer\ObjectLayer.csproj", "{3A425505-4D89-48B5-A894-4C4A0CE03C2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
