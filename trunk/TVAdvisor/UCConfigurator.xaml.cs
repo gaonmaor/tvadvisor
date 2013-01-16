@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DataLayer;
 
 namespace TVAdvisor
 {
@@ -22,6 +23,11 @@ namespace TVAdvisor
         public UCConfigurator()
         {
             InitializeComponent();
+        }
+
+        private void btnGetFreebaseData_Click(object sender, RoutedEventArgs e)
+        {
+            DataManager.Instance.GetFreebaseData();
         }
     }
 }

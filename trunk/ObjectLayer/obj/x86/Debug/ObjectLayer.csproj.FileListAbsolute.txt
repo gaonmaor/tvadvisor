@@ -1,3 +1,10 @@
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\ObjectLayer\obj\x86\Debug\ObjectLayer.csprojResolveAssemblyReference.cache
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\ObjectLayer\obj\x86\Debug\ObjectLayer.Properties.Resources.resources
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\ObjectLayer\obj\x86\Debug\ObjectLayer.csproj.GenerateResource.Cache
+C:\Users\Ran\Desktop\TVAdvisor\ObjectLayer\bin\Debug\ObjectLayer.dll
+C:\Users\Ran\Desktop\TVAdvisor\ObjectLayer\bin\Debug\ObjectLayer.pdb
+C:\Users\Ran\Desktop\TVAdvisor\ObjectLayer\obj\x86\Debug\ObjectLayer.csprojResolveAssemblyReference.cache
+C:\Users\Ran\Desktop\TVAdvisor\ObjectLayer\obj\x86\Debug\ObjectLayer.Properties.Resources.resources
+C:\Users\Ran\Desktop\TVAdvisor\ObjectLayer\obj\x86\Debug\ObjectLayer.csproj.GenerateResource.Cache
+C:\Users\Ran\Desktop\TVAdvisor\ObjectLayer\obj\x86\Debug\ObjectLayer.dll
+C:\Users\Ran\Desktop\TVAdvisor\ObjectLayer\obj\x86\Debug\ObjectLayer.pdb

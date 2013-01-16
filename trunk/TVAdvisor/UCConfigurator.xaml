@@ -6,6 +6,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <Button Content="Get Freebase Data" Height="33" HorizontalAlignment="Left" Margin="22,17,0,0" Name="btnGetFreebaseData" VerticalAlignment="Top" Width="117" Click="btnGetFreebaseData_Click" />
     </Grid>
 </UserControl>

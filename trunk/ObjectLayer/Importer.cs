@@ -7,7 +7,7 @@ using System.IO;
 
 namespace ObjectLayer
 {
-    class Importer
+    public class Importer
     {
         //executes an http query, returns the result as a string
         public static String executeAPIQuery(String query)

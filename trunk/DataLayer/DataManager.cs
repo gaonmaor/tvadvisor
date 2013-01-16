@@ -7,6 +7,7 @@ using DataLayer.Properties;
 using System.Data;
 using MySql.Data.MySqlClient;
 using System.IO;
+using ObjectLayer;
 
 namespace DataLayer
 {
@@ -168,17 +169,59 @@ namespace DataLayer
             throw new NotImplementedException();
         }
 
-        public void getFreeBaseData()
+        public void GetFreebaseData()
         {
-            StreamReader reader = new StreamReader(@"C:\tv_program.tsv");
-            string[] a;
-            string str;
+            //  The dump file reader
+            StreamReader data_reader = new StreamReader(@"C:\tv_program.tsv"); //Environment.CurrentDirectory
 
-            for (int i = 0; i < 1000; i++)
+            // The sql transaction.
+            MySqlTransaction transaction;
+
+            // The SQL data command.
+            MySqlCommand cmd;
+
+            lock (m_lockObject)
             {
-                str = reader.ReadLine();
-                a = str.Split('\t');
-                string query = "INSERT INTO Program (id, name, country_of_origin) (" + i + ", " + a[0] + ", " + a[7] + ");";
+                string[] crr_line_words;
+                string line = data_reader.ReadLine(); ;
+                string query;
+
+                m_connection.Open();
+                transaction = m_connection.BeginTransaction();
+                try
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        line = data_reader.ReadLine();
+                        crr_line_words = line.Split('\t');
+
+                        query = "INSERT INTO Program (name, country_of_origin, freebase_id, description)" +
+                                "VALUES (@name, @country_of_origin, @freebase_id, @description)";
+                        cmd = new MySqlCommand(query, m_connection, transaction);
+
+                        string id = crr_line_words[1];
+                        TVProgram.TVProgramJSON oTv = ObjectLayer.Importer.getProgramByMID(id);
+                        string description = oTv.getDescription();
+
+                        cmd.Parameters.AddWithValue("@name", crr_line_words[0]);
+                        cmd.Parameters.AddWithValue("@freebase_id", id);
+                        cmd.Parameters.AddWithValue("@country_of_origin", crr_line_words[7]);
+                        cmd.Parameters.AddWithValue("@description", description);
+
+                        cmd.ExecuteNonQuery();
+                    }
+                    transaction.Commit();
+                }
+
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+                finally
+                {
+                    m_connection.Close();
+                }
             }
         }
         #endregion

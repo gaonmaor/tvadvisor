@@ -60,6 +60,10 @@
       <Project>{6F3FFBDD-245A-484C-8293-12F348824767}</Project>
       <Name>CommonLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ObjectLayer\ObjectLayer.csproj">
+      <Project>{3A425505-4D89-48B5-A894-4C4A0CE03C2A}</Project>
+      <Name>ObjectLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
