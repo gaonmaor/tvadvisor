@@ -1,4 +1,4 @@
-﻿using System;
+ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -85,6 +85,12 @@ namespace LogicLayer
 
             // Create the new file.
             Utils.SerializeXML<tv>(epg, newFile);
+        }
+        
+        public int calculateRating(string prog){
+            TVProgram.TVProgramJSON progObj DataManager.Instance.getProgramByName(prog);
+            
+            
         }
     }
 
