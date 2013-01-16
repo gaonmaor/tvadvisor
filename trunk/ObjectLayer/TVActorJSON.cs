@@ -1496,5 +1496,11 @@ namespace TVActor
             }
             return result;
         }
+
+        public String getMID()
+        {
+            String result = id;
+            return result;
+        }
     }
 }

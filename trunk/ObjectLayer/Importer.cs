@@ -37,6 +37,57 @@ namespace ObjectLayer
             return result;
         }
 
+        public static List<String> getProgramDescByMID(List<String> mids)
+        {
+            List<String> result = new List<String>();
+            String url = Properties.Resources.APIURLmult + "?key=" + Properties.Resources.APIkey;
+            String qw = "[";
+            foreach (String mid in mids)
+            {
+                qw = qw + "{\"params\": {\"id\":[\"" + mid + "\"] }, \"method\": \"freebase.text.get\", \"apiVersion\": \"v1\"}";
+                qw = qw + ",";
+            }
+            qw = qw.Substring(0, qw.Length - 1);
+            qw = qw + "]";
+            String fr = "";
+            try
+            {
+                HttpWebRequest hreq = (HttpWebRequest)WebRequest.Create(url);
+                
+                UTF8Encoding encoding = new UTF8Encoding();
+                byte[] bytes = encoding.GetBytes(qw);
+                hreq.ContentLength = bytes.Length;
+                hreq.Method = "POST";
+                hreq.ContentType = "application/json";
+                Stream writeStream = hreq.GetRequestStream();
+                writeStream.Write(bytes, 0, bytes.Length);
+                writeStream.Close();
+                hreq.Expect = "";
+
+                HttpWebResponse hres = (HttpWebResponse)hreq.GetResponse();
+                StreamReader sr = new StreamReader(hres.GetResponseStream());
+                fr = sr.ReadToEnd();
+
+                fr = "{\"madeup\":" + fr + "}";
+                mR.multiResult fro = new mR.multiResult(fr);
+
+                foreach (mR.Madeup m in fro.madeup)
+                {
+                    if (m.result != null)
+                    {
+                        fr = m.result.result;
+                        result.Add(fr);
+                    }
+                }
+            }
+            catch (System.Net.WebException)
+            {
+                fr = "Bad Request";
+            }
+
+            return result;
+        }        
+
         public static TVProgram.TVProgramJSON getProgramByName(String name)
         {
             String mid = getProgramMIDByName(name);
@@ -52,7 +103,7 @@ namespace ObjectLayer
         {
             String pQuery = "\"type\":\"/tv/tv_program\",\"name\":\"" + name + "\",\"mid\":null";
             String version = Properties.Resources.queryVersion2;//MQL format query
-            String fq =Properties.Resources.APIURL + version + "?query={" + pQuery + "}&key=" + Properties.Resources.APIkey;
+            String fq = Properties.Resources.APIURL + version + "?query={" + pQuery + "}&key=" + Properties.Resources.APIkey;
             String fr = null;
             try
             {

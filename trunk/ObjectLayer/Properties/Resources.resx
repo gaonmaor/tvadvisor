@@ -135,4 +135,7 @@
   <data name="queryVersion5" xml:space="preserve">
     <value>topic</value>
   </data>
+  <data name="APIURLmult" xml:space="preserve">
+    <value>https://www.googleapis.com/rpc</value>
+  </data>
 </root>

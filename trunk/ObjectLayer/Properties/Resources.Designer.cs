@@ -79,6 +79,15 @@ namespace ObjectLayer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://www.googleapis.com/rpc.
+        /// </summary>
+        internal static string APIURLmult {
+            get {
+                return ResourceManager.GetString("APIURLmult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to search.
         /// </summary>
         internal static string queryVersion1 {
