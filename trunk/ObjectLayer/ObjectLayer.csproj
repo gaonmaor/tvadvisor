@@ -8,8 +8,8 @@
     <ProjectGuid>{3A425505-4D89-48B5-A894-4C4A0CE03C2A}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Temp</RootNamespace>
-    <AssemblyName>Temp</AssemblyName>
+    <RootNamespace>ObjectLayer</RootNamespace>
+    <AssemblyName>ObjectLayer</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -47,6 +47,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Importer.cs" />
