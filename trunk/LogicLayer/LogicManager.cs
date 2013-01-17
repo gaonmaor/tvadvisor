@@ -6,6 +6,7 @@ using DataLayer;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using CommonLayer;
+using ObjectLayer;
 
 namespace LogicLayer
 {
@@ -88,9 +89,9 @@ namespace LogicLayer
         }
         
         public int calculateRating(string prog){
-            TVProgram.TVProgramJSON progObj DataManager.Instance.getProgramByName(prog);
-            
-            
+            int ret=0;
+            TVProgram.TVProgramJSON progObj=Importer.getProgramByName(prog);
+            return ret;
         }
     }
 
