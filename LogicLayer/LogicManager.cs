@@ -7,6 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using CommonLayer;
 using ObjectLayer;
+using System.Security.Cryptography;
 
 namespace LogicLayer
 {
@@ -88,10 +89,44 @@ namespace LogicLayer
             Utils.SerializeXML<tv>(epg, newFile);
         }
         
-        public int calculateRating(string prog){
+        public int calculateRating(string prog, int userID){
             int ret=0;
             TVProgram.TVProgramJSON progObj=Importer.getProgramByName(prog);
             return ret;
+        }
+
+        public void userRegister(string name, string password){
+            string hash = GetEncodedHash(password);
+            try
+            {
+                DataManager.Instance.insertUser(name, hash);
+            }
+            catch
+            {
+                //can't create a user with this name
+            }
+        }
+
+        public int userLogin(string name, string password)
+        {
+            int ID = 0;
+            string hash = GetEncodedHash(password);
+            try
+            {
+                DataManager.Instance.insertUser(name, hash);
+            }
+            catch
+            {
+                //can't find user
+            }
+            return ID;
+        }
+
+
+        string GetEncodedHash(string password){
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte [] digest = md5.ComputeHash(Encoding.UTF8.GetBytes(password));
+            return Convert.ToBase64String(digest, 0, digest.Length);
         }
     }
 
