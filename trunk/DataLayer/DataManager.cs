@@ -224,6 +224,44 @@ namespace DataLayer
                 }
             }
         }
+
+        public void insertUser(string name, string password){
+            string query = "INSERT INTO User (name,password) VALUES (@name, @password)";
+            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            cmd.Parameters.AddWithValue("@name", name);
+            cmd.Parameters.AddWithValue("@password", password);
+            try
+            {
+                m_connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            m_connection.Close();
+        }
+
+        public int GetUserID(string name, string password)
+        {
+            int id = 0;
+            string query = "SELECT id FROM User WHERE name=@name AND password=@password";
+            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            cmd.Parameters.AddWithValue("@name", name);
+            cmd.Parameters.AddWithValue("@password", password);
+            try
+            {
+                m_connection.Open();
+                id=(int)cmd.ExecuteScalar();
+            }
+            catch
+            {
+                throw;
+            }
+            m_connection.Close();
+            return id;
+        }
+
         #endregion
 
      
