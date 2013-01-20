@@ -8,6 +8,7 @@ using System.Data;
 using MySql.Data.MySqlClient;
 using System.IO;
 using ObjectLayer;
+using CommonLayer;
 
 namespace DataLayer
 {
@@ -133,6 +134,136 @@ namespace DataLayer
                 }
             }
         }
+
+        public void BuildEPG(string oldFile, string newFile)
+        {
+            //m_connection = new SqlConnection("server=localhost;User Id=DbMysql05;Persist Security Info=True;Ssl Mode=None;port=3305;database=DbMysql05");
+            //MySqlConnection conn = new MySqlConnection(Settings.Default.ConString);
+
+            //conn.Open();
+            string defaultLang = "he";
+            string defaultDesc = "";
+            tv epg = Utils.DeserializeXml<tv>(oldFile);
+            programme[] ps = epg.programme;
+            if (ps == null)
+            {
+                Utils.SerializeXML<tv>(epg, newFile);
+                return;
+            }
+            foreach (programme p in ps)
+            {
+                string name = null;
+                if (p.title != null)
+                {
+                    foreach (title t in p.title)
+                    {
+                        if (t.lang.Equals(defaultLang))
+                        {
+                            name = t.Value;
+                        }
+                    }
+                }
+                if (name == null)
+                {
+                    //return;
+                    continue;
+                }
+
+                string d = null;
+                string query = "SELECT description FROM Program WHERE name=@name";
+                MySqlCommand cmd = new MySqlCommand(query, m_connection);
+                cmd.Parameters.AddWithValue("@name", name);
+                try
+                {
+                    //server=localhost;User Id=DbMysql05;
+                    //password=DbMysql05;Persist Security Info=True;
+                    //port=3305;database=DbMysql05
+                    //m_connection.Close();
+                    m_connection.ConnectionString = Settings.Default.ConString;
+
+                    //MySqlConnectionStringBuilder sb = new MySqlConnectionStringBuilder(Settings.Default.ConString);
+                    //sb.
+                    //m_connection.
+
+                    m_connection.Open();
+
+                    object dbresult = cmd.ExecuteScalar();
+                    d = (string)dbresult;
+                }
+                catch
+                {
+                    throw;
+                }
+                m_connection.Close();
+
+                if (d == null)
+                {
+                    TVProgram.TVProgramJSON tvpo = ObjectLayer.Importer.getProgramByName(name);
+                    d = tvpo.getDescription();
+
+                    if (d != null)
+                    {
+                        //update DB
+                        query = "UPDATE Program SET description=@description WHERE name=@name";
+                        cmd = new MySqlCommand(query, m_connection);
+                        cmd.Parameters.AddWithValue("@name", name);
+                        cmd.Parameters.AddWithValue("@description", d);
+                        try
+                        {
+                            m_connection.Open();
+                            cmd.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            throw;
+                        }
+                        m_connection.Close();
+                    }
+                }
+
+                if (d == null)
+                {
+                    d = defaultDesc;
+                }
+
+                bool flag = false;
+                foreach (desc da in p.desc)
+                {
+                    if (da.lang.Equals(defaultLang))
+                    {
+                        flag = true;
+                        da.Value = d;
+                    }
+                }
+                if (flag == false)
+                {
+                    List<desc> ld = p.desc.ToList();
+                    ld.Add(new desc() { Value = d, lang = defaultLang });
+                    desc[] description = ld.ToArray();
+                    p.desc = description;
+                }
+
+            }
+
+            Utils.SerializeXML<tv>(epg, newFile);
+        }
+
+        public void BuildEPG2(string oldFile, string newFile)
+        {
+            string dl = "he";
+            tv epg = new tv();
+            programme prog = new programme();
+            //title[] t = new title[1] { new title() { Value = "Firefly", lang = dl } };
+            title[] t = new title[1] { new title() { Value = "blabla", lang = dl } };
+            desc[] description = new desc[1] { new desc() { Value = "something else", lang = dl } };
+
+            prog.title = t;
+            prog.desc = description;
+            epg.programme = new programme[1] { prog };
+
+            Utils.SerializeXML<tv>(epg, newFile);
+        }
+
         public void GetRating()
         {
             // Variables
