@@ -6,6 +6,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
+using System.Security.Cryptography;
 
 namespace CommonLayer
 {
@@ -33,7 +34,7 @@ namespace CommonLayer
                     using (XmlReader xreader = xdoc.CreateReader())
                     {
                         res = (T)serializer.Deserialize(xreader);
-                    }                     
+                    }
                 }
             }
             catch (InvalidOperationException)
@@ -55,8 +56,8 @@ namespace CommonLayer
             try
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
-                using(StreamWriter writer = new StreamWriter(newFile))
-	            {
+                using (StreamWriter writer = new StreamWriter(newFile))
+                {
                     serializer.Serialize(writer, xml);
                 }
             }
@@ -112,6 +113,22 @@ namespace CommonLayer
                       System.Globalization.CultureInfo.InvariantCulture);
 
             return result.DateTime;
+        }
+
+        /// <summary>
+        /// Get an hashed passowrd.
+        /// </summary>
+        /// <param name="password">The password to hash.</param>
+        /// <returns>The hashed password.</returns>
+        public static string GetHashedPassword(string password)
+        {
+            var hash = Encoding.ASCII.GetBytes(password);
+            var sha1 = new SHA1CryptoServiceProvider();
+            byte[] sha1hash = sha1.ComputeHash(hash);
+            ASCIIEncoding ae = new ASCIIEncoding();
+            var hashedPassword = ae.GetString(sha1hash);
+
+            return hashedPassword;
         }
     }
 }
