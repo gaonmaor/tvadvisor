@@ -70,7 +70,12 @@ namespace DataLayer
         {
             // server=localhost;User Id=DbMysql05;Persist Security Info=True;Ssl Mode=None;port=3305;database=DbMysql05
             //string s = "Server=localhost;Port=3305;Database=DbMysql05;Uid=DbMysql05;Pwd=DbMysql05;";
-            m_connection = new MySqlConnection(Settings.Default.ConString);
+
+            //                                  server=localhost;User Id=DbMysql05;password=DbMysql05;Persist Security Info=True;port=3305;database=DbMysql05
+            m_connection = new MySqlConnection("server=localhost;User Id=DbMysql05;password=DbMysql05;Persist Security Info=True;Ssl Mode=None;port=3305;database=DbMysql05");
+            //m_connection = new MySqlConnection(Settings.Default.ConString);
+
+
             //m_connection = new SqlConnection("server=localhost;User Id=DbMysql05;Persist Security Info=True;Ssl Mode=None;port=3305;database=DbMysql05");
             //m_connection = new SqlConnection(Settings.Default.ConString);
         }
@@ -375,21 +380,28 @@ namespace DataLayer
 
         public int GetUserID(string name, string password)
         {
-            int id = 0;
-            string query = "SELECT id FROM User WHERE name=@name AND password=@password";
+            int id = -1;
+            string query = "SELECT id, name FROM User WHERE name=@name AND password=@password";
             MySqlCommand cmd = new MySqlCommand(query, m_connection);
             cmd.Parameters.AddWithValue("@name", name);
             cmd.Parameters.AddWithValue("@password", password);
             try
             {
                 m_connection.Open();
-                id=(int)cmd.ExecuteScalar();
+                object result = cmd.ExecuteScalar();
+                if (result != null)
+                {
+                    id = (int)result;
+                }
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }
-            m_connection.Close();
+            finally
+            {
+                m_connection.Close();
+            }
             return id;
         }
 
