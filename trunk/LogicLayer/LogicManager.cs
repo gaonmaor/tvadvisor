@@ -96,7 +96,7 @@ namespace LogicLayer
         }
 
         public void userRegister(string name, string password){
-            string hash = GetEncodedHash(password);
+            string hash = Utils.GetHashedPassword(password);
             try
             {
                 DataManager.Instance.insertUser(name, hash);
@@ -110,7 +110,7 @@ namespace LogicLayer
         public int userLogin(string name, string password)
         {
             int ID = 0;
-            string hash = GetEncodedHash(password);
+            string hash = Utils.GetHashedPassword(password);
             try
             {
                 DataManager.Instance.insertUser(name, hash);
