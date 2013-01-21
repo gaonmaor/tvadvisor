@@ -135,7 +135,7 @@ namespace LogicLayer
                 System.Runtime.InteropServices.Marshal.SecureStringToBSTR(secureString);
             string sDecrypString =
                System.Runtime.InteropServices.Marshal.PtrToStringUni(ptr);
-            return DataManager.Instance.GetUserID(name, sDecrypString);
+            return DataManager.Instance.GetUserID(name, GetEncodedHash(sDecrypString));
         }
     }
 
