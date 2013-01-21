@@ -77,7 +77,7 @@ namespace EPGGruberService
                 GetCurrentEPG();
 
                 // Insert the data into the EPG server.
-                InsertEPG();
+                //InsertEPG();
 
                 // Build the new epg.
                 BuildEPG();
@@ -141,7 +141,7 @@ namespace EPGGruberService
         private void BuildEPG()
         {
             log("Build the new EPG.");
-            LogicManager.Instance.BuildEPG(Settings.Default.OutputFile);
+            LogicManager.Instance.BuildEPG(Settings.Default.OutputFile, Settings.Default.NewFile);
             log("New epg was created saved in: " + Settings.Default.NewFile);
         }
 

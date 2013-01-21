@@ -142,10 +142,13 @@ namespace DataLayer
 
         public void BuildEPG(string oldFile, string newFile)
         {
+            //server=localhost;User Id=DbMysql05;password=DbMysql05;Persist Security Info=True;port=3305;database=DbMysql05;Connect Timeout=30
+            //string constr = "server=localhost;User Id=DbMysql05;password=DbMysql05;port=3305;database=DbMysql05;Connect Timeout=30";
             //m_connection = new SqlConnection("server=localhost;User Id=DbMysql05;Persist Security Info=True;Ssl Mode=None;port=3305;database=DbMysql05");
             //MySqlConnection conn = new MySqlConnection(Settings.Default.ConString);
 
             //conn.Open();
+
             string defaultLang = "he";
             string defaultDesc = "";
             tv epg = Utils.DeserializeXml<tv>(oldFile);
@@ -184,7 +187,7 @@ namespace DataLayer
                     //password=DbMysql05;Persist Security Info=True;
                     //port=3305;database=DbMysql05
                     //m_connection.Close();
-                    m_connection.ConnectionString = Settings.Default.ConString;
+                    //m_connection.ConnectionString = Settings.Default.ConString;
 
                     //MySqlConnectionStringBuilder sb = new MySqlConnectionStringBuilder(Settings.Default.ConString);
                     //sb.
@@ -201,18 +204,38 @@ namespace DataLayer
                 }
                 m_connection.Close();
 
-                if (d == null)
+
+                if (d == null || d.Equals(""))
                 {
+                    bool flag2 = (d == null ? false : true);
                     TVProgram.TVProgramJSON tvpo = ObjectLayer.Importer.getProgramByName(name);
-                    d = tvpo.getDescription();
+                    if (tvpo != null)
+                    {
+                        d = tvpo.getDescription();
+                    }
 
                     if (d != null)
                     {
-                        //update DB
-                        query = "UPDATE Program SET description=@description WHERE name=@name";
-                        cmd = new MySqlCommand(query, m_connection);
-                        cmd.Parameters.AddWithValue("@name", name);
-                        cmd.Parameters.AddWithValue("@description", d);
+                        if (flag2 == true)//description is "";
+                        {
+                            //update DB
+                            query = "UPDATE Program SET description=@description WHERE name=@name";
+                            cmd = new MySqlCommand(query, m_connection);
+                            cmd.Parameters.AddWithValue("@name", name);
+                            cmd.Parameters.AddWithValue("@description", d);
+                        }
+                        else//description is null;
+                        {
+                            //add entry to DB
+                            query = "INSERT INTO Program (name, country_of_origin, freebase_id, description)" +
+                                "VALUES (@name, @country_of_origin, @freebase_id, @description)";
+                            cmd = new MySqlCommand(query, m_connection);
+                            cmd.Parameters.AddWithValue("@name", name);
+                            cmd.Parameters.AddWithValue("@freebase_id", tvpo.getMID());
+                            //string country = "country";
+                            cmd.Parameters.AddWithValue("@country_of_origin", tvpo.getCountry());
+                            cmd.Parameters.AddWithValue("@description", d);
+                        }
                         try
                         {
                             m_connection.Open();
@@ -232,17 +255,20 @@ namespace DataLayer
                 }
 
                 bool flag = false;
-                foreach (desc da in p.desc)
+                if (p.desc != null)
                 {
-                    if (da.lang.Equals(defaultLang))
+                    foreach (desc da in p.desc)
                     {
-                        flag = true;
-                        da.Value = d;
+                        if (da.lang.Equals(defaultLang))
+                        {
+                            flag = true;
+                            da.Value = d;
+                        }
                     }
                 }
                 if (flag == false)
                 {
-                    List<desc> ld = p.desc.ToList();
+                    List<desc> ld = (p.desc == null ? new List<desc>() : p.desc.ToList());
                     ld.Add(new desc() { Value = d, lang = defaultLang });
                     desc[] description = ld.ToArray();
                     p.desc = description;
@@ -258,8 +284,8 @@ namespace DataLayer
             string dl = "he";
             tv epg = new tv();
             programme prog = new programme();
-            //title[] t = new title[1] { new title() { Value = "Firefly", lang = dl } };
-            title[] t = new title[1] { new title() { Value = "blabla", lang = dl } };
+            title[] t = new title[1] { new title() { Value = "Firefly", lang = dl } };
+            //title[] t = new title[1] { new title() { Value = "blabla", lang = dl } };
             desc[] description = new desc[1] { new desc() { Value = "something else", lang = dl } };
 
             prog.title = t;
