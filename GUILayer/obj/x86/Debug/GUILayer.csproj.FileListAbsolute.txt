@@ -120,3 +120,6 @@ C:\Users\Maor\Documents\Visual Studio 2010\Projects\TVAdvisor\GUILayer\bin\Debug
 C:\Users\Maor\Documents\Visual Studio 2010\Projects\TVAdvisor\GUILayer\bin\Debug\ObjectLayer.pdb
 C:\Users\Maor\Documents\Visual Studio 2010\Projects\TVAdvisor\GUILayer\obj\x86\Debug\LoginWindow.baml
 C:\Users\Maor\Documents\Visual Studio 2010\Projects\TVAdvisor\GUILayer\obj\x86\Debug\LoginWindow.g.cs
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\GUILayer\bin\Debug\TVAdvisor.exe.config
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\GUILayer\obj\x86\Debug\TVAdvisor.exe
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\GUILayer\obj\x86\Debug\TVAdvisor.pdb

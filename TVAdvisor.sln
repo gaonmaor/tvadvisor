@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUILayer", "TVAdvisor\GUILayer.csproj", "{0A47FDFA-7A16-4B3F-98F9-5DE8BA45209B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUILayer", "GUILayer\GUILayer.csproj", "{0A47FDFA-7A16-4B3F-98F9-5DE8BA45209B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{2DEB5294-C3F9-411F-80E0-7BA3ACF33E41}"
 EndProject

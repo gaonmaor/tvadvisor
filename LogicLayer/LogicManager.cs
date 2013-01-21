@@ -63,30 +63,33 @@ namespace LogicLayer
         /// <summary>
         /// Build the new epg.
         /// </summary>       
-        public void BuildEPG(string newFile)
+        public void BuildEPG(string oldFile, string newFile)
         {
-            // Variables
-            tv epg;
+            DataManager.Instance.BuildEPG(oldFile, newFile);
+            //DataManager.Instance.BuildEPG2(oldFile, newFile);
 
-            // Code
+            //// Variables
+            //tv epg;
 
-            epg = new tv();
-            programme p = new programme();
-            List<desc> l = new List<desc>();
-            desc d = new desc();
-            BinaryFormatter b = new BinaryFormatter();
-            d.lang = "TVAdviser";
-            MemoryStream ms = new MemoryStream();
-            CostumeData c = new CostumeData();
-            c.Rating = 9;
-            b.Serialize(ms, c);
-            d.Value = Convert.ToString((ms.ToArray()));
-            l.Add(d);
-            p.desc = l.ToArray();
-            DataManager.Instance.GetRating();
+            //// Code
 
-            // Create the new file.
-            Utils.SerializeXML<tv>(epg, newFile);
+            //epg = new tv();
+            //programme p = new programme();
+            //List<desc> l = new List<desc>();
+            //desc d = new desc();
+            //BinaryFormatter b = new BinaryFormatter();
+            //d.lang = "TVAdviser";
+            //MemoryStream ms = new MemoryStream();
+            //CostumeData c = new CostumeData();
+            //c.Rating = 9;
+            //b.Serialize(ms, c);
+            //d.Value = Convert.ToString((ms.ToArray()));
+            //l.Add(d);
+            //p.desc = l.ToArray();
+            //DataManager.Instance.GetRating();
+
+            //// Create the new file.
+            //Utils.SerializeXML<tv>(epg, newFile);
         }
         
         public int calculateRating(string prog, int userID){

@@ -53,7 +53,7 @@ namespace ObjectLayer
             try
             {
                 HttpWebRequest hreq = (HttpWebRequest)WebRequest.Create(url);
-                
+
                 UTF8Encoding encoding = new UTF8Encoding();
                 byte[] bytes = encoding.GetBytes(qw);
                 hreq.ContentLength = bytes.Length;
@@ -86,7 +86,7 @@ namespace ObjectLayer
             }
 
             return result;
-        }        
+        }
 
         public static TVProgram.TVProgramJSON getProgramByName(String name)
         {
@@ -276,6 +276,6 @@ namespace ObjectLayer
             return fro;
         }
 
-            //genres
+        //genres
     }
 }
