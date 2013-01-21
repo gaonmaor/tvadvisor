@@ -128,6 +128,15 @@ namespace LogicLayer
             byte [] digest = md5.ComputeHash(Encoding.UTF8.GetBytes(password));
             return Convert.ToBase64String(digest, 0, digest.Length);
         }
+
+        public int GetUserID(string name, System.Security.SecureString secureString)
+        {
+            IntPtr ptr =
+                System.Runtime.InteropServices.Marshal.SecureStringToBSTR(secureString);
+            string sDecrypString =
+               System.Runtime.InteropServices.Marshal.PtrToStringUni(ptr);
+            return DataManager.Instance.GetUserID(name, sDecrypString);
+        }
     }
 
     [Serializable]
