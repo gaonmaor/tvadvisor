@@ -1,0 +1,47 @@
+﻿<Window x:Class="GUILayer.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TVAdvisor Login" Height="200" Width="400" WindowStyle="None" ResizeMode="NoResize"
+        FocusManager.FocusedElement = "{Binding ElementName=txtName}" WindowStartupLocation="CenterScreen">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="0,5,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/TVAdvisor;component/login_icon.png" Grid.Column="0" />
+            <Label Content="Please enter your credentials."  Grid.Column="1" FontSize="18" FontWeight="Bold" Foreground="#FF27A6BE" />
+        </Grid>
+        <Grid Grid.Row="1" Margin="0,5,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Content="Username: " Grid.Column="0"/>
+            <TextBox x:Name="txtName" Text="" Grid.Column="1"  Margin="50,0,0,0" />
+        </Grid>
+        <Grid Grid.Row="2" Margin="0,5,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Content="Password: " Grid.Column="0"/>
+            <PasswordBox x:Name="txtPassword" Grid.Column="1" Margin="50,0,0,0" />
+        </Grid>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" x:Name="pnlError" Visibility="Collapsed">
+            <Image Source="/TVAdvisor;component/error-icon.gif" Width="25" Height="25" Margin="0,0,10,0" />
+            <Label x:Name="lblError"  Foreground="Red" Content="Failed to login!"/>
+        </StackPanel>
+        <Grid  Grid.Row="4" Margin="0,5,0,5">
+            <Button x:Name="btnQuit" Content="Quit" Width="100" HorizontalAlignment="Left" IsCancel="True" Click="btnQuit_Click" />
+            <Button x:Name="btnConnect" Content="Connect" Width="100" HorizontalAlignment="Right" IsDefault="True" Click="btnConnect_Click" />
+        </Grid>
+    </Grid>
+</Window>
