@@ -55,5 +55,15 @@ namespace GUILayer
                 pnlError.Visibility = System.Windows.Visibility.Visible;
             }
         }
+
+        private void txtPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            pnlError.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        private void txtName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            pnlError.Visibility = System.Windows.Visibility.Collapsed;
+        }
     }
 }

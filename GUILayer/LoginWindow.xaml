@@ -25,7 +25,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Label Content="Username: " Grid.Column="0"/>
-            <TextBox x:Name="txtName" Text="" Grid.Column="1"  Margin="50,0,0,0" />
+            <TextBox x:Name="txtName" Text="" Grid.Column="1"  Margin="50,0,0,0" TextChanged="txtName_TextChanged" />
         </Grid>
         <Grid Grid.Row="2" Margin="0,5,0,5">
             <Grid.ColumnDefinitions>
@@ -33,7 +33,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Label Content="Password: " Grid.Column="0"/>
-            <PasswordBox x:Name="txtPassword" Grid.Column="1" Margin="50,0,0,0" />
+            <PasswordBox x:Name="txtPassword" Grid.Column="1" Margin="50,0,0,0" PasswordChanged="txtPassword_PasswordChanged" />
         </Grid>
         <StackPanel Grid.Row="3" Orientation="Horizontal" x:Name="pnlError" Visibility="Collapsed">
             <Image Source="/TVAdvisor;component/error-icon.gif" Width="25" Height="25" Margin="0,0,10,0" />
