@@ -1,0 +1,24 @@
+﻿<Window x:Class="GUILayer.ActorPopWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Actor: " Width="500" PreviewKeyDown="Window_PreviewKeyDown" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+    <Border BorderThickness="2" BorderBrush="#FF110845" CornerRadius="30">
+        <Grid>
+            <Grid.Clip>
+                <GeometryGroup>
+                    <RectangleGeometry RadiusX="30" RadiusY="30" Rect="0,0,475,280" />
+                </GeometryGroup>
+            </Grid.Clip>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Label Content="Alain Delon" HorizontalContentAlignment="Center" Grid.Row="0" Background="#FF7EB5E5" Foreground="White" FontSize="16" FontWeight="Bold" />
+            <ScrollViewer Margin="5,30,5,0" Background="#FFFFFFF3">
+                <TextBlock Grid.Row="1" Margin="10" TextWrapping="WrapWithOverflow" Text="Alain Fabien Maurice Marcel Delon (French pronunciation: [alɛ̃ dəlɔ̃]; born 8 November 1935) is a French-Swiss actor. He rose quickly to stardom, and by the age of 23 was already being compared to French actors such as Gérard Philipe and Jean Marais, as well as American actor James Dean. He was even called the male Brigitte Bardot. Over the course of his career, Delon has worked with many well-known directors, including Luchino Visconti, Jean-Luc Godard, Jean-Pierre Melville, Michelangelo Antonioni and Louis Malle. Delon acquired Swiss citizenship on September 23, 1999, and the company managing products sold under his name is based in Geneva. He is a citizen of the community of Chêne-Bougeries in the canton of Geneva. Delon was born in Sceaux, Seine (now Hauts-de-Seine), Île-de-France, a suburb of Paris. His parents, Édith (née Arnold) and Fabien Delon, divorced when Delon was four. Both remarried, and Delon has a half-sister and two half-brothers. His paternal grandmother was..."/>
+            </ScrollViewer>
+            <Button x:Name="btnClose" Content="Close" Grid.Row="2" Background="#FFE5E5E5" Click="btnClose_Click" />
+        </Grid>
+    </Border>
+</Window>
