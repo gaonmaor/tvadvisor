@@ -1,0 +1,1 @@
+C:\Users\Ran\Desktop\TVAdvisor\EPGUpdaterService\bin\Release\EPGGruberService.exe.config
