@@ -10,6 +10,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using LogicLayer;
+using MySql.Data.MySqlClient;
 
 namespace GUILayer
 {
@@ -50,24 +52,53 @@ namespace GUILayer
 
         private void txtName_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            pnlError.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         private void txtPassword_PasswordChanged(object sender, RoutedEventArgs e)
         {
-
+            pnlError.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         private void txtPassword2_PasswordChanged(object sender, RoutedEventArgs e)
         {
+            pnlError.Visibility = System.Windows.Visibility.Collapsed;
+        }
 
+        private void showError(string sError)
+        {
+            lblError.Content = sError;
+            pnlError.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void btnSignup_Click(object sender, RoutedEventArgs e)
         {
-            if (txtName.Text == "")
+            if (txtName.Text == "" || txtPassword.Password == "" || txtPassword2.Password == "")
             {
+                showError("Please fill all the fileds.");
+                return;
             }
+            if (txtPassword.Password != txtPassword2.Password)
+            {
+                showError("The password fileds don't match.");
+                return;
+            }
+            try
+            {
+                LogicManager.Instance.userRegister(txtName.Text, txtPassword.Password);
+            }
+            catch (MySqlException ex)
+            {
+                if (ex.Number == 1062)
+                {
+                    showError("The user " + txtName.Text + " is already exists!");
+                }
+            }
+            catch (Exception ex)
+            {
+                showError(ex.Message);
+            }
+
         }
     }
 }
