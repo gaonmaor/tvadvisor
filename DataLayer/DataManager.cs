@@ -110,7 +110,7 @@ namespace DataLayer
                     // Save the channels.
                     foreach (var channel in epg.channel)
                     {
-                        cmd = new MySqlCommand("INSERT INTO Channel (name, freebase_id) VALUES ('" +
+                        cmd = new MySqlCommand("INSERT  IGNORE INTO Channel (name, freebase_id) VALUES ('" +
                             channel.displayname[0].Value + "','" + channel.id + "')", m_connection, transaction);
                         cmd.ExecuteNonQuery();
                     }
@@ -229,7 +229,7 @@ namespace DataLayer
                         else//description is null;
                         {
                             //add entry to DB
-                            query = "INSERT INTO Program (name, country_of_origin, freebase_id, description)" +
+                            query = "INSERT IGNORE INTO Program (name, country_of_origin, freebase_id, description)" +
                                 "VALUES (@name, @country_of_origin, @freebase_id, @description)";
                             cmd = new MySqlCommand(query, m_connection);
                             cmd.Parameters.AddWithValue("@name", name);
