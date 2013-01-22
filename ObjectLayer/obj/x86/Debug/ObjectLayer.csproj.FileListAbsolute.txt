@@ -1,4 +1,3 @@
-C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\ObjectLayer\obj\x86\Debug\ObjectLayer.csprojResolveAssemblyReference.cache
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\ObjectLayer\obj\x86\Debug\ObjectLayer.Properties.Resources.resources
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\ObjectLayer\obj\x86\Debug\ObjectLayer.csproj.GenerateResource.Cache
 C:\Users\Ran\Desktop\TVAdvisor\ObjectLayer\bin\Debug\ObjectLayer.dll

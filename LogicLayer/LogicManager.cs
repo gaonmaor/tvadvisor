@@ -63,9 +63,42 @@ namespace LogicLayer
         /// <summary>
         /// Build the new epg.
         /// </summary>       
-        public void BuildEPG(string oldFile, string newFile)
+        public void BuildEPG(string oldFile, string newFile, int userId)
         {
-            DataManager.Instance.BuildEPG(oldFile, newFile);
+            string defaultLang = Properties.Settings.Default.DefaultLang;
+            tv epg = Utils.DeserializeXml<tv>(oldFile);
+            programme[] ps = epg.programme;
+            if (ps == null)
+            {
+                Utils.SerializeXML<tv>(epg, newFile);
+                return;
+            }
+
+            foreach (programme p in ps)
+            {
+                string name = null;
+                if (p.title != null)
+                {
+                    foreach (title t in p.title)
+                    {
+                        if (t.lang.Equals(defaultLang))
+                        {
+                            name = t.Value;
+                        }
+                    }
+                }
+                if (name == null)
+                {
+                    //return;
+                    continue;
+                }
+                //get rating
+                int r = calculateRating(name, userId);
+                rating rate = new rating();
+                rate.value = r.ToString();
+                p.rating = new rating[1] { rate };
+            }
+            DataManager.Instance.BuildEPG(oldFile, newFile, epg);
             //DataManager.Instance.BuildEPG2(oldFile, newFile);
 
             //// Variables
@@ -114,7 +147,10 @@ namespace LogicLayer
             progID = DataManager.Instance.getProgID(progObj.getMID());
             try
             {
-                 DataManager.Instance.setProgRating(progID, userID, rating);
+                DataManager.Instance.setProgRating(progID, userID, rating);
+            }
+            catch
+            {
             }
         }
 

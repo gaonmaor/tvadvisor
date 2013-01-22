@@ -147,7 +147,7 @@ namespace DataLayer
             }
         }
 
-        public void BuildEPG(string oldFile, string newFile)
+        public void BuildEPG(string oldFile, string newFile, tv epg)
         {
             //server=localhost;User Id=DbMysql05;password=DbMysql05;Persist Security Info=True;port=3305;database=DbMysql05;Connect Timeout=30
             //string constr = "server=localhost;User Id=DbMysql05;password=DbMysql05;port=3305;database=DbMysql05;Connect Timeout=30";
@@ -158,13 +158,13 @@ namespace DataLayer
 
             string defaultLang = Settings.Default.DefaultLang;
             string defaultDesc = "";
-            tv epg = Utils.DeserializeXml<tv>(oldFile);
+            //tv epg = Utils.DeserializeXml<tv>(oldFile);
             programme[] ps = epg.programme;
-            if (ps == null)
-            {
-                Utils.SerializeXML<tv>(epg, newFile);
-                return;
-            }
+            //if (ps == null)
+            //{
+            //    Utils.SerializeXML<tv>(epg, newFile);
+            //    return;
+            //}
             foreach (programme p in ps)
             {
                 string name = null;
@@ -189,6 +189,7 @@ namespace DataLayer
 
                 string d = null;
                 string countryOfOrigin = null;
+                //LogicManager lm = null;
                 List<string> actorNames = new List<string>();
                 MySqlDataReader actorsReader = null;
                 string query = "SELECT description FROM Program WHERE name=@name";
@@ -219,11 +220,11 @@ namespace DataLayer
                     object dbresult = cmd.ExecuteScalar();
                     object dbresult2 = cmd3.ExecuteScalar();
                     actorsReader = cmd2.ExecuteReader();
-                    int i = 0;
+                    //int i = 0;
                     while (actorsReader.Read())
                     {
-                        actorNames.Add(actorsReader.GetString(i));
-                        i++;
+                        actorNames.Add(actorsReader.GetString(0));
+                        //i++;
                     }
                     d = (string)dbresult;
                     countryOfOrigin = (string)dbresult2;
@@ -503,8 +504,7 @@ namespace DataLayer
             return id;
         }
 
-        #endregion
- public int getProgID(string fpid)
+        public int getProgID(string fpid)
         {
             int id = -1;
             string query = "SELECT id FROM Program WHERE freebase_id=@freebase_id";

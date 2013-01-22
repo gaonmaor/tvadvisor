@@ -30,6 +30,8 @@ namespace EPGGruberService
         /// </summary>
         private bool m_running = true;
 
+        private int userId;
+
         #endregion
 
         #region Constructors
@@ -80,7 +82,7 @@ namespace EPGGruberService
                 InsertEPG();
 
                 // Build the new epg.
-                BuildEPG();
+                BuildEPG(userId);
 
 #if (DEBUG)
                 m_running = false;
@@ -138,10 +140,10 @@ namespace EPGGruberService
             log("Insert to the database finished.");
         }
 
-        private void BuildEPG()
+        private void BuildEPG(int userId)
         {
             log("Build the new EPG.");
-            LogicManager.Instance.BuildEPG(Settings.Default.OutputFile, Settings.Default.NewFile);
+            LogicManager.Instance.BuildEPG(Settings.Default.OutputFile, Settings.Default.NewFile, userId);
             log("New epg was created saved in: " + Settings.Default.NewFile);
         }
 

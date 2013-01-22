@@ -38,3 +38,4 @@ D:\TVAdvisor\LogicLayer\bin\Debug\ObjectLayer.pdb
 D:\TVAdvisor\LogicLayer\obj\Debug\LogicLayer.csprojResolveAssemblyReference.cache
 D:\TVAdvisor\LogicLayer\obj\Debug\LogicLayer.dll
 D:\TVAdvisor\LogicLayer\obj\Debug\LogicLayer.pdb
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\LogicLayer\bin\Debug\LogicLayer.dll.config
