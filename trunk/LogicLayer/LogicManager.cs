@@ -125,17 +125,23 @@ namespace LogicLayer
             //Utils.SerializeXML<tv>(epg, newFile);
         }
         
-        public int calculateRating(string prog, int userID){
+     public int calculateRating(string prog, int userID){
             int ret = 0, progID = 0;
-            TVProgram.TVProgramJSON progObj=Importer.getProgramByName(prog);
-            progID=DataManager.Instance.getProgID(progObj.getMID());
+            progID = DataManager.Instance.getProgID(prog);
             try
             {
                 ret = DataManager.Instance.getProgRating(progID, userID);
             }
             catch
             {
-                return 5;
+                try
+                {
+                    ret = DataManager.Instance.getActorsRating(progID, userID);
+                }
+                catch
+                {
+                    return 5;
+                }
             }
             return ret;
         }
@@ -143,15 +149,16 @@ namespace LogicLayer
         public void rateProgram(string prog, int userID, int rating)
         {
             int progID = 0;
-            TVProgram.TVProgramJSON progObj = Importer.getProgramByName(prog);
-            progID = DataManager.Instance.getProgID(progObj.getMID());
+            progID = DataManager.Instance.getProgID(prog);
             try
             {
                 DataManager.Instance.setProgRating(progID, userID, rating);
             }
             catch
             {
+                throw;
             }
+
         }
 
         public void userRegister(string name, string password){
