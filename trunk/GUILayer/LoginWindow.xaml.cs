@@ -25,27 +25,6 @@ namespace GUILayer
             InitializeComponent();
         }
 
-        /// <summary>
-        /// The singleton object.
-        /// </summary>
-        private static LoginWindow m_instance = null;
-
-        /// <summary>
-        /// Get the singleton instance.
-        /// </summary>
-        public static LoginWindow Instance
-        {
-            get
-            {
-                if (m_instance == null)
-                {
-                    m_instance = new LoginWindow();
-                }
-
-                return m_instance;
-            }
-        }
-
         private void btnQuit_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -93,8 +72,9 @@ namespace GUILayer
 
         private void lblSignup_Click(object sender, MouseButtonEventArgs e)
         {
-            SignupWindow.Instance.Title = "Sign up";
-            SignupWindow.Instance.Show();
+            SignupWindow signup = new SignupWindow();
+            signup.Title = "Sign up";
+            signup.Show();
             Close();
         }
     }

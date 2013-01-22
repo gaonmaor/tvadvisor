@@ -24,26 +24,6 @@ namespace GUILayer
         {
             InitializeComponent();
         }
-        /// <summary>
-        /// The singleton object.
-        /// </summary>
-        private static SignupWindow m_instance = null;
-
-        /// <summary>
-        /// Get the singleton instance.
-        /// </summary>
-        public static SignupWindow Instance
-        {
-            get
-            {
-                if (m_instance == null)
-                {
-                    m_instance = new SignupWindow();
-                }
-
-                return m_instance;
-            }
-        }
 
         private void btnQuit_Click(object sender, RoutedEventArgs e)
         {
@@ -73,7 +53,8 @@ namespace GUILayer
 
         private void BackToLogin()
         {
-            LoginWindow.Instance.Show();
+            LoginWindow login = new LoginWindow();
+            login.Show();
             Close();
         }
 
@@ -106,6 +87,11 @@ namespace GUILayer
             {
                 showError(ex.Message);
             }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            BackToLogin();
         }
     }
 }
