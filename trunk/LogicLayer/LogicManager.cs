@@ -107,6 +107,17 @@ namespace LogicLayer
             return ret;
         }
 
+        public void rateProgram(string prog, int userID, int rating)
+        {
+            int progID = 0;
+            TVProgram.TVProgramJSON progObj = Importer.getProgramByName(prog);
+            progID = DataManager.Instance.getProgID(progObj.getMID());
+            try
+            {
+                 DataManager.Instance.setProgRating(progID, userID, rating);
+            }
+        }
+
         public void userRegister(string name, string password){
             string hash = Utils.GetHashedPassword(password);
             try
