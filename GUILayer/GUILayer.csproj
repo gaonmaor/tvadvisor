@@ -63,6 +63,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ActorPopWindow.xaml.cs">
+      <DependentUpon>ActorPopWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Configurator.xaml.cs">
       <DependentUpon>Configurator.xaml</DependentUpon>
     </Compile>
@@ -89,6 +92,10 @@
     <Compile Include="xmltv.cs">
       <DependentUpon>xmltv.xsd</DependentUpon>
     </Compile>
+    <Page Include="ActorPopWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Configurator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
