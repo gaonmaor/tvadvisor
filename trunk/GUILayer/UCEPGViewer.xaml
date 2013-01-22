@@ -6,13 +6,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="1000"
     x:Name="epgViewer"
-        SizeChanged="epgViewer_SizeChanged">
+        SizeChanged="epgViewer_SizeChanged" GotFocus="epgViewer_GotFocus">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60*" />
             <RowDefinition Height="40*" />
         </Grid.RowDefinitions>
-        <Grid x:Name="mainGrid" Grid.Row="0" FlowDirection="RightToLeft">
+        <Grid x:Name="mainGrid" Grid.Row="0" FlowDirection="LeftToRight">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20*" />
                 <ColumnDefinition Width="80*" />
