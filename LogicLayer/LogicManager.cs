@@ -106,7 +106,7 @@ namespace LogicLayer
             }
             catch
             {
-                //can't create a user with this name
+                throw;
             }
         }
 
@@ -120,16 +120,9 @@ namespace LogicLayer
             }
             catch
             {
-                //can't find user
+                
             }
             return ID;
-        }
-
-
-        string GetEncodedHash(string password){
-            MD5 md5 = new MD5CryptoServiceProvider();
-            byte [] digest = md5.ComputeHash(Encoding.UTF8.GetBytes(password));
-            return Convert.ToBase64String(digest, 0, digest.Length);
         }
 
         public int GetUserID(string name, System.Security.SecureString secureString)
@@ -138,8 +131,9 @@ namespace LogicLayer
                 System.Runtime.InteropServices.Marshal.SecureStringToBSTR(secureString);
             string sDecrypString =
                System.Runtime.InteropServices.Marshal.PtrToStringUni(ptr);
-            return DataManager.Instance.GetUserID(name, GetEncodedHash(sDecrypString));
+            return DataManager.Instance.GetUserID(name, Utils.GetHashedPassword(sDecrypString));
         }
+
     }
 
     [Serializable]
