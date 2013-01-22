@@ -120,7 +120,8 @@ namespace CommonLayer
         /// </summary>
         /// <param name="password">The password to hash.</param>
         /// <returns>The hashed password.</returns>
-        public static string GetHashedPassword(string password)
+        /// TODO delete SHA-1
+        public static string GetHashedPasswordOld(string password)
         {
             var hash = Encoding.ASCII.GetBytes(password);
             var sha1 = new SHA1CryptoServiceProvider();
@@ -129,6 +130,13 @@ namespace CommonLayer
             var hashedPassword = ae.GetString(sha1hash);
 
             return hashedPassword;
+        }
+
+        public static string GetHashedPassword(string password)
+        {
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] digest = md5.ComputeHash(Encoding.UTF8.GetBytes(password));
+            return Convert.ToBase64String(digest, 0, digest.Length);
         }
     }
 }
