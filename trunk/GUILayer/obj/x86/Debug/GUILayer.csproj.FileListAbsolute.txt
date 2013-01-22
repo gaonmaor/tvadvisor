@@ -190,3 +190,5 @@ D:\TVAdvisor\GUILayer\obj\x86\Debug\UCConfigurator.baml
 D:\TVAdvisor\GUILayer\obj\x86\Debug\TVAdvisor.g.resources
 D:\TVAdvisor\GUILayer\obj\x86\Debug\GUILayer.Properties.Resources.resources
 D:\TVAdvisor\GUILayer\obj\x86\Debug\GUILayer.csproj.GenerateResource.Cache
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\GUILayer\obj\x86\Debug\ActorPopWindow.baml
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\GUILayer\obj\x86\Debug\ActorPopWindow.g.cs
