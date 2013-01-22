@@ -154,6 +154,14 @@ namespace LogicLayer
             return DataManager.Instance.GetUserID(name, Utils.GetHashedPassword(sDecrypString));
         }
 
+        /// <summary>
+        /// Save the user orders to the database.
+        /// </summary>
+        /// <param name="lstOrderDetails">The orders to sace.</param>
+        public void SaveOrders(List<OrderDetail> lstOrderDetails)
+        {
+            DataManager.Instance.SaveOrders(lstOrderDetails);
+        }
     }
 
     [Serializable]
