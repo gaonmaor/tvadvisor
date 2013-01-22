@@ -279,7 +279,7 @@ namespace TVAdvisor
                                     Program = p,
                                     Channel = chan,
                                     IsStart = i == 0,
-                                    FlowDirection = System.Windows.FlowDirection.RightToLeft,
+                                    FlowDirection = System.Windows.FlowDirection.LeftToRight,
                                     IsStop = (i + 1) == programs.Length,
                                     IsTop = count == 0,
                                     IsBottom = count + 1 == GUILayer.Properties.Settings.Default.ChannelsInWindow,
@@ -356,6 +356,10 @@ namespace TVAdvisor
                     WindowStart = WindowStart.AddMinutes(-WindowStep);
                     WindowStop = WindowStop.AddMinutes(-WindowStep);
                     updateEPG(Dir.Left);
+                }
+                else if (e.Key == Key.Escape)
+                {
+                    MainWindow.Instance.Close();
                 }
                 else if (e.Key == Key.Right && item.IsStop)
                 {
@@ -476,13 +480,13 @@ namespace TVAdvisor
                 }
                 grdDetails.Children.Clear();
                 if (SelectedProgram.channel != null)
-                    AddDetailPanel("ערוץ:", SelectedChannel.displayname[0].Value);
-                AddDetailPanel("זמן:", Utils.GetEPGDate(SelectedProgram.stop).ToShortTimeString() + " - " +
+                    AddDetailPanel("Channel:", SelectedChannel.displayname[0].Value);
+                AddDetailPanel("Time:", Utils.GetEPGDate(SelectedProgram.stop).ToShortTimeString() + " - " +
                     Utils.GetEPGDate(SelectedProgram.start).ToShortTimeString());
                 if (SelectedProgram.category != null)
-                    AddDetailPanel("קטגוריה:", SelectedProgram.category[0].Value);
+                    AddDetailPanel("Category:", SelectedProgram.category[0].Value);
                 if (SelectedProgram.desc != null && SelectedProgram.desc.Count() > 0 && SelectedProgram.desc[0].Value != null)
-                    AddDetailPanel("תיאור:", SelectedProgram.desc[0].Value);
+                    AddDetailPanel("Description:", SelectedProgram.desc[0].Value);
             }
             else
             {
@@ -629,6 +633,16 @@ namespace TVAdvisor
         }
 
         #endregion
+
+        private void epgViewer_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if(lstChannels.Items.Count > 0)
+            {
+                lstChannels.SelectedIndex = 0;
+                epgViewer.GotFocus -= epgViewer_GotFocus;
+                ((ListBoxItem)(lstChannels.SelectedItem)).Focus();
+            }
+        }
     }
 
     /// <summary>
@@ -840,7 +854,7 @@ namespace TVAdvisor
         /// <param name="e"></param>
         void orderedElapse(object sender, ElapsedEventArgs e)
         {
-            MessageBox.Show("עכשיו מתחיל:" + LinkedContent.Program.title[0].Value + " בערוץ " +
+            MessageBox.Show("Now Starting:\n" + LinkedContent.Program.title[0].Value + "\nAt Channel:\n" +
                 LinkedContent.Channel.displayname[0].Value);
 
             ParentWindow.Dispatcher.Invoke(new Action(() =>
