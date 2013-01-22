@@ -43,7 +43,7 @@ namespace EPGGruberService.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("tv_grab_il")]
+        [global::System.Configuration.DefaultSettingValueAttribute("tv_grab_uk_bleb")]
         public string GrabSource {
             get {
                 return ((string)(this["GrabSource"]));
