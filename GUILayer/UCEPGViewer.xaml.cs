@@ -544,7 +544,7 @@ namespace TVAdvisor
                 foreach (programme p in Epg.programme)
                 {
                     if ((p.title != null && (p.title[0].Value).Contains(txtSearch.Text)) ||
-                        (p.desc != null && (p.desc[0].Value).Contains(txtSearch.Text)))
+                        (p.desc != null && (p.desc[0].Value != null) && (p.desc[0].Value).Contains(txtSearch.Text)))
                     {
                         SearchResults.Add(p);
                     }
