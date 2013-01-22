@@ -134,15 +134,19 @@ namespace LogicLayer
             }
             catch
             {
-                try
-                {
-                    ret = DataManager.Instance.getActorsRating(progID, userID);
-                }
-                catch
-                {
-                    return 5;
-                }
+                throw;
             }
+            if (ret != -1) return ret;
+            try
+            {
+                ret = DataManager.Instance.getActorsRating(progID, userID);
+             }
+             catch
+             {
+                throw;
+             }
+            if (ret == -1)
+                return 5;
             return ret;
         }
 
