@@ -338,8 +338,8 @@ namespace DataLayer
                 p.credits.actor = actors;
                 if (countryOfOrigin != null)
                 {
-                    country c = new country() {Value = countryOfOrigin};
-                    p.country = new country[1] {c};
+                    country c = new country() { Value = countryOfOrigin };
+                    p.country = new country[1] { c };
                 }
             }
 

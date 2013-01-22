@@ -1484,15 +1484,52 @@ namespace TVActor
         public String getDescription()
         {
             String result = null;
-            TVActor.Value16 v = property._common_topic_article.values.First();
+            TVActor.Value16 v = null;
+            if (property._common_topic_article != null)
+            {
+                v = property._common_topic_article.values.First();
+            }
             TVActor.Value18 v2 = null;
             if (v != null)
             {
-                v2 = v.property._common_document_text.values.First();
-                if (v2 != null)
+                if (v.property._common_document_text != null)
                 {
-                    result = v2.value;
+                    v2 = v.property._common_document_text.values.First();
+                    if (v2 != null)
+                    {
+                        result = v2.value;
+                    }
                 }
+            }
+            return result;
+        }
+
+        public String getGender()
+        {
+            String result = null;
+            TVActor.Value45 v = null;
+            if (property._people_person_gender != null)
+            {
+                v = property._people_person_gender.values.First();
+            }
+            if (v != null)
+            {
+                result = v.text;
+            }
+            return result;
+        }
+
+        public String getBirthDate()
+        {
+            String result = null;
+            TVActor.Value38 v = null;
+            if (property._people_person_date_of_birth != null)
+            {
+                v = property._people_person_date_of_birth.values.First();
+            }
+            if (v != null)
+            {
+                result = v.value;
             }
             return result;
         }
