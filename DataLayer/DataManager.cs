@@ -110,9 +110,14 @@ namespace DataLayer
                     // Save the channels.
                     foreach (var channel in epg.channel)
                     {
-                        cmd = new MySqlCommand("INSERT  IGNORE INTO Channel (name, freebase_id) VALUES ('" +
-                            channel.displayname[0].Value + "','" + channel.id + "')", m_connection, transaction);
-                        cmd.ExecuteNonQuery();
+                        if (channel.displayname != null && channel.displayname.Length > 0 && channel.displayname[0] != null)
+                        {
+                            cmd = new MySqlCommand("INSERT IGNORE INTO Channel (name, xmltv_id) VALUES (@name, @xmltv_id)", 
+                                m_connection, transaction);
+                            cmd.Parameters.AddWithValue("@name", channel.displayname[0].Value);
+                            cmd.Parameters.AddWithValue("@xmltv_id", channel.id);
+                            cmd.ExecuteNonQuery();
+                        }
                     }
                     // Save the programs.
                     /*
@@ -498,7 +503,8 @@ namespace DataLayer
             return id;
         }
 
-        public int getProgID(string fpid)
+        #endregion
+ public int getProgID(string fpid)
         {
             int id = -1;
             string query = "SELECT id FROM Program WHERE freebase_id=@freebase_id";
@@ -573,10 +579,69 @@ namespace DataLayer
             }
         }
 
+/// <summary>
+        /// Save the user orders to the database.
+        /// </summary>
+        /// <param name="lstOrderDetails">The orders to sace.</param>
+        public void SaveOrders(List<OrderDetail> lstOrderDetails)
+        {
+            // Variables
+
+            // The sql transaction.
+            MySqlTransaction transaction = null;
+
+            // The SQL data command.
+            MySqlCommand cmd;
+
+            // Code
+
+            lock (m_lockObject)
+            {
+                m_connection.Open();
+
+                try
+                {
+                    cmd = new MySqlCommand("SELECT id FROM Channel WHERE xmltv_id = " +
+                        lstOrderDetails[0].ChanId, m_connection);
+                    object ret = cmd.ExecuteScalar();
+                    if (ret != null && (ret is int))
+                    {
+                        int chanId = (int)ret;
+                        transaction = m_connection.BeginTransaction();
+                        cmd = new MySqlCommand("DELETE FROM UserOrderedPrograms WHERE userId = " +
+                       lstOrderDetails[0].UserId, m_connection, transaction);
+                        cmd.ExecuteNonQuery();
+
+                        // Save the channels.
+                        foreach (var order in lstOrderDetails)
+                        {
+                            cmd = new MySqlCommand(
+                                "INSERT INTO UserOrderedPrograms (userId, channeId, start) VALUES (@userId, @channeId, @start)",
+                                m_connection, transaction);
+                            cmd.Parameters.AddWithValue("@userId", order.UserId);
+                            cmd.Parameters.AddWithValue("@channeId", chanId);
+                            cmd.Parameters.AddWithValue("@start", order.Start);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+                    }
+                }
+                catch
+                {
+                    if (transaction != null)
+                    {
+                        transaction.Rollback();
+                    }
+                    throw;
+                }
+                finally
+                {
+                    m_connection.Close();
+                }
+            }
+        }
+
         #endregion
-
-
-
-        
     }
 }
