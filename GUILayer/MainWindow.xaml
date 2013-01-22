@@ -1,11 +1,12 @@
 ﻿<Window xmlns:my="clr-namespace:TVAdvisor"  x:Class="TVAdvisor.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        x:Name="mainWindow"  Title="TVadvisor" WindowState="Maximized" Width="800" Height="600">
+        x:Name="mainWindow"  Title="TVadvisor" WindowState="Maximized" Width="800" Height="600"
+        FocusManager.FocusedElement = "{Binding ElementName=ucEPGViewer}">
     <Grid>
         <TabControl x:Name="tcPanels" >
             <TabItem Header="EPG Viewer" Name="tiEPG">
-                <my:UCEPGViewer />
+                <my:UCEPGViewer x:Name="ucEPGViewer"/>
             </TabItem>
             <TabItem Header="Configurator" Name="tiConfigurator">
                 <my:UCConfigurator />
