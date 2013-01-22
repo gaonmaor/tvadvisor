@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\GUILayer\obj\x86\Debug\
+D:\TVAdvisor\GUILayer\obj\x86\Debug\
 GUILayer
 none
 false
 DEBUG;TRACE
-C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\GUILayer\App.xaml
+D:\TVAdvisor\GUILayer\App.xaml
 7425610112
 
 131978533554
-19-311521785
+192120561471
 Configurator.xaml;EPGViewer.xaml;LoginWindow.xaml;MainWindow.xaml;SignupWindow.xaml;UCConfigurator.xaml;UCEPGViewer.xaml;
 
 False

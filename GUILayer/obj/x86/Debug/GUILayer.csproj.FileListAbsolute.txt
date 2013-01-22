@@ -155,3 +155,38 @@ C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\GUILayer\obj\x86\Debug\U
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\GUILayer\obj\x86\Debug\TVAdvisor.g.resources
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\GUILayer\obj\x86\Debug\GUILayer.Properties.Resources.resources
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\GUILayer\obj\x86\Debug\GUILayer.csproj.GenerateResource.Cache
+D:\TVAdvisor\GUILayer\bin\Debug\TVAdvisor.exe.config
+D:\TVAdvisor\GUILayer\obj\x86\Debug\TVAdvisor.exe
+D:\TVAdvisor\GUILayer\obj\x86\Debug\TVAdvisor.pdb
+D:\TVAdvisor\GUILayer\obj\x86\Debug\GUILayer.csprojResolveAssemblyReference.cache
+D:\TVAdvisor\GUILayer\obj\x86\Debug\LoginWindow.baml
+D:\TVAdvisor\GUILayer\obj\x86\Debug\SignupWindow.baml
+D:\TVAdvisor\GUILayer\obj\x86\Debug\UCEPGViewer.baml
+D:\TVAdvisor\GUILayer\obj\x86\Debug\Configurator.g.cs
+D:\TVAdvisor\GUILayer\obj\x86\Debug\EPGViewer.g.cs
+D:\TVAdvisor\GUILayer\obj\x86\Debug\LoginWindow.g.cs
+D:\TVAdvisor\GUILayer\obj\x86\Debug\MainWindow.g.cs
+D:\TVAdvisor\GUILayer\obj\x86\Debug\SignupWindow.g.cs
+D:\TVAdvisor\GUILayer\obj\x86\Debug\UCConfigurator.g.cs
+D:\TVAdvisor\GUILayer\obj\x86\Debug\UCEPGViewer.g.cs
+D:\TVAdvisor\GUILayer\obj\x86\Debug\App.g.cs
+D:\TVAdvisor\GUILayer\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+D:\TVAdvisor\GUILayer\obj\x86\Debug\TVAdvisor_MarkupCompile.cache
+D:\TVAdvisor\GUILayer\obj\x86\Debug\TVAdvisor_MarkupCompile.lref
+D:\TVAdvisor\GUILayer\bin\Debug\TVAdvisor.exe
+D:\TVAdvisor\GUILayer\bin\Debug\TVAdvisor.pdb
+D:\TVAdvisor\GUILayer\bin\Debug\CommonLayer.dll
+D:\TVAdvisor\GUILayer\bin\Debug\LogicLayer.dll
+D:\TVAdvisor\GUILayer\bin\Debug\DataLayer.dll
+D:\TVAdvisor\GUILayer\bin\Debug\ObjectLayer.dll
+D:\TVAdvisor\GUILayer\bin\Debug\CommonLayer.pdb
+D:\TVAdvisor\GUILayer\bin\Debug\LogicLayer.pdb
+D:\TVAdvisor\GUILayer\bin\Debug\DataLayer.pdb
+D:\TVAdvisor\GUILayer\bin\Debug\ObjectLayer.pdb
+D:\TVAdvisor\GUILayer\obj\x86\Debug\Configurator.baml
+D:\TVAdvisor\GUILayer\obj\x86\Debug\EPGViewer.baml
+D:\TVAdvisor\GUILayer\obj\x86\Debug\MainWindow.baml
+D:\TVAdvisor\GUILayer\obj\x86\Debug\UCConfigurator.baml
+D:\TVAdvisor\GUILayer\obj\x86\Debug\TVAdvisor.g.resources
+D:\TVAdvisor\GUILayer\obj\x86\Debug\GUILayer.Properties.Resources.resources
+D:\TVAdvisor\GUILayer\obj\x86\Debug\GUILayer.csproj.GenerateResource.Cache
