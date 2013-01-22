@@ -183,16 +183,20 @@ namespace DataLayer
                 //MySqlTransaction transaction = m_connection.BeginTransaction();
 
                 string d = null;
+                string countryOfOrigin = null;
                 List<string> actorNames = new List<string>();
                 MySqlDataReader actorsReader = null;
                 string query = "SELECT description FROM Program WHERE name=@name";
                 string query2 = "SELECT Actor.name FROM ProgramActor,Program,Actor " +
                                 "WHERE Program.name=@name AND ProgramActor.program_id=Program.id " +
                                 "AND ProgramActor.actor_id=Actor.id";
+                string query3 = "SELECT country_of_origin FROM Program WHERE name=@name";
                 MySqlCommand cmd = new MySqlCommand(query, m_connection);
                 MySqlCommand cmd2 = new MySqlCommand(query2, m_connection);
+                MySqlCommand cmd3 = new MySqlCommand(query3, m_connection);
                 cmd.Parameters.AddWithValue("@name", name);
                 cmd2.Parameters.AddWithValue("@name", name);
+                cmd3.Parameters.AddWithValue("@name", name);
                 try
                 {
                     //server=localhost;User Id=DbMysql05;
@@ -208,6 +212,7 @@ namespace DataLayer
                     //m_connection.Open();
 
                     object dbresult = cmd.ExecuteScalar();
+                    object dbresult2 = cmd3.ExecuteScalar();
                     actorsReader = cmd2.ExecuteReader();
                     int i = 0;
                     while (actorsReader.Read())
@@ -216,6 +221,7 @@ namespace DataLayer
                         i++;
                     }
                     d = (string)dbresult;
+                    countryOfOrigin = (string)dbresult2;
                     //transaction.Commit();
 
                 }
@@ -330,6 +336,11 @@ namespace DataLayer
                     p.credits = new credits();
                 }
                 p.credits.actor = actors;
+                if (countryOfOrigin != null)
+                {
+                    country c = new country() {Value = countryOfOrigin};
+                    p.country = new country[1] {c};
+                }
             }
 
             Utils.SerializeXML<tv>(epg, newFile);
