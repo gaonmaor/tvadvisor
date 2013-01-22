@@ -47,11 +47,12 @@
         </Grid>
         <Grid Grid.Row="4" Margin="0,5,0,5">
             <Button x:Name="btnSignup" Content="Sign me up" Width="100" HorizontalAlignment="Left" IsDefault="True" Click="btnSignup_Click" />
-            <Button x:Name="btnQuit" Content="Quit" Width="100" HorizontalAlignment="Right" IsCancel="True" Click="btnQuit_Click" />
+            <Button x:Name="btnCancel" Content="Cancel" Width="100" HorizontalAlignment="Center" IsCancel="True" Click="btnCancel_Click" />
+            <Button x:Name="btnQuit" Content="Quit" Width="100" HorizontalAlignment="Right" Click="btnQuit_Click" />
         </Grid>
         <StackPanel Grid.Row="5" Orientation="Horizontal" x:Name="pnlError" Visibility="Collapsed">
             <Image Source="/TVAdvisor;component/error-icon.gif" Width="25" Height="25" Margin="0,0,10,0" />
-            <Label x:Name="lblError"  Foreground="Red" Content="Failed to login!"/>
+            <Label x:Name="lblError"  Foreground="Red" Content=""/>
         </StackPanel>
     </Grid>
 </Window>

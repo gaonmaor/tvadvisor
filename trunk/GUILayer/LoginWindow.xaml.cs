@@ -25,9 +25,36 @@ namespace GUILayer
             InitializeComponent();
         }
 
+        /// <summary>
+        /// The singleton object.
+        /// </summary>
+        private static LoginWindow m_instance = null;
+
+        /// <summary>
+        /// Get the singleton instance.
+        /// </summary>
+        public static LoginWindow Instance
+        {
+            get
+            {
+                if (m_instance == null)
+                {
+                    m_instance = new LoginWindow();
+                }
+
+                return m_instance;
+            }
+        }
+
         private void btnQuit_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void showError(string sError)
+        {
+            lblError.Content = sError;
+            pnlError.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void btnConnect_Click(object sender, RoutedEventArgs e)
@@ -45,14 +72,12 @@ namespace GUILayer
                 }
                 else
                 {
-                    lblError.Content = "Incorrect user or password!";
-                    pnlError.Visibility = System.Windows.Visibility.Visible;
+                    showError("Incorrect user or password!");
                 }
             }
             catch (Exception ex)
             {
-                lblError.Content = ex.Message;
-                pnlError.Visibility = System.Windows.Visibility.Visible;
+                showError(ex.Message);
             }
         }
 

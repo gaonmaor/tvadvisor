@@ -71,6 +71,12 @@ namespace GUILayer
             pnlError.Visibility = System.Windows.Visibility.Visible;
         }
 
+        private void BackToLogin()
+        {
+            LoginWindow.Instance.Show();
+            Close();
+        }
+
         private void btnSignup_Click(object sender, RoutedEventArgs e)
         {
             if (txtName.Text == "" || txtPassword.Password == "" || txtPassword2.Password == "")
@@ -86,6 +92,8 @@ namespace GUILayer
             try
             {
                 LogicManager.Instance.userRegister(txtName.Text, txtPassword.Password);
+                MessageBox.Show("Registration succeeded!", "Welcome", MessageBoxButton.OK, MessageBoxImage.Information);
+                BackToLogin();
             }
             catch (MySqlException ex)
             {
@@ -98,7 +106,6 @@ namespace GUILayer
             {
                 showError(ex.Message);
             }
-
         }
     }
 }
