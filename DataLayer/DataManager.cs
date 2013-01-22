@@ -72,8 +72,8 @@ namespace DataLayer
             //string s = "Server=localhost;Port=3305;Database=DbMysql05;Uid=DbMysql05;Pwd=DbMysql05;";
 
             //                                  server=localhost;User Id=DbMysql05;password=DbMysql05;Persist Security Info=True;port=3305;database=DbMysql05
-            m_connection = new MySqlConnection("server=localhost;User Id=DbMysql05;password=DbMysql05;Persist Security Info=True;Ssl Mode=None;port=3305;database=DbMysql05");
-            //m_connection = new MySqlConnection(Settings.Default.ConString);
+            //m_connection = new MySqlConnection("server=localhost;User Id=DbMysql05;password=DbMysql05;Persist Security Info=True;Ssl Mode=None;port=3305;database=DbMysql05");
+            m_connection = new MySqlConnection(Settings.Default.ConString);
 
 
             //m_connection = new SqlConnection("server=localhost;User Id=DbMysql05;Persist Security Info=True;Ssl Mode=None;port=3305;database=DbMysql05");
@@ -110,11 +110,12 @@ namespace DataLayer
                     // Save the channels.
                     foreach (var channel in epg.channel)
                     {
-                        cmd = new MySqlCommand("INSERT INTO tvadviser.channel (id, display_name) VALUES ('" +
-                            channel.id + "','" + channel.displayname + "')", m_connection, transaction);
+                        cmd = new MySqlCommand("INSERT INTO Channel (name, freebase_id) VALUES ('" +
+                            channel.displayname[0].Value + "','" + channel.id + "')", m_connection, transaction);
                         cmd.ExecuteNonQuery();
                     }
                     // Save the programs.
+                    /*
                     foreach (var program in epg.programme)
                     {
                         cmd = new MySqlCommand("INSERT INTO tvadviser.category (Value, lang) VALUES ('" +
@@ -125,6 +126,7 @@ namespace DataLayer
                             " VALUES (,,,,,'','',);", m_connection, transaction);
                         cmd.ExecuteNonQuery();
                     }
+                    */
 
                     transaction.Commit();
                 }
