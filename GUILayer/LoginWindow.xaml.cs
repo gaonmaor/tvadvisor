@@ -65,5 +65,12 @@ namespace GUILayer
         {
             pnlError.Visibility = System.Windows.Visibility.Collapsed;
         }
+
+        private void lblSignup_Click(object sender, MouseButtonEventArgs e)
+        {
+            SignupWindow.Instance.Title = "Sign up";
+            SignupWindow.Instance.Show();
+            Close();
+        }
     }
 }

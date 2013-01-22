@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLayer", "CommonLayer\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPGUpdaterService", "EPGUpdaterService\EPGUpdaterService.csproj", "{F76F1C15-B355-44FC-88D0-3F6DB66617EA}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "EPGUpdaterSetup", "EPGUpdaterSetup\EPGUpdaterSetup.vdproj", "{88C10A16-7423-4CB2-A467-1A742CB532FB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectLayer", "ObjectLayer\ObjectLayer.csproj", "{3A425505-4D89-48B5-A894-4C4A0CE03C2A}"
 EndProject
 Global
@@ -87,12 +85,6 @@ Global
 		{F76F1C15-B355-44FC-88D0-3F6DB66617EA}.Release|Mixed Platforms.Build.0 = Release|x86
 		{F76F1C15-B355-44FC-88D0-3F6DB66617EA}.Release|x86.ActiveCfg = Release|x86
 		{F76F1C15-B355-44FC-88D0-3F6DB66617EA}.Release|x86.Build.0 = Release|x86
-		{88C10A16-7423-4CB2-A467-1A742CB532FB}.Debug|Any CPU.ActiveCfg = Debug
-		{88C10A16-7423-4CB2-A467-1A742CB532FB}.Debug|Mixed Platforms.ActiveCfg = Debug
-		{88C10A16-7423-4CB2-A467-1A742CB532FB}.Debug|x86.ActiveCfg = Debug
-		{88C10A16-7423-4CB2-A467-1A742CB532FB}.Release|Any CPU.ActiveCfg = Release
-		{88C10A16-7423-4CB2-A467-1A742CB532FB}.Release|Mixed Platforms.ActiveCfg = Release
-		{88C10A16-7423-4CB2-A467-1A742CB532FB}.Release|x86.ActiveCfg = Release
 		{3A425505-4D89-48B5-A894-4C4A0CE03C2A}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{3A425505-4D89-48B5-A894-4C4A0CE03C2A}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{3A425505-4D89-48B5-A894-4C4A0CE03C2A}.Debug|Mixed Platforms.Build.0 = Debug|x86
