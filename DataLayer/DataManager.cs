@@ -543,7 +543,7 @@ namespace DataLayer
                 object result = cmd.ExecuteScalar();
                 if (result != null)
                 {
-                    id = (int)result;
+                    rating = (int)result;
                 }
             }
             catch (Exception)
@@ -593,7 +593,7 @@ namespace DataLayer
                 object result = cmd.ExecuteScalar();
                 if (result != null)
                 {
-                    id = (int)result;
+                    rating = (int)result;
                 }
             }
             catch (Exception)
