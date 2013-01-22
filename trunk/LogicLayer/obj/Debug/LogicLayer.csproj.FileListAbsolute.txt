@@ -25,3 +25,5 @@ C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\LogicLayer\bin\Debug\Dat
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\LogicLayer\obj\Debug\LogicLayer.csprojResolveAssemblyReference.cache
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\LogicLayer\obj\Debug\LogicLayer.dll
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\LogicLayer\obj\Debug\LogicLayer.pdb
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\LogicLayer\bin\Debug\ObjectLayer.dll
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\LogicLayer\bin\Debug\ObjectLayer.pdb

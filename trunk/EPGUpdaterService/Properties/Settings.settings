@@ -20,5 +20,11 @@
     <Setting Name="NewFile" Type="System.String" Scope="Application">
       <Value Profile="(Default)">newEPG.xml</Value>
     </Setting>
+    <Setting Name="GrabSourceEn" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">tv_grab_uk_bleb</Value>
+    </Setting>
+    <Setting Name="XMLTVPath2" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\xmltv\xmltv.exe</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

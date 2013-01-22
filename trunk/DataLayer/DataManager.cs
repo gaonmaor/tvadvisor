@@ -151,7 +151,7 @@ namespace DataLayer
 
             //conn.Open();
 
-            string defaultLang = "he";
+            string defaultLang = Settings.Default.DefaultLang;
             string defaultDesc = "";
             tv epg = Utils.DeserializeXml<tv>(oldFile);
             programme[] ps = epg.programme;

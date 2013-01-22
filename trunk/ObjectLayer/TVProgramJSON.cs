@@ -1022,14 +1022,21 @@ namespace TVProgram
         public String getDescription()
         {
             String result = null;
-            TVProgram.Value8 v = property._common_topic_article.values.First();
+            TVProgram.Value8 v = null;
+            if (property._common_topic_article != null)
+            {
+                v = property._common_topic_article.values.First();
+            }
             TVProgram.Value10 v2 = null;
             if (v != null)
             {
-                v2 = v.property._common_document_text.values.First();
-                if (v2 != null)
+                if (v.property._common_document_text != null)
                 {
-                    result = v2.value;
+                    v2 = v.property._common_document_text.values.First();
+                    if (v2 != null)
+                    {
+                        result = v2.value;
+                    }
                 }
             }
             return result;
@@ -1088,7 +1095,11 @@ namespace TVProgram
         public String getCountry()
         {
             String result = null;
-            TVProgram.Value21 v = property._tv_tv_program_country_of_origin.values.First();
+            TVProgram.Value21 v = null;
+            if (property._tv_tv_program_country_of_origin != null)
+            {
+                v = property._tv_tv_program_country_of_origin.values.First();
+            }
             if (v != null)
             {
 
