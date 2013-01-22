@@ -37,9 +37,10 @@ namespace ObjectLayer
             return result;
         }
 
-        public static List<String> getProgramDescByMID(List<String> mids)
+        public static String[] getProgramDescByMID(List<String> mids)
         {
-            List<String> result = new List<String>();
+            String[] result = new String[mids.Count()];
+            int count = 0;
             String url = Properties.Resources.APIURLmult + "?key=" + Properties.Resources.APIkey;
             String qw = "[";
             foreach (String mid in mids)
@@ -76,7 +77,8 @@ namespace ObjectLayer
                     if (m.result != null)
                     {
                         fr = m.result.result;
-                        result.Add(fr);
+                        result[count] = fr;
+                        count++;
                     }
                 }
             }
