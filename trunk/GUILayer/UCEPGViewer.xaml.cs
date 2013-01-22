@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using CommonLayer;
 using System.Timers;
 using System.IO;
+using LogicLayer;
 
 namespace TVAdvisor
 {
@@ -44,6 +45,44 @@ namespace TVAdvisor
         /// The skiped channel index.
         /// </summary>
         private int m_chanIdx;
+
+        /// <summary>
+        /// The list of orderedDetails
+        /// </summary>
+        private List<OrderDetail> lstOrderDetails;
+
+        /// <summary>
+        /// A timer for the event saves the orders.
+        /// </summary>
+        private Timer saveTimer;
+
+        /// <summary>
+        /// Indicate if there are orders need to be saved.
+        /// </summary>
+        private bool needToSave;
+
+        /// <summary>
+        /// Indicate if there are orders need to be saved.
+        /// </summary>
+        public bool NeedToSave 
+        {
+            get
+            {
+                return needToSave;
+            }
+            set
+            {
+                if (needToSave == true)
+                {
+                    if (!saveTimer.Enabled)
+                    {
+                        saveTimer.Interval = 60000;
+                        saveTimer.Start();
+                    }
+                }
+                needToSave = value;
+            }
+        }
 
         #endregion
 
@@ -132,10 +171,12 @@ namespace TVAdvisor
             m_chanIdx = 0;
             InitializeComponent();
             SearchResults = new List<programme>();
+            lstOrderDetails = new List<OrderDetail>();
+            needToSave = false;
+            saveTimer = new Timer();
+            saveTimer.Elapsed += new ElapsedEventHandler(saveTimer_Elapsed);
             SearchIndex = -1;
             OrderedBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFC66E"));
-            //WindowStart = new DateTime(2012, 12, 14, 15, 0, 0);
-            //WindowStop = new DateTime(2012, 12, 14, 16, 30, 0);
             WindowStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, (DateTime.Now.Minute > 30) ? 30 : 0, 0);
             WindowStop = new DateTime(WindowStart.Ticks);
             WindowStep = 30;
@@ -168,9 +209,38 @@ namespace TVAdvisor
             }
         }
 
+        /// <summary>
+        /// Save all the unsaved orders.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void saveTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            try
+            {
+                SaveOrders();
+                needToSave = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         #endregion
 
         #region Private Methods
+
+        /// <summary>
+        /// Save the current orders to the database.
+        /// </summary>
+        private void SaveOrders()
+        {
+            if (NeedToSave)
+            {
+                LogicManager.Instance.SaveOrders(lstOrderDetails);
+            }
+        }
 
         /// <summary>
         /// Handle window resize.
@@ -399,6 +469,7 @@ namespace TVAdvisor
                     if (item.IsOrdered)
                     {
                         item.Ordered.UnsetTimer();
+                        lstOrderDetails.Remove(item.Ordered.OrderedDetail);
                         lstOrders.Items.Remove(item.Ordered);
                         item.Ordered = null;
                         //item.Background = Brushes.Transparent;
@@ -419,8 +490,12 @@ namespace TVAdvisor
                                 item.Channel.displayname[0].Value +  " : " + item.Program.title[0].Value,
                             WindowStart = this.WindowStart,
                             WindowStop = this.WindowStop,
-                            ChanIdx = m_chanIdx
+                            ChanIdx = m_chanIdx,
+                            OrderedDetail = new OrderDetail(MainWindow.Instance.UserID, 
+                            item.Channel.id, Utils.GetEPGDate(item.Program.start), false)
                         };
+                        NeedToSave = true;
+                        lstOrderDetails.Add(ordered.OrderedDetail);
                         //item.Background = OrderedBrush;
                         item.Ordered = ordered;
                         int i = 0;
@@ -487,6 +562,17 @@ namespace TVAdvisor
                     AddDetailPanel("Category:", SelectedProgram.category[0].Value);
                 if (SelectedProgram.desc != null && SelectedProgram.desc.Count() > 0 && SelectedProgram.desc[0].Value != null)
                     AddDetailPanel("Description:", SelectedProgram.desc[0].Value);
+                if (SelectedProgram.credits != null &&
+                    SelectedProgram.credits.actor != null &&
+                    SelectedProgram.credits.actor.Length > 0)
+                {
+                    StringBuilder builder = new StringBuilder();
+                    foreach (actor a in SelectedProgram.credits.actor)
+                    {
+                        builder.Append((a.role != null?"(" + a.role + ") ":"") + a.Value + " ");
+                    }
+                    AddDetailPanel("Actors:", builder.ToString());
+                }
             }
             else
             {
@@ -642,6 +728,11 @@ namespace TVAdvisor
                 epgViewer.GotFocus -= epgViewer_GotFocus;
                 ((ListBoxItem)(lstChannels.SelectedItem)).Focus();
             }
+        }
+
+        private void epgViewer_Unloaded(object sender, RoutedEventArgs e)
+        {
+            SaveOrders();
         }
     }
 
@@ -810,6 +901,11 @@ namespace TVAdvisor
         /// The window stop when the order was taken.
         /// </summary>
         public DateTime WindowStop { get; set; }
+
+        /// <summary>
+        /// The ordered detail.
+        /// </summary>
+        public OrderDetail OrderedDetail { get; set; }
 
         /// <summary>
         /// The channel index
