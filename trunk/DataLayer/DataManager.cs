@@ -498,6 +498,81 @@ namespace DataLayer
             return id;
         }
 
+        public int getProgID(string fpid)
+        {
+            int id = -1;
+            string query = "SELECT id FROM Program WHERE freebase_id=@freebase_id";
+            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            cmd.Parameters.AddWithValue("@freebase_id", fpid);
+            try
+            {
+                m_connection.Open();
+                object result = cmd.ExecuteScalar();
+                if (result != null)
+                {
+                    id = (int)result;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                m_connection.Close();
+            }
+            return id;
+        }
+
+        public int getProgRating(int pid, int uid)
+        {
+            int rating = -1;
+            string query = "SELECT rating FROM UserProgram WHERE user_id=@user_id AND program_id=@program_id";
+            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            cmd.Parameters.AddWithValue("@user_id", uid);
+            cmd.Parameters.AddWithValue("@program_id", pid);
+            try
+            {
+                m_connection.Open();
+                object result = cmd.ExecuteScalar();
+                if (result != null)
+                {
+                    id = (int)result;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                m_connection.Close();
+            }
+            return rating;
+        }
+
+        public void setProgRating(int pid, int uid, int rating)
+        {
+            string query = "REPLACE INTO UserProgram (user_id,program_id,rating) VALUES (@user_id, @program_id,@rating)";
+            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            cmd.Parameters.AddWithValue("@user_id", uid);
+            cmd.Parameters.AddWithValue("@program_id", pid);
+            cmd.Parameters.AddWithValue("@rating", rating);
+            try
+            {
+                m_connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                m_connection.Close();
+            }
+        }
+
         #endregion
 
 

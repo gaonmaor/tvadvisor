@@ -93,8 +93,17 @@ namespace LogicLayer
         }
         
         public int calculateRating(string prog, int userID){
-            int ret=0;
+            int ret = 0, progID = 0;
             TVProgram.TVProgramJSON progObj=Importer.getProgramByName(prog);
+            progID=DataManager.Instance.getProgID(progObj.getMID());
+            try
+            {
+                ret = DataManager.Instance.getProgRating(progID, userID);
+            }
+            catch
+            {
+                return 5;
+            }
             return ret;
         }
 

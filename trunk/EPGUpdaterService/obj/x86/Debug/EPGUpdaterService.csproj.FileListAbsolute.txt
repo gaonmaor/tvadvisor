@@ -14,3 +14,19 @@ C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\EPGUpdaterService\obj\x8
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\EPGUpdaterService\obj\x86\Debug\EPGUpdaterService.csproj.GenerateResource.Cache
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\EPGUpdaterService\obj\x86\Debug\EPGGruberService.exe
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\EPGUpdaterService\obj\x86\Debug\EPGGruberService.pdb
+D:\TVAdvisor\EPGUpdaterService\bin\Debug\EPGGruberService.exe.config
+D:\TVAdvisor\EPGUpdaterService\bin\Debug\EPGGruberService.exe
+D:\TVAdvisor\EPGUpdaterService\bin\Debug\EPGGruberService.pdb
+D:\TVAdvisor\EPGUpdaterService\bin\Debug\LogicLayer.dll
+D:\TVAdvisor\EPGUpdaterService\bin\Debug\CommonLayer.dll
+D:\TVAdvisor\EPGUpdaterService\bin\Debug\DataLayer.dll
+D:\TVAdvisor\EPGUpdaterService\bin\Debug\ObjectLayer.dll
+D:\TVAdvisor\EPGUpdaterService\bin\Debug\LogicLayer.pdb
+D:\TVAdvisor\EPGUpdaterService\bin\Debug\CommonLayer.pdb
+D:\TVAdvisor\EPGUpdaterService\bin\Debug\DataLayer.pdb
+D:\TVAdvisor\EPGUpdaterService\bin\Debug\ObjectLayer.pdb
+D:\TVAdvisor\EPGUpdaterService\obj\x86\Debug\EPGUpdaterService.csprojResolveAssemblyReference.cache
+D:\TVAdvisor\EPGUpdaterService\obj\x86\Debug\EPGGruberService.EPGUpdaterService.resources
+D:\TVAdvisor\EPGUpdaterService\obj\x86\Debug\EPGUpdaterService.csproj.GenerateResource.Cache
+D:\TVAdvisor\EPGUpdaterService\obj\x86\Debug\EPGGruberService.exe
+D:\TVAdvisor\EPGUpdaterService\obj\x86\Debug\EPGGruberService.pdb

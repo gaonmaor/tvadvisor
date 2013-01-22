@@ -13,3 +13,8 @@ C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\CommonLayer\bin\Debug\Co
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\CommonLayer\obj\Debug\CommonLayer.csprojResolveAssemblyReference.cache
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\CommonLayer\obj\Debug\CommonLayer.dll
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\CommonLayer\obj\Debug\CommonLayer.pdb
+D:\TVAdvisor\CommonLayer\bin\Debug\CommonLayer.dll
+D:\TVAdvisor\CommonLayer\bin\Debug\CommonLayer.pdb
+D:\TVAdvisor\CommonLayer\obj\Debug\CommonLayer.csprojResolveAssemblyReference.cache
+D:\TVAdvisor\CommonLayer\obj\Debug\CommonLayer.dll
+D:\TVAdvisor\CommonLayer\obj\Debug\CommonLayer.pdb

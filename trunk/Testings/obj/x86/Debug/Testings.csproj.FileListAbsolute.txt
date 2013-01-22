@@ -41,3 +41,18 @@ C:\Users\Ran\Desktop\TVAdvisor\Testings\bin\Debug\ObjectLayer.dll
 C:\Users\Ran\Desktop\TVAdvisor\Testings\bin\Debug\ObjectLayer.pdb
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\bin\Debug\ObjectLayer.dll
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\bin\Debug\ObjectLayer.pdb
+D:\TVAdvisor\Testings\bin\Debug\Testings.exe.config
+D:\TVAdvisor\Testings\bin\Debug\Testings.exe
+D:\TVAdvisor\Testings\bin\Debug\Testings.pdb
+D:\TVAdvisor\Testings\bin\Debug\CommonLayer.dll
+D:\TVAdvisor\Testings\bin\Debug\LogicLayer.dll
+D:\TVAdvisor\Testings\bin\Debug\DataLayer.dll
+D:\TVAdvisor\Testings\bin\Debug\ObjectLayer.dll
+D:\TVAdvisor\Testings\bin\Debug\CommonLayer.pdb
+D:\TVAdvisor\Testings\bin\Debug\LogicLayer.pdb
+D:\TVAdvisor\Testings\bin\Debug\DataLayer.pdb
+D:\TVAdvisor\Testings\bin\Debug\ObjectLayer.pdb
+D:\TVAdvisor\Testings\obj\x86\Debug\Testings.csprojResolveAssemblyReference.cache
+D:\TVAdvisor\Testings\obj\x86\Debug\Testings.g.resources
+D:\TVAdvisor\Testings\obj\x86\Debug\Testings.exe
+D:\TVAdvisor\Testings\obj\x86\Debug\Testings.pdb
