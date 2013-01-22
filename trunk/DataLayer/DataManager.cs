@@ -477,6 +477,33 @@ namespace DataLayer
             m_connection.Close();
         }
 
+        public int GetUserID(string name, string password)
+        {
+            int id = -1;
+            string query = "SELECT id, name FROM User WHERE name=@name AND password=@password";
+            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            cmd.Parameters.AddWithValue("@name", name);
+            cmd.Parameters.AddWithValue("@password", password);
+            try
+            {
+                m_connection.Open();
+                object result = cmd.ExecuteScalar();
+                if (result != null)
+                {
+                    id = (int)result;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                m_connection.Close();
+            }
+            return id;
+        }
+
         public int getProgID(string name)
         {
             int id = -1;
