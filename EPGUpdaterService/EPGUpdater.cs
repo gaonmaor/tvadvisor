@@ -77,7 +77,7 @@ namespace EPGGruberService
                 GetCurrentEPG();
 
                 // Insert the data into the EPG server.
-                //InsertEPG();
+                InsertEPG();
 
                 // Build the new epg.
                 BuildEPG();
