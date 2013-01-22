@@ -179,10 +179,20 @@ namespace DataLayer
                     continue;
                 }
 
+                m_connection.Open();
+                //MySqlTransaction transaction = m_connection.BeginTransaction();
+
                 string d = null;
+                List<string> actorNames = new List<string>();
+                MySqlDataReader actorsReader = null;
                 string query = "SELECT description FROM Program WHERE name=@name";
+                string query2 = "SELECT Actor.name FROM ProgramActor,Program,Actor " +
+                                "WHERE Program.name=@name AND ProgramActor.program_id=Program.id " +
+                                "AND ProgramActor.actor_id=Actor.id";
                 MySqlCommand cmd = new MySqlCommand(query, m_connection);
+                MySqlCommand cmd2 = new MySqlCommand(query2, m_connection);
                 cmd.Parameters.AddWithValue("@name", name);
+                cmd2.Parameters.AddWithValue("@name", name);
                 try
                 {
                     //server=localhost;User Id=DbMysql05;
@@ -195,61 +205,89 @@ namespace DataLayer
                     //sb.
                     //m_connection.
 
-                    m_connection.Open();
+                    //m_connection.Open();
 
                     object dbresult = cmd.ExecuteScalar();
+                    actorsReader = cmd2.ExecuteReader();
+                    int i = 0;
+                    while (actorsReader.Read())
+                    {
+                        actorNames.Add(actorsReader.GetString(i));
+                        i++;
+                    }
                     d = (string)dbresult;
+                    //transaction.Commit();
+
                 }
                 catch
                 {
+                    //transaction.Rollback();
                     throw;
                 }
-                m_connection.Close();
-
-
-                if (d == null || d.Equals(""))
+                finally
                 {
-                    bool flag2 = (d == null ? false : true);
-                    TVProgram.TVProgramJSON tvpo = ObjectLayer.Importer.getProgramByName(name);
-                    if (tvpo != null)
+                    if (actorsReader != null)
                     {
-                        d = tvpo.getDescription();
+                        actorsReader.Close();
                     }
 
-                    if (d != null)
-                    {
-                        if (flag2 == true)//description is "";
-                        {
-                            //update DB
-                            query = "UPDATE Program SET description=@description WHERE name=@name";
-                            cmd = new MySqlCommand(query, m_connection);
-                            cmd.Parameters.AddWithValue("@name", name);
-                            cmd.Parameters.AddWithValue("@description", d);
-                        }
-                        else//description is null;
-                        {
-                            //add entry to DB
-                            query = "INSERT IGNORE INTO Program (name, country_of_origin, freebase_id, description)" +
-                                "VALUES (@name, @country_of_origin, @freebase_id, @description)";
-                            cmd = new MySqlCommand(query, m_connection);
-                            cmd.Parameters.AddWithValue("@name", name);
-                            cmd.Parameters.AddWithValue("@freebase_id", tvpo.getMID());
-                            //string country = "country";
-                            cmd.Parameters.AddWithValue("@country_of_origin", tvpo.getCountry());
-                            cmd.Parameters.AddWithValue("@description", d);
-                        }
-                        try
-                        {
-                            m_connection.Open();
-                            cmd.ExecuteNonQuery();
-                        }
-                        catch
-                        {
-                            throw;
-                        }
-                        m_connection.Close();
-                    }
+                    m_connection.Close();
                 }
+
+
+                //commented code updates XML file and database with Freebase JSON data
+
+                //if (d == null || d.Equals(""))
+                //{
+                //    bool flag2 = (d == null ? false : true);
+                //    TVProgram.TVProgramJSON tvpo = ObjectLayer.Importer.getProgramByName(name);
+                //    if (tvpo != null)
+                //    {
+                //        d = tvpo.getDescription();
+                //    }
+
+                //    if (d != null)
+                //    {
+                //        m_connection.Open();
+                //        transaction = m_connection.BeginTransaction();
+
+                //        if (flag2 == true)//description is "";
+                //        {
+                //            //update DB
+                //            query = "UPDATE Program SET description=@description WHERE name=@name";
+                //            cmd = new MySqlCommand(query, m_connection, transaction);
+                //            cmd.Parameters.AddWithValue("@name", name);
+                //            cmd.Parameters.AddWithValue("@description", d);
+                //        }
+                //        else//description is null;
+                //        {
+                //            //add entry to DB
+                //            query = "INSERT INTO Program (name, country_of_origin, freebase_id, description)" +
+                //                "VALUES (@name, @country_of_origin, @freebase_id, @description)";
+                //            cmd = new MySqlCommand(query, m_connection, transaction);
+                //            cmd.Parameters.AddWithValue("@name", name);
+                //            cmd.Parameters.AddWithValue("@freebase_id", tvpo.getMID());
+                //            //string country = "country";
+                //            cmd.Parameters.AddWithValue("@country_of_origin", tvpo.getCountry());
+                //            cmd.Parameters.AddWithValue("@description", d);
+                //        }
+                //        try
+                //        {
+                //            //m_connection.Open();
+                //            cmd.ExecuteNonQuery();
+                //            transaction.Commit();
+                //        }
+                //        catch
+                //        {
+                //            transaction.Rollback();
+                //            throw;
+                //        }
+                //        finally
+                //        {
+                //            m_connection.Close();
+                //        }
+                //    }
+                //}
 
                 if (d == null)
                 {
@@ -264,7 +302,10 @@ namespace DataLayer
                         if (da.lang.Equals(defaultLang))
                         {
                             flag = true;
-                            da.Value = d;
+                            if (d != defaultDesc)
+                            {
+                                da.Value = da.Value + "\nFreebase:\n" + d;
+                            }
                         }
                     }
                 }
@@ -276,6 +317,19 @@ namespace DataLayer
                     p.desc = description;
                 }
 
+                actor[] actors = new actor[actorNames.Count];
+                actor curact;
+                for (int j = 0; j < actorNames.Count; j++)
+                {
+                    curact = new actor();
+                    curact.Value = actorNames.ElementAt(j);
+                    actors[j] = curact;
+                }
+                if (p.credits == null)
+                {
+                    p.credits = new credits();
+                }
+                p.credits.actor = actors;
             }
 
             Utils.SerializeXML<tv>(epg, newFile);
