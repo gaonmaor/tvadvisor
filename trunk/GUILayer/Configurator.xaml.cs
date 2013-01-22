@@ -10,6 +10,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using CommonLayer;
+
+// TODO Delte this
+using DataLayer;
+using System.Threading.Tasks;
 
 namespace TVAdvisor
 {

@@ -11,6 +11,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading.Tasks;
+using CommonLayer;
+
+using DataLayer;
 
 namespace TVAdvisor
 {
@@ -35,5 +39,34 @@ namespace TVAdvisor
             // 	myCollectionViewSource.Source = your data
             // }
         }
+
+        private void btcGetData_Click(object sender, RoutedEventArgs e)
+        {
+            int num_records = 30;
+            pbData.Maximum = num_records;
+            Task t = new Task(new Action(()=>{
+                DataManager.Instance.GetFreebaseData(new UpdateProgressEvent(updateProgress), num_records);
+            }));
+            t.Start();
+        }
+
+        private void updateProgress(int percent)
+        {
+            Dispatcher.Invoke(new Action(()=>{
+                pbData.Value = percent + 1;
+            }));
+        }
+
+        private void btcGetActor_Click(object sender, RoutedEventArgs e)
+        {
+            int num_records = 55500;
+            pbData.Maximum = num_records;
+            Task t = new Task(new Action(() =>
+            {
+                DataManager.Instance.GetFreebaseActor(new UpdateProgressEvent(updateProgress), num_records);
+            }));
+            t.Start();
+        }
+ 
     }
 }

@@ -5,4 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" xmlns:my="clr-namespace:TVAdvisor" Loaded="UserControl_Loaded">
+    <Grid>
+        <Button x:Name="btcGetData" Content="Get Program (test)" Width="100" Height="30" Click="btcGetData_Click" />
+        <Button x:Name="btcGetActor" Content="Get Actor (test)" Width="100" Height="30" Click="btcGetActor_Click" Margin="0,100,0,0"/>
+        <ProgressBar x:Name="pbData" Maximum="10000" Value="0" Height="20" Margin="0,200,0,0"/>
+    </Grid>
 </UserControl>
