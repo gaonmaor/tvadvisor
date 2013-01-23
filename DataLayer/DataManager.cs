@@ -27,7 +27,7 @@ namespace DataLayer
         /// <summary>
         /// The SQL data connection. 
         /// </summary>
-        private MySqlConnection m_connection;
+        //private MySqlConnection m_connection;
 
         /// <summary>
         /// The singleton instance.
@@ -73,7 +73,8 @@ namespace DataLayer
 
             //                                  server=localhost;User Id=DbMysql05;password=DbMysql05;Persist Security Info=True;port=3305;database=DbMysql05
             //m_connection = new MySqlConnection("server=localhost;User Id=DbMysql05;password=DbMysql05;Persist Security Info=True;Ssl Mode=None;port=3305;database=DbMysql05");
-            m_connection = new MySqlConnection(Settings.Default.ConString);
+
+            //m_connection = new MySqlConnection(Settings.Default.ConString);
 
 
             //m_connection = new SqlConnection("server=localhost;User Id=DbMysql05;Persist Security Info=True;Ssl Mode=None;port=3305;database=DbMysql05");
@@ -100,50 +101,49 @@ namespace DataLayer
 
             // Code
 
-            lock (m_lockObject)
+            ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
+            dbcon.Open();
+            transaction = dbcon.con.BeginTransaction();
+
+            try
             {
-                m_connection.Open();
-                transaction = m_connection.BeginTransaction();
-
-                try
+                // Save the channels.
+                foreach (var channel in epg.channel)
                 {
-                    // Save the channels.
-                    foreach (var channel in epg.channel)
+                    if (channel.displayname != null && channel.displayname.Length > 0 && channel.displayname[0] != null)
                     {
-                        if (channel.displayname != null && channel.displayname.Length > 0 && channel.displayname[0] != null)
-                        {
-                            cmd = new MySqlCommand("INSERT IGNORE INTO Channel (name, xmltv_id) VALUES (@name, @xmltv_id)",
-                                m_connection, transaction);
-                            cmd.Parameters.AddWithValue("@name", channel.displayname[0].Value);
-                            cmd.Parameters.AddWithValue("@xmltv_id", channel.id);
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-                    // Save the programs.
-                    /*
-                    foreach (var program in epg.programme)
-                    {
-                        cmd = new MySqlCommand("INSERT INTO tvadviser.category (Value, lang) VALUES ('" +
-                            (from c in program.category select c.Value) + "', '" + (from c in program.category select c.lang) + "'");
-                        cmd.ExecuteNonQuery();
-                        cmd = new MySqlCommand("INSERT INTO tvadviser.programme " + 
-                            "(title_id, sub_title_id, desc_id, category_id, episode_num_id, start, stop, channel_id)" +
-                            " VALUES (,,,,,'','',);", m_connection, transaction);
+                        cmd = new MySqlCommand("INSERT IGNORE INTO Channel (name, xmltv_id) VALUES (@name, @xmltv_id)",
+                            dbcon.con, transaction);
+                        cmd.Parameters.AddWithValue("@name", channel.displayname[0].Value);
+                        cmd.Parameters.AddWithValue("@xmltv_id", channel.id);
                         cmd.ExecuteNonQuery();
                     }
-                    */
+                }
+                // Save the programs.
+                /*
+                foreach (var program in epg.programme)
+                {
+                    cmd = new MySqlCommand("INSERT INTO tvadviser.category (Value, lang) VALUES ('" +
+                        (from c in program.category select c.Value) + "', '" + (from c in program.category select c.lang) + "'");
+                    cmd.ExecuteNonQuery();
+                    cmd = new MySqlCommand("INSERT INTO tvadviser.programme " + 
+                        "(title_id, sub_title_id, desc_id, category_id, episode_num_id, start, stop, channel_id)" +
+                        " VALUES (,,,,,'','',);", m_connection, transaction);
+                    cmd.ExecuteNonQuery();
+                }
+                */
 
-                    transaction.Commit();
-                }
-                catch
-                {
-                    transaction.Rollback();
-                    throw;
-                }
-                finally
-                {
-                    m_connection.Close();
-                }
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
+            finally
+            {
+                dbcon.Close();
+                ConnectionPool.freeConnection(dbcon);
             }
         }
 
@@ -183,7 +183,8 @@ namespace DataLayer
                     continue;
                 }
 
-                m_connection.Open();
+                ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
+                dbcon.Open();
                 //MySqlTransaction transaction = m_connection.BeginTransaction();
 
                 string d = null;
@@ -196,9 +197,9 @@ namespace DataLayer
                                 "WHERE Program.name=@name AND ProgramActor.program_id=Program.id " +
                                 "AND ProgramActor.actor_id=Actor.id";
                 string query3 = "SELECT country_of_origin FROM Program WHERE name=@name";
-                MySqlCommand cmd = new MySqlCommand(query, m_connection);
-                MySqlCommand cmd2 = new MySqlCommand(query2, m_connection);
-                MySqlCommand cmd3 = new MySqlCommand(query3, m_connection);
+                MySqlCommand cmd = new MySqlCommand(query, dbcon.con);
+                MySqlCommand cmd2 = new MySqlCommand(query2, dbcon.con);
+                MySqlCommand cmd3 = new MySqlCommand(query3, dbcon.con);
                 cmd.Parameters.AddWithValue("@name", name);
                 cmd2.Parameters.AddWithValue("@name", name);
                 cmd3.Parameters.AddWithValue("@name", name);
@@ -207,14 +208,14 @@ namespace DataLayer
                     //server=localhost;User Id=DbMysql05;
                     //password=DbMysql05;Persist Security Info=True;
                     //port=3305;database=DbMysql05
-                    //m_connection.Close();
+                    //dbcon.Close();ConnectionPool.freeConnection(dbcon);
                     //m_connection.ConnectionString = Settings.Default.ConString;
 
                     //MySqlConnectionStringBuilder sb = new MySqlConnectionStringBuilder(Settings.Default.ConString);
                     //sb.
                     //m_connection.
 
-                    //m_connection.Open();
+                    //ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();dbcon.Open();
 
                     object dbresult = cmd.ExecuteScalar();
                     object dbresult2 = cmd3.ExecuteScalar();
@@ -248,7 +249,8 @@ namespace DataLayer
                         actorsReader.Close();
                     }
 
-                    m_connection.Close();
+                    dbcon.Close();
+                    ConnectionPool.freeConnection(dbcon);
                 }
 
 
@@ -265,7 +267,7 @@ namespace DataLayer
 
                 //    if (d != null)
                 //    {
-                //        m_connection.Open();
+                //        ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();dbcon.Open();
                 //        transaction = m_connection.BeginTransaction();
 
                 //        if (flag2 == true)//description is "";
@@ -290,7 +292,7 @@ namespace DataLayer
                 //        }
                 //        try
                 //        {
-                //            //m_connection.Open();
+                //            //ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();dbcon.Open();
                 //            cmd.ExecuteNonQuery();
                 //            transaction.Commit();
                 //        }
@@ -301,7 +303,7 @@ namespace DataLayer
                 //        }
                 //        finally
                 //        {
-                //            m_connection.Close();
+                //            dbcon.Close();ConnectionPool.freeConnection(dbcon);
                 //        }
                 //    }
                 //}
@@ -385,26 +387,25 @@ namespace DataLayer
 
             // Code
 
-            lock (m_lockObject)
-            {
-                m_connection.Open();
-                transaction = m_connection.BeginTransaction();
+            ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
+            dbcon.Open();
+            transaction = dbcon.con.BeginTransaction();
 
-                try
-                {
-                    cmd = new MySqlCommand("");
-                    MySqlDataReader reader = cmd.ExecuteReader();
-                    transaction.Commit();
-                }
-                catch
-                {
-                    transaction.Rollback();
-                    throw;
-                }
-                finally
-                {
-                    m_connection.Close();
-                }
+            try
+            {
+                cmd = new MySqlCommand("");
+                MySqlDataReader reader = cmd.ExecuteReader();
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
+            finally
+            {
+                dbcon.Close();
+                ConnectionPool.freeConnection(dbcon);
             }
             throw new NotImplementedException();
         }
@@ -443,85 +444,84 @@ namespace DataLayer
 
             // The SQL data command.
             MySqlCommand cmd;
-            lock (m_lockObject)
+            line = data_reader.ReadLine(); ;
+            string query;
+
+            ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection(); 
+            dbcon.Open();
+            transaction = dbcon.con.BeginTransaction();
+            try
             {
-                line = data_reader.ReadLine(); ;
-                string query;
-
-                m_connection.Open();
-                transaction = m_connection.BeginTransaction();
-                try
+                for (int i = 0; i < num_records; i++)
                 {
-                    for (int i = 0; i < num_records; i++)
-                    {
-                        line = data_reader.ReadLine();
-                        crr_line_words = line.Split('\t');
+                    line = data_reader.ReadLine();
+                    crr_line_words = line.Split('\t');
 
-                        string program_freebase_id = crr_line_words[1];
-                        string description = descriptions[i];
+                    string program_freebase_id = crr_line_words[1];
+                    string description = descriptions[i];
 
-                        query = "INSERT IGNORE INTO Program (name, country_of_origin, freebase_id, description)" +
-                            "VALUES (@name, @country_of_origin, @freebase_id, @description)";
-                        cmd = new MySqlCommand(query, m_connection, transaction);
+                    query = "INSERT IGNORE INTO Program (name, country_of_origin, freebase_id, description)" +
+                        "VALUES (@name, @country_of_origin, @freebase_id, @description)";
+                    cmd = new MySqlCommand(query, dbcon.con, transaction);
 
-                        cmd.Parameters.AddWithValue("@name", crr_line_words[0]);
-                        cmd.Parameters.AddWithValue("@freebase_id", program_freebase_id);
-                        cmd.Parameters.AddWithValue("@country_of_origin", crr_line_words[7]);
-                        cmd.Parameters.AddWithValue("@description", description);
-                        cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@name", crr_line_words[0]);
+                    cmd.Parameters.AddWithValue("@freebase_id", program_freebase_id);
+                    cmd.Parameters.AddWithValue("@country_of_origin", crr_line_words[7]);
+                    cmd.Parameters.AddWithValue("@description", description);
+                    cmd.ExecuteNonQuery();
 
-                        // Get last inserted id
-                        query = "SELECT MAX(id) FROM Program";
-                        cmd = new MySqlCommand(query, m_connection, transaction);
-                        Object obj = cmd.ExecuteScalar();
-                        int program_id = Convert.ToInt32(obj);
+                    // Get last inserted id
+                    query = "SELECT MAX(id) FROM Program";
+                    cmd = new MySqlCommand(query, dbcon.con, transaction);
+                    Object obj = cmd.ExecuteScalar();
+                    int program_id = Convert.ToInt32(obj);
 
-                        // Go through the actors and add to DB the connections between actors and programs
+                    // Go through the actors and add to DB the connections between actors and programs
 
-                        //string[] actors = crr_line_words[13].Split(',');
-                        //long program_id = cmd.LastInsertedId; //Doen't work :-(
+                    //string[] actors = crr_line_words[13].Split(',');
+                    //long program_id = cmd.LastInsertedId; //Doen't work :-(
 
-                        //string actors = "'" + crr_line_words[13].Replace(",", "','") + "'"; // Seperated by commas
-                        //string[] apc = crr_line_words[13].Split(',');
-                        //insert actor-program connections
+                    //string actors = "'" + crr_line_words[13].Replace(",", "','") + "'"; // Seperated by commas
+                    //string[] apc = crr_line_words[13].Split(',');
+                    //insert actor-program connections
 
-                        //query = "SELECT id FROM Actor WHERE freebase_id IN (@actors)";
-                        //cmd = new MySqlCommand(query, m_connection, transaction);
+                    //query = "SELECT id FROM Actor WHERE freebase_id IN (@actors)";
+                    //cmd = new MySqlCommand(query, m_connection, transaction);
 
-                        //cmd.Parameters.AddWithValue("@actors", actors);
+                    //cmd.Parameters.AddWithValue("@actors", actors);
 
-                        //MySqlDataReader reader = cmd.ExecuteReader();
+                    //MySqlDataReader reader = cmd.ExecuteReader();
 
-                        //bool b = reader.Read();
-                        //foreach (string a in apc)//while (reader.Read())
-                        //{
-                        //    query = "INSERT INTO ProgramActor (program_id, apc_freebase_id)" +
-                        //        "VALUES (@program_id, @apc_freebase_id)";
-                        //    //int actor_id = reader.GetInt32(0);
+                    //bool b = reader.Read();
+                    //foreach (string a in apc)//while (reader.Read())
+                    //{
+                    //    query = "INSERT INTO ProgramActor (program_id, apc_freebase_id)" +
+                    //        "VALUES (@program_id, @apc_freebase_id)";
+                    //    //int actor_id = reader.GetInt32(0);
 
-                        //    cmd = new MySqlCommand(query, m_connection, transaction);
+                    //    cmd = new MySqlCommand(query, m_connection, transaction);
 
-                        //    cmd.Parameters.AddWithValue("@program_id", program_id);
-                        //    cmd.Parameters.AddWithValue("@apc_freebase_id", a);
+                    //    cmd.Parameters.AddWithValue("@program_id", program_id);
+                    //    cmd.Parameters.AddWithValue("@apc_freebase_id", a);
 
-                        //    cmd.ExecuteNonQuery();
-                        //}
-                        //reader.Close();
+                    //    cmd.ExecuteNonQuery();
+                    //}
+                    //reader.Close();
 
-                        progressEvent("Save to database.", (int)(((double)i) / num_records * 100));
-                    }
-                    transaction.Commit();
+                    progressEvent("Save to database.", (int)(((double)i) / num_records * 100));
                 }
-                catch
-                {
-                    transaction.Rollback();
-                    throw;
-                }
-                finally
-                {
-                    data_reader.Close();
-                    m_connection.Close();
-                }
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
+            finally
+            {
+                data_reader.Close();
+                dbcon.Close(); 
+                ConnectionPool.freeConnection(dbcon);
             }
         }
 
@@ -551,54 +551,53 @@ namespace DataLayer
 
             // The SQL data command.
             MySqlCommand cmd;
-            lock (m_lockObject)
+            line = data_reader.ReadLine(); ;
+            string query;
+
+            ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
+            dbcon.Open();
+            transaction = dbcon.con.BeginTransaction();
+            try
             {
-                line = data_reader.ReadLine(); ;
-                string query;
-
-                m_connection.Open();
-                transaction = m_connection.BeginTransaction();
-                try
+                for (int i = 0; i < num_records; i++)
                 {
-                    for (int i = 0; i < num_records; i++)
-                    {
-                        line = data_reader.ReadLine();
-                        crr_line_words = line.Split('\t');
+                    line = data_reader.ReadLine();
+                    crr_line_words = line.Split('\t');
 
-                        string id = crr_line_words[1];
-                        string description = descriptions[i];
+                    string id = crr_line_words[1];
+                    string description = descriptions[i];
 
-                        /*
-                         * query = "INSERT IGNORE INTO Actor (name, birth_date, gender, freebase_id, biography)" +
-                            "VALUES (@name, @birth_date, @gender, @freebase_id, @biography)";
-                         */
+                    /*
+                     * query = "INSERT IGNORE INTO Actor (name, birth_date, gender, freebase_id, biography)" +
+                        "VALUES (@name, @birth_date, @gender, @freebase_id, @biography)";
+                     */
 
-                        query = "INSERT IGNORE INTO Actor (name, freebase_id, biography)" +
-                            "VALUES (@name, @freebase_id, @biography)";
-                        cmd = new MySqlCommand(query, m_connection, transaction);
+                    query = "INSERT IGNORE INTO Actor (name, freebase_id, biography)" +
+                        "VALUES (@name, @freebase_id, @biography)";
+                    cmd = new MySqlCommand(query, dbcon.con, transaction);
 
 
-                        cmd.Parameters.AddWithValue("@name", crr_line_words[0]);
-                        cmd.Parameters.AddWithValue("@freebase_id", id);
-                        //cmd.Parameters.AddWithValue("@birth_date", crr_line_words[0]);
-                        //cmd.Parameters.AddWithValue("@gender", crr_line_words[0]);
-                        cmd.Parameters.AddWithValue("@biography", description);
+                    cmd.Parameters.AddWithValue("@name", crr_line_words[0]);
+                    cmd.Parameters.AddWithValue("@freebase_id", id);
+                    //cmd.Parameters.AddWithValue("@birth_date", crr_line_words[0]);
+                    //cmd.Parameters.AddWithValue("@gender", crr_line_words[0]);
+                    cmd.Parameters.AddWithValue("@biography", description);
 
-                        cmd.ExecuteNonQuery();
-                        progressEvent("Save actors to database.", (int)(((double)i) / num_records * 100));
-                    }
-                    transaction.Commit();
+                    cmd.ExecuteNonQuery();
+                    progressEvent("Save actors to database.", (int)(((double)i) / num_records * 100));
                 }
-                catch
-                {
-                    transaction.Rollback();
-                    throw;
-                }
-                finally
-                {
-                    data_reader.Close();
-                    m_connection.Close();
-                }
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
+            finally
+            {
+                data_reader.Close();
+                dbcon.Close(); 
+                ConnectionPool.freeConnection(dbcon);
             }
         }
 
@@ -614,97 +613,99 @@ namespace DataLayer
 
             // The SQL data command.
             MySqlCommand cmd;
-            lock (m_lockObject)
+
+            line = data_reader.ReadLine(); ;
+            string query;
+
+            ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection(); 
+            dbcon.Open();
+            transaction = dbcon.con.BeginTransaction();
+            try
             {
-                line = data_reader.ReadLine(); ;
-                string query;
-
-                m_connection.Open();
-                transaction = m_connection.BeginTransaction();
-                try
+                for (int i = 0; i < num_records; i++)
                 {
-                    for (int i = 0; i < num_records; i++)
-                    {
-                        line = data_reader.ReadLine();
-                        crr_line_words = line.Split('\t');
+                    line = data_reader.ReadLine();
+                    crr_line_words = line.Split('\t');
 
-                        string actor = crr_line_words[2];
-                        string program = crr_line_words[4];
+                    string actor = crr_line_words[2];
+                    string program = crr_line_words[4];
 
-                        query = "SELECT id FROM Actor WHERE name = @name";
-                        cmd = new MySqlCommand(query, m_connection, transaction);
+                    query = "SELECT id FROM Actor WHERE name = @name";
+                    cmd = new MySqlCommand(query, dbcon.con, transaction);
 
-                        cmd.Parameters.AddWithValue("@name", actor);
+                    cmd.Parameters.AddWithValue("@name", actor);
 
-                        Object obj = cmd.ExecuteScalar();
-                        int actor_id = Convert.ToInt32(obj);
+                    Object obj = cmd.ExecuteScalar();
+                    int actor_id = Convert.ToInt32(obj);
 
-                        query = "SELECT id FROM Program WHERE name = @name";
-                        cmd = new MySqlCommand(query, m_connection, transaction);
+                    query = "SELECT id FROM Program WHERE name = @name";
+                    cmd = new MySqlCommand(query, dbcon.con, transaction);
 
-                        cmd.Parameters.AddWithValue("@name", program);
+                    cmd.Parameters.AddWithValue("@name", program);
 
-                        obj = cmd.ExecuteScalar();
-                        int program_id = Convert.ToInt32(obj);
+                    obj = cmd.ExecuteScalar();
+                    int program_id = Convert.ToInt32(obj);
 
-                        /*
-                         * query = "INSERT IGNORE INTO Actor (name, birth_date, gender, freebase_id, biography)" +
-                            "VALUES (@name, @birth_date, @gender, @freebase_id, @biography)";
-                         */
+                    /*
+                     * query = "INSERT IGNORE INTO Actor (name, birth_date, gender, freebase_id, biography)" +
+                        "VALUES (@name, @birth_date, @gender, @freebase_id, @biography)";
+                     */
 
-                        query = "INSERT IGNORE INTO ProgramActor (program_id, actor_id)" +
-                            "VALUES (@program_id, @actor_id)";
-                        cmd = new MySqlCommand(query, m_connection, transaction);
+                    query = "INSERT IGNORE INTO ProgramActor (program_id, actor_id)" +
+                        "VALUES (@program_id, @actor_id)";
+                    cmd = new MySqlCommand(query, dbcon.con, transaction);
 
-                        cmd.Parameters.AddWithValue("@program_id", actor_id);
-                        cmd.Parameters.AddWithValue("@actor_id", program_id);
+                    cmd.Parameters.AddWithValue("@program_id", actor_id);
+                    cmd.Parameters.AddWithValue("@actor_id", program_id);
 
-                        cmd.ExecuteNonQuery();
-                        progressEvent("Save actors to database.", (int)(((double)i) / num_records * 100));
-                    }
-                    transaction.Commit();
+                    cmd.ExecuteNonQuery();
+                    progressEvent("Save actors to database.", (int)(((double)i) / num_records * 100));
                 }
-                catch
-                {
-                    transaction.Rollback();
-                    throw;
-                }
-                finally
-                {
-                    data_reader.Close();
-                    m_connection.Close();
-                }
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
+            finally
+            {
+                data_reader.Close();
+                dbcon.Close(); ConnectionPool.freeConnection(dbcon);
             }
         }
 
         public void insertUser(string name, string password)
         {
+            ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
             string query = "INSERT INTO User (name,password) VALUES (@name, @password)";
-            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            MySqlCommand cmd = new MySqlCommand(query, dbcon.con);
             cmd.Parameters.AddWithValue("@name", name);
             cmd.Parameters.AddWithValue("@password", password);
             try
             {
-                m_connection.Open();
+                dbcon.Open();
                 cmd.ExecuteNonQuery();
             }
             catch
             {
                 throw;
             }
-            m_connection.Close();
+            dbcon.Close();
+            ConnectionPool.freeConnection(dbcon);
         }
 
         public int GetUserID(string name, string password)
         {
             int id = -1;
+            ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
             string query = "SELECT id, name FROM User WHERE name=@name AND password=@password";
-            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            MySqlCommand cmd = new MySqlCommand(query, dbcon.con);
             cmd.Parameters.AddWithValue("@name", name);
             cmd.Parameters.AddWithValue("@password", password);
             try
             {
-                m_connection.Open();
+                dbcon.Open();
                 object result = cmd.ExecuteScalar();
                 if (result != DBNull.Value && result != null)
                 {
@@ -717,7 +718,8 @@ namespace DataLayer
             }
             finally
             {
-                m_connection.Close();
+                dbcon.Close();
+                ConnectionPool.freeConnection(dbcon);
             }
             return id;
         }
@@ -725,12 +727,13 @@ namespace DataLayer
         public int getProgID(string name)
         {
             int id = -1;
+            ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
             string query = "SELECT id FROM Program WHERE name=@name";
-            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            MySqlCommand cmd = new MySqlCommand(query, dbcon.con);
             cmd.Parameters.AddWithValue("@name", name);
             try
             {
-                m_connection.Open();
+                dbcon.Open();
                 object result = cmd.ExecuteScalar();
                 if (result != DBNull.Value && result != null)
                 {
@@ -743,7 +746,8 @@ namespace DataLayer
             }
             finally
             {
-                m_connection.Close();
+                dbcon.Close();
+                ConnectionPool.freeConnection(dbcon);
             }
             return id;
         }
@@ -751,13 +755,14 @@ namespace DataLayer
         public int getProgRating(int pid, int uid)
         {
             int rating = -1;
+            ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
             string query = "SELECT rating FROM UserProgram WHERE user_id=@user_id AND program_id=@program_id";
-            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            MySqlCommand cmd = new MySqlCommand(query, dbcon.con);
             cmd.Parameters.AddWithValue("@user_id", uid);
             cmd.Parameters.AddWithValue("@program_id", pid);
             try
             {
-                m_connection.Open();
+                dbcon.Open();
                 object result = cmd.ExecuteScalar();
                 if (result != DBNull.Value && result != null)
                 {
@@ -770,21 +775,23 @@ namespace DataLayer
             }
             finally
             {
-                m_connection.Close();
+                dbcon.Close();
+                ConnectionPool.freeConnection(dbcon);
             }
             return rating;
         }
 
         public void setProgRating(int pid, int uid, int rating)
         {
+            ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
             string query = "REPLACE INTO UserProgram (user_id,program_id,rating) VALUES (@user_id, @program_id,@rating)";
-            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            MySqlCommand cmd = new MySqlCommand(query, dbcon.con);
             cmd.Parameters.AddWithValue("@user_id", uid);
             cmd.Parameters.AddWithValue("@program_id", pid);
             cmd.Parameters.AddWithValue("@rating", rating);
             try
             {
-                m_connection.Open();
+                dbcon.Open();
                 cmd.ExecuteNonQuery();
             }
             catch (Exception)
@@ -793,21 +800,23 @@ namespace DataLayer
             }
             finally
             {
-                m_connection.Close();
+                dbcon.Close();
+                ConnectionPool.freeConnection(dbcon);
             }
         }
 
         public int getActorsRating(int pid, int uid)
         {
             int rating = -1;
+            ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
             string query = "SELECT avg(ua.rating) FROM UserActor as ua,ProgramActor as pa WHERE " +
                 "ua.user_id=@user_id AND pa.program_id=@program_id AND ua.actor_id=pa.actor_id";
-            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            MySqlCommand cmd = new MySqlCommand(query, dbcon.con);
             cmd.Parameters.AddWithValue("@user_id", uid);
             cmd.Parameters.AddWithValue("@program_id", pid);
             try
             {
-                m_connection.Open();
+                dbcon.Open();
                 object result = cmd.ExecuteScalar();
                 if (result != DBNull.Value && result != null)
                 {
@@ -821,7 +830,8 @@ namespace DataLayer
             }
             finally
             {
-                m_connection.Close();
+                dbcon.Close();
+                ConnectionPool.freeConnection(dbcon);
             }
             return rating;
         }
@@ -829,13 +839,14 @@ namespace DataLayer
         public void setActorRating(int pid, int uid, int rating, int prev)
         {
             MySqlDataReader dr = null;
+            ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
             string query = "SELECT actor_id From ProgramActor WHERE " +
                             "program_id=@program_id";
-            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            MySqlCommand cmd = new MySqlCommand(query, dbcon.con);
             cmd.Parameters.AddWithValue("@program_id", pid);
             try
             {
-                m_connection.Open();
+                dbcon.Open();
                 dr = cmd.ExecuteReader();
             }
             catch
@@ -847,10 +858,10 @@ namespace DataLayer
             {
                 ids.Add(dr.GetInt32(0));
             }
-            m_connection.Close();
+            dbcon.Close();
 
-            m_connection.Open();
-            MySqlTransaction transaction = m_connection.BeginTransaction();
+            dbcon.Open();
+            MySqlTransaction transaction = dbcon.con.BeginTransaction();
             try
             {
                 foreach (int i in ids)
@@ -861,13 +872,13 @@ namespace DataLayer
                              "VALUES (@user_id, @actor_id,0,0);" +
                               "UPDATE UserActor SET rating=((rating*rated_num)+@rating)/(rated_num+1)," +
                               "rated_num=rated_num+1 where user_id=@user_id AND actor_id=@actor_id";
-                        cmd = new MySqlCommand(query, m_connection, transaction);
+                        cmd = new MySqlCommand(query, dbcon.con, transaction);
                     }
                     else
                     {
                         query = "UPDATE UserActor SET rating=((rating*(rated_num))+@rating-@prev)/(rated_num)," +
                              "rated_num=rated_num where user_id=@user_id AND actor_id=@actor_id";
-                        cmd = new MySqlCommand(query, m_connection, transaction);
+                        cmd = new MySqlCommand(query, dbcon.con, transaction);
                         cmd.Parameters.AddWithValue("@prev", prev);
                     }
                     cmd.Parameters.AddWithValue("@user_id", uid);
@@ -883,7 +894,8 @@ namespace DataLayer
             }
             finally
             {
-                m_connection.Close();
+                dbcon.Close();
+                ConnectionPool.freeConnection(dbcon);
             }
         }
 
@@ -907,51 +919,49 @@ namespace DataLayer
 
             // Code
 
-            lock (m_lockObject)
+            ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection(); 
+            dbcon.Open();
+
+            try
             {
-                m_connection.Open();
+                transaction = dbcon.con.BeginTransaction();
+                cmd = new MySqlCommand("DELETE FROM UserOrderedPrograms WHERE userId = @userId", dbcon.con, transaction);
+                cmd.Parameters.AddWithValue("@userId", lstOrderDetails[0].UserId);
+                cmd.ExecuteNonQuery();
 
-                try
+                // Save the channels.
+                int i = 0;
+                foreach (var order in lstOrderDetails)
                 {
-                    
-                    transaction = m_connection.BeginTransaction();
-                    cmd = new MySqlCommand("DELETE FROM UserOrderedPrograms WHERE userId = @userId", m_connection, transaction);
-                    cmd.Parameters.AddWithValue("@userId", lstOrderDetails[0].UserId);
-                    cmd.ExecuteNonQuery();
-
-                    // Save the channels.
-                    int i = 0;
-                    foreach (var order in lstOrderDetails)
+                    cmd = new MySqlCommand("SELECT id FROM Channel WHERE xmltv_id = @xmltv_id", dbcon.con);
+                    cmd.Parameters.AddWithValue("@xmltv_id", lstOrderDetails[i++].ChanId);
+                    object ret = cmd.ExecuteScalar();
+                    if (ret != null && (ret is int))
                     {
-                        cmd = new MySqlCommand("SELECT id FROM Channel WHERE xmltv_id = @xmltv_id", m_connection);
-                        cmd.Parameters.AddWithValue("@xmltv_id", lstOrderDetails[i++].ChanId);
-                        object ret = cmd.ExecuteScalar();
-                        if (ret != null && (ret is int))
-                        {
-                            int chanId = (int)ret;
-                            cmd = new MySqlCommand(
-                            "INSERT INTO UserOrderedPrograms (userId, channeId, start) VALUES (@userId, @channeId, @start)",
-                            m_connection, transaction);
-                            cmd.Parameters.AddWithValue("@userId", order.UserId);
-                            cmd.Parameters.AddWithValue("@channeId", chanId);
-                            cmd.Parameters.AddWithValue("@start", order.Start);
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-
-                    transaction.Commit();
-                }
-                catch
-                {
-                    if (transaction != null)
-                    {
-                        transaction.Rollback();
+                        int chanId = (int)ret;
+                        cmd = new MySqlCommand(
+                        "INSERT INTO UserOrderedPrograms (userId, channeId, start) VALUES (@userId, @channeId, @start)",
+                        dbcon.con, transaction);
+                        cmd.Parameters.AddWithValue("@userId", order.UserId);
+                        cmd.Parameters.AddWithValue("@channeId", chanId);
+                        cmd.Parameters.AddWithValue("@start", order.Start);
+                        cmd.ExecuteNonQuery();
                     }
                 }
-                finally
+
+                transaction.Commit();
+            }
+            catch
+            {
+                if (transaction != null)
                 {
-                    m_connection.Close();
+                    transaction.Rollback();
                 }
+            }
+            finally
+            {
+                dbcon.Close(); 
+                ConnectionPool.freeConnection(dbcon);
             }
         }
 
@@ -963,13 +973,14 @@ namespace DataLayer
         public List<OrderDetail> LoadOrders(int userId)
         {
             List<OrderDetail> lstOrders = new List<OrderDetail>();
+            ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
             string query = "SELECT xmltv_id, start FROM View_UserOrderedPrograms WHERE userId = @userId";
-            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            MySqlCommand cmd = new MySqlCommand(query, dbcon.con);
             cmd.Parameters.AddWithValue("@userId", userId);
             
             try
             {
-                m_connection.Open();
+                dbcon.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -987,7 +998,8 @@ namespace DataLayer
             }
             finally
             {
-                m_connection.Close();
+                dbcon.Close();
+                ConnectionPool.freeConnection(dbcon);
             }
         }
 
@@ -998,12 +1010,13 @@ namespace DataLayer
         public List<UserDetail> GetUsers()
         {
             List<UserDetail> lstUsers = new List<UserDetail>();
+            ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
             string query = "SELECT id, name, admin FROM User";
-            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            MySqlCommand cmd = new MySqlCommand(query, dbcon.con);
 
             try
             {
-                m_connection.Open();
+                dbcon.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -1022,19 +1035,20 @@ namespace DataLayer
             }
             finally
             {
-                m_connection.Close();
+                dbcon.Close();ConnectionPool.freeConnection(dbcon);
             }
         }
 
         public void DeleteUser(int userId)
         {
             string query = "DELETE FROM User WHERE id = @id";
-            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
+            MySqlCommand cmd = new MySqlCommand(query, dbcon.con);
             cmd.Parameters.AddWithValue("@id", userId);
 
             try
             {
-                m_connection.Open();
+                dbcon.Open();
                 cmd.ExecuteNonQuery();
             }
             catch (Exception)
@@ -1043,7 +1057,8 @@ namespace DataLayer
             }
             finally
             {
-                m_connection.Close();
+                dbcon.Close();
+                ConnectionPool.freeConnection(dbcon);
             }
         }
 
@@ -1054,14 +1069,15 @@ namespace DataLayer
         /// <param name="isAdmin">The admin value.</param>
         public void ChangeAdmin(int userId, bool isAdmin)
         {
+            ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
             string query = "UPDATE User SET admin = @admin WHERE id = @id";
-            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            MySqlCommand cmd = new MySqlCommand(query, dbcon.con);
             cmd.Parameters.AddWithValue("@id", userId);
             cmd.Parameters.AddWithValue("@admin", isAdmin);
 
             try
             {
-                m_connection.Open();
+                dbcon.Open();
                 cmd.ExecuteNonQuery();
             }
             catch (Exception)
@@ -1070,7 +1086,8 @@ namespace DataLayer
             }
             finally
             {
-                m_connection.Close();
+                dbcon.Close();
+                ConnectionPool.freeConnection(dbcon);
             }
         }
 
