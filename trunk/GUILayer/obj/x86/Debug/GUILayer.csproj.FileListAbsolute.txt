@@ -178,11 +178,9 @@ D:\TVAdvisor\GUILayer\bin\Debug\TVAdvisor.pdb
 D:\TVAdvisor\GUILayer\bin\Debug\CommonLayer.dll
 D:\TVAdvisor\GUILayer\bin\Debug\LogicLayer.dll
 D:\TVAdvisor\GUILayer\bin\Debug\DataLayer.dll
-D:\TVAdvisor\GUILayer\bin\Debug\ObjectLayer.dll
 D:\TVAdvisor\GUILayer\bin\Debug\CommonLayer.pdb
 D:\TVAdvisor\GUILayer\bin\Debug\LogicLayer.pdb
 D:\TVAdvisor\GUILayer\bin\Debug\DataLayer.pdb
-D:\TVAdvisor\GUILayer\bin\Debug\ObjectLayer.pdb
 D:\TVAdvisor\GUILayer\obj\x86\Debug\Configurator.baml
 D:\TVAdvisor\GUILayer\obj\x86\Debug\EPGViewer.baml
 D:\TVAdvisor\GUILayer\obj\x86\Debug\MainWindow.baml
@@ -192,3 +190,5 @@ D:\TVAdvisor\GUILayer\obj\x86\Debug\GUILayer.Properties.Resources.resources
 D:\TVAdvisor\GUILayer\obj\x86\Debug\GUILayer.csproj.GenerateResource.Cache
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\GUILayer\obj\x86\Debug\ActorPopWindow.baml
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\GUILayer\obj\x86\Debug\ActorPopWindow.g.cs
+D:\TVAdvisor\GUILayer\obj\x86\Debug\ActorPopWindow.baml
+D:\TVAdvisor\GUILayer\obj\x86\Debug\ActorPopWindow.g.cs
