@@ -49,7 +49,7 @@ namespace GUILayer
         /// <summary>
         /// The list of orderedDetails
         /// </summary>
-        private List<OrderDetail> lstOrderDetails;
+        public List<OrderDetail> lstOrderDetails;
 
         /// <summary>
         /// A timer for the event saves the orders.
@@ -306,7 +306,9 @@ namespace GUILayer
                         WindowStart = windowStart,
                         WindowStop = windowStop,
                         ChanIdx = m_chanIdx,
-                        OrderedDetail = order
+                        OrderedDetail = order,
+                        Program = orderedProgram,
+                        Channel = chan
                     };
                     
                     lstOrderDetails.Add(ordered.OrderedDetail);
@@ -607,6 +609,8 @@ namespace GUILayer
                         {
                             ParentWindow = epgViewer,
                             LinkedContent = item,
+                            Channel = item.Channel,
+                            Program = item.Program,
                             Content = Utils.GetEPGDate(item.Program.start).ToShortTimeString() + " : " + 
                                 item.Channel.displayname[0].Value +  " : " + item.Program.title[0].Value,
                             WindowStart = this.WindowStart,
@@ -1120,6 +1124,16 @@ namespace GUILayer
         public OrderDetail OrderedDetail { get; set; }
 
         /// <summary>
+        /// The ordered program.
+        /// </summary>
+        public programme Program { get; set; }
+
+        /// <summary>
+        /// The ordered channel.
+        /// </summary>
+        public channel Channel { get; set; }
+
+        /// <summary>
         /// The channel index
         /// </summary>
         public int ChanIdx { get; set; }
@@ -1162,15 +1176,20 @@ namespace GUILayer
         /// <param name="e"></param>
         void orderedElapse(object sender, ElapsedEventArgs e)
         {
-            MessageBox.Show("Now Starting:\n" + LinkedContent.Program.title[0].Value + "\nAt Channel:\n" +
-                LinkedContent.Channel.displayname[0].Value);
-
+            MessageBox.Show("Now Starting:\n" + Program.title[0].Value + "\nAt Channel:\n" +
+                Channel.displayname[0].Value);
+            
             ParentWindow.Dispatcher.Invoke(new Action(() =>
             {
                 ParentWindow.lstOrders.Items.Remove(this);
-                ((StackPanel)LinkedContent.Content).Children[0].Visibility = System.Windows.Visibility.Hidden;
-                LinkedContent.Ordered = null;
-                LinkedContent.Background = Brushes.Transparent;
+                if (LinkedContent != null)
+                {
+                    ((StackPanel)LinkedContent.Content).Children[0].Visibility = System.Windows.Visibility.Hidden;
+                    LinkedContent.Ordered = null;
+                    LinkedContent.Background = Brushes.Transparent;
+                }
+                MainWindow.Instance.ucEPGViewer.lstOrderDetails.Remove(this.OrderedDetail);
+                MainWindow.Instance.ucEPGViewer.lstOrders.Items.Remove(this);
             }));
         }
 
