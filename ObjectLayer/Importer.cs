@@ -37,9 +37,9 @@ namespace ObjectLayer
             return result;
         }
 
-        public static String[] getProgramDescByMID(List<String> mids)
+        public static String[] getDescByMID(String[] mids)
         {
-            String[] result = new String[mids.Count()];
+            String[] result = new String[mids.Length];
             int count = 0;
             String url = Properties.Resources.APIURLmult + "?key=" + Properties.Resources.APIkey;
             String qw = "[";
