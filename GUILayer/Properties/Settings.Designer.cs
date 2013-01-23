@@ -42,5 +42,51 @@ namespace GUILayer.Properties {
                 return ((string)(this["DbMysql05ConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("dump")]
+        public string DumpFolder {
+            get {
+                return ((string)(this["DumpFolder"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://download.freebase.com/datadumps/latest/browse/tv/tv_program.tsv")]
+        public string ProgramsDumpURL {
+            get {
+                return ((string)(this["ProgramsDumpURL"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://download.freebase.com/datadumps/latest/browse/tv/tv_actor.tsv")]
+        public string ActorsDumpURL {
+            get {
+                return ((string)(this["ActorsDumpURL"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://download.freebase.com/datadumps/latest/browse/tv/regular_tv_appearance.tsv" +
+            "")]
+        public string RegTVDumpURL {
+            get {
+                return ((string)(this["RegTVDumpURL"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://download.freebase.com/datadumps/latest/browse/people/person.tsv")]
+        public string PersonDumpURL {
+            get {
+                return ((string)(this["PersonDumpURL"]));
+            }
+        }
     }
 }
