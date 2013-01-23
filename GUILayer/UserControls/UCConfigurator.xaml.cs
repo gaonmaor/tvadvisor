@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using LogicLayer;
 using CommonLayer;
 using System.Threading.Tasks;
+using GUILayer.Properties;
 
 namespace GUILayer
 {
@@ -115,7 +116,7 @@ namespace GUILayer
         /// <summary>
         /// Reload datadumps.
         /// </summary>
-        private void btnDataDumps_Click(object sender, RoutedEventArgs e)
+        private void btnProgramDumps_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -123,12 +124,22 @@ namespace GUILayer
                 pbData.Maximum = num_records;
                 Task t = new Task(new Action(() =>
                 {
-                    LogicManager.Instance.ReloadDataDumps(new UpdateProgressEvent(updateProgress), num_records);
+                    try
+                    {
+                        LogicManager.Instance.ReloadProgramDumps(new UpdateProgressEvent(updateProgress), num_records,
+                            Settings.Default.ProgramsDumpURL, Settings.Default.DumpFolder);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show(ex.Message);
+                    }
                 }));
                 t.Start();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -143,7 +154,17 @@ namespace GUILayer
                 pbData.Maximum = num_records;
                 Task t = new Task(new Action(() =>
                 {
-                    LogicManager.Instance.ReloadActorsDataDumps(new UpdateProgressEvent(updateProgress), num_records);
+                    try
+                    {
+                        LogicManager.Instance.ReloadActorsDataDumps(new UpdateProgressEvent(updateProgress), num_records,
+                            Settings.Default.ActorsDumpURL, Settings.Default.DumpFolder);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show(ex.Message);
+                    }
+                    
                 }));
                 t.Start();
             }
@@ -157,16 +178,17 @@ namespace GUILayer
         /// Update the progress.
         /// </summary>
         /// <param name="percent">The percent progress.</param>
-        private void updateProgress(int percent)
+        private void updateProgress(string info, int percent)
         {
             Dispatcher.Invoke(new Action(() =>
             {
+                lblTitle.Content = "Progress Bar: " + info; 
                 if (pbData.Value == 0)
                 {
                     pbData.Visibility = System.Windows.Visibility.Visible;
                 }
                 pbData.Value = percent + 1;
-                if (pbData.Value == 100)
+                if (pbData.Value + 1 >= 100)
                 {
                     pbData.Visibility = System.Windows.Visibility.Collapsed;
                     pbData.Value = 0;
@@ -183,7 +205,39 @@ namespace GUILayer
             pbData.Maximum = num_records;
             Task t = new Task(new Action(() =>
             {
-                LogicManager.Instance.ReloadActorsDataDumps(new UpdateProgressEvent(updateProgress), num_records);
+                LogicManager.Instance.ReloadActorsDataDumps(new UpdateProgressEvent(updateProgress), num_records,
+                    Settings.Default.ActorsDumpURL, Settings.Default.DumpFolder);
+            }));
+            t.Start();
+        }
+
+        private void lstUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lstUsers.SelectedItem != null)
+            {
+                UserDetail user = ((UserListBoxItem)lstUsers.SelectedItem).User;
+                changeAdminText(user.IsAdmin);
+            }
+        }
+
+        private void btnFullDumps_Click(object sender, RoutedEventArgs e)
+        {
+            int num_records = 55500;
+            pbData.Maximum = num_records;
+            Task t = new Task(new Action(() =>
+            {
+                try
+                {
+                    LogicManager.Instance.ReloadFullDataDumps(new UpdateProgressEvent(updateProgress), num_records,
+                    new List<string>{ Settings.Default.ProgramsDumpURL, 
+                                      Settings.Default.ActorsDumpURL,
+                                      Settings.Default.RegTVDumpURL}, Settings.Default.DumpFolder);
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
             }));
             t.Start();
         }
