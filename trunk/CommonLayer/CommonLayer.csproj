@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Delegate.cs" />
     <Compile Include="OrderDetail.cs" />
+    <Compile Include="UserDetail.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
