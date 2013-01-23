@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="1000"
     x:Name="epgViewer"
-        SizeChanged="epgViewer_SizeChanged" GotFocus="epgViewer_GotFocus" Unloaded="epgViewer_Unloaded" Loaded="epgViewer_Loaded">
+        SizeChanged="epgViewer_SizeChanged" GotFocus="epgViewer_GotFocus" Loaded="epgViewer_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60*" />

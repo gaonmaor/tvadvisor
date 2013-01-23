@@ -215,6 +215,16 @@ namespace GUILayer
         }
 
         /// <summary>
+        /// Handle Main window saving.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void Instance_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            SaveOrders();
+        }
+
+        /// <summary>
         /// Save all the unsaved orders.
         /// </summary>
         /// <param name="sender"></param>
@@ -922,16 +932,6 @@ namespace GUILayer
             }
         }
 
-        /// <summary>
-        /// Handle unloading.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void epgViewer_Unloaded(object sender, RoutedEventArgs e)
-        {
-            SaveOrders();
-        }
-
         #endregion
 
         private void epgViewer_Loaded(object sender, RoutedEventArgs e)
@@ -939,6 +939,7 @@ namespace GUILayer
             try
             {
                 int userId = MainWindow.Instance.UserID;
+                MainWindow.Instance.Closing += new System.ComponentModel.CancelEventHandler(Instance_Closing);
                 LoadOrders(userId);
             }
             catch (Exception)

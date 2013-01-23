@@ -9,11 +9,8 @@
         <Grid.RowDefinitions>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid x:Name="grdUsers">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0">
+            <ListBox x:Name="lstUsers"/>
         </Grid>
     </Grid>
 </UserControl>
