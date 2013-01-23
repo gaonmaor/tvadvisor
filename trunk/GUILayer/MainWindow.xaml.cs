@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 using System.Threading.Tasks;
 using CommonLayer;
 
-namespace TVAdvisor
+namespace GUILayer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

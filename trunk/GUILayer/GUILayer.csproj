@@ -83,11 +83,17 @@
     <Compile Include="SignupWindow.xaml.cs">
       <DependentUpon>SignupWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UCConfigurator.xaml.cs">
+    <Compile Include="UserControls\UCConfigurator.xaml.cs">
       <DependentUpon>UCConfigurator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UCEPGViewer.xaml.cs">
+    <Compile Include="UserControls\UCEPGViewer.xaml.cs">
       <DependentUpon>UCEPGViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\RatingsControl.xaml.cs">
+      <DependentUpon>RatingsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\StarControl.xaml.cs">
+      <DependentUpon>StarControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="xmltv.cs">
       <DependentUpon>xmltv.xsd</DependentUpon>
@@ -124,13 +130,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UCConfigurator.xaml">
+    <Page Include="UserControls\UCConfigurator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UCEPGViewer.xaml">
+    <Page Include="UserControls\UCEPGViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\RatingsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\StarControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

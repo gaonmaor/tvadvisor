@@ -41,7 +41,7 @@ namespace CommonLayer
         {
             UserId = userId;
             ChanId = chanId;
-            Start = start;
+            Start = new DateTime(start.Year, start.Month, start.Day, start.Hour, start.Minute, start.Second, DateTimeKind.Local);
             Saved = saved;
         }
     }
