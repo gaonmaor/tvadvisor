@@ -88,10 +88,10 @@ namespace EPGGruberService.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Grisha\\Desktop\\New Folder (2)\\DB\\DB2\\TVAdvisor\\xmltv\\xmltv.exe")]
-        public string XMLTVPath2 {
+        [global::System.Configuration.DefaultSettingValueAttribute("en")]
+        public string DefaultLang {
             get {
-                return ((string)(this["XMLTVPath2"]));
+                return ((string)(this["DefaultLang"]));
             }
         }
     }
