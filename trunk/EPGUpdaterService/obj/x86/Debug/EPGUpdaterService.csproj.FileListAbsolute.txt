@@ -28,3 +28,5 @@ D:\TVAdvisor\EPGUpdaterService\obj\x86\Debug\EPGGruberService.EPGUpdaterService.
 D:\TVAdvisor\EPGUpdaterService\obj\x86\Debug\EPGUpdaterService.csproj.GenerateResource.Cache
 D:\TVAdvisor\EPGUpdaterService\obj\x86\Debug\EPGGruberService.exe
 D:\TVAdvisor\EPGUpdaterService\obj\x86\Debug\EPGGruberService.pdb
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\EPGUpdaterService\bin\Debug\ObjectLayer.dll
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\EPGUpdaterService\bin\Debug\ObjectLayer.pdb

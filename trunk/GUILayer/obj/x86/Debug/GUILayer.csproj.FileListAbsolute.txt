@@ -190,3 +190,5 @@ C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\GUILayer\obj\x86\Debug\A
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\GUILayer\obj\x86\Debug\ActorPopWindow.g.cs
 D:\TVAdvisor\GUILayer\obj\x86\Debug\ActorPopWindow.baml
 D:\TVAdvisor\GUILayer\obj\x86\Debug\ActorPopWindow.g.cs
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\GUILayer\bin\Debug\ObjectLayer.dll
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\GUILayer\bin\Debug\ObjectLayer.pdb

@@ -54,3 +54,5 @@ D:\TVAdvisor\Testings\obj\x86\Debug\Testings.csprojResolveAssemblyReference.cach
 D:\TVAdvisor\Testings\obj\x86\Debug\Testings.g.resources
 D:\TVAdvisor\Testings\obj\x86\Debug\Testings.exe
 D:\TVAdvisor\Testings\obj\x86\Debug\Testings.pdb
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\bin\Debug\ObjectLayer.dll
+C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\bin\Debug\ObjectLayer.pdb
