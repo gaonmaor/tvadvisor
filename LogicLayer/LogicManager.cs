@@ -63,9 +63,8 @@ namespace LogicLayer
         /// <summary>
         /// Build the new epg.
         /// </summary>       
-        public void BuildEPG(string oldFile, string newFile, int userId)
+        public void BuildEPG(string oldFile, string newFile, int userId, string defaultLang)
         {
-            string defaultLang = Properties.Settings.Default.DefaultLang;
             tv epg = Utils.DeserializeXml<tv>(oldFile);
             programme[] ps = epg.programme;
             if (ps == null)
@@ -98,7 +97,7 @@ namespace LogicLayer
                 rate.value = r.ToString();
                 p.rating = new rating[1] { rate };
             }
-            DataManager.Instance.BuildEPG(oldFile, newFile, epg);
+            DataManager.Instance.BuildEPG(oldFile, newFile, epg, defaultLang);
             //DataManager.Instance.BuildEPG2(oldFile, newFile);
 
             //// Variables
@@ -124,8 +123,9 @@ namespace LogicLayer
             //// Create the new file.
             //Utils.SerializeXML<tv>(epg, newFile);
         }
-        
-     public int calculateRating(string prog, int userID){
+
+        public int calculateRating(string prog, int userID)
+        {
             int ret = 0, progID = 0;
             progID = DataManager.Instance.getProgID(prog);
             try
@@ -139,31 +139,33 @@ namespace LogicLayer
             if (ret != -1) return ret;
             try
             {
+                ret = DataManager.Instance.getActorsRating(progID, userID);
             }
-catch
-             {
+            catch
+            {
                 throw;
-             }
+            }
             if (ret == -1)
                 return 5;
-            return ret;        }
+            return ret;
+        }
 
-     public void rateProgram(string prog, int userID, int rating)
-     {
-         int progID = 0;
-         progID = DataManager.Instance.getProgID(prog);
-         try
-         {
-             int prev = DataManager.Instance.getProgRating(progID, userID);
-             DataManager.Instance.setProgRating(progID, userID, rating);
-             DataManager.Instance.setActorRating(progID, userID, rating, prev);
-         }
-         catch
-         {
-             throw;
-         }
+        public void rateProgram(string prog, int userID, int rating)
+        {
+            int progID = 0;
+            progID = DataManager.Instance.getProgID(prog);
+            try
+            {
+                int prev = DataManager.Instance.getProgRating(progID, userID);
+                DataManager.Instance.setProgRating(progID, userID, rating);
+                DataManager.Instance.setActorRating(progID, userID, rating, prev);
+            }
+            catch
+            {
+                throw;
+            }
 
-     }
+        }
 
         public void userRegister(string name, string password){
             string hash = Utils.GetHashedPassword(password);

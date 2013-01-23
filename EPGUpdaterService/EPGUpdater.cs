@@ -143,7 +143,7 @@ namespace EPGGruberService
         private void BuildEPG(int userId)
         {
             log("Build the new EPG.");
-            LogicManager.Instance.BuildEPG(Settings.Default.OutputFile, Settings.Default.NewFile, userId);
+            LogicManager.Instance.BuildEPG(Settings.Default.OutputFile, Settings.Default.NewFile, userId, Settings.Default.DefaultLang);
             log("New epg was created saved in: " + Settings.Default.NewFile);
         }
 
