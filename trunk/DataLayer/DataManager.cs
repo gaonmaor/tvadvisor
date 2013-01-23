@@ -870,7 +870,6 @@ namespace DataLayer
                     {
                         transaction.Rollback();
                     }
-                    throw;
                 }
                 finally
                 {
@@ -914,10 +913,6 @@ namespace DataLayer
                 m_connection.Close();
             }
         }
-
-        #endregion
-    }
-}
 
         #endregion
     }
