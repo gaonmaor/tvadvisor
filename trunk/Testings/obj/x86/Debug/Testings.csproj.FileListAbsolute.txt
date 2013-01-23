@@ -39,8 +39,6 @@ C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\obj\x86\Debug\T
 C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\obj\x86\Debug\Testings.pdb
 C:\Users\Ran\Desktop\TVAdvisor\Testings\bin\Debug\ObjectLayer.dll
 C:\Users\Ran\Desktop\TVAdvisor\Testings\bin\Debug\ObjectLayer.pdb
-C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\bin\Debug\ObjectLayer.dll
-C:\Users\Grisha\Desktop\New Folder (2)\DB\DB2\TVAdvisor\Testings\bin\Debug\ObjectLayer.pdb
 D:\TVAdvisor\Testings\bin\Debug\Testings.exe.config
 D:\TVAdvisor\Testings\bin\Debug\Testings.exe
 D:\TVAdvisor\Testings\bin\Debug\Testings.pdb

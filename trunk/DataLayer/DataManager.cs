@@ -410,192 +410,192 @@ namespace DataLayer
             throw new NotImplementedException();
         }
 
-          public void GetFreebaseData(UpdateProgressEvent progressEvent, int num_records)
-        {
-            //  The dump file reader
-            StreamReader data_reader = new StreamReader(@"C:\tv_program.tsv"); //Environment.CurrentDirectory
+        //  public void GetFreebaseData(UpdateProgressEvent progressEvent, int num_records)
+        //{
+        //    //  The dump file reader
+        //    StreamReader data_reader = new StreamReader(@"C:\tv_program.tsv"); //Environment.CurrentDirectory
 
-            List<String> IDs = new List<string>();
-            string[] crr_line_words;
-            string line = data_reader.ReadLine();
+        //    List<String> IDs = new List<string>();
+        //    string[] crr_line_words;
+        //    string line = data_reader.ReadLine();
 
-            for (int i = 0; i < num_records; i++)
-            {
-                line = data_reader.ReadLine();
-                crr_line_words = line.Split('\t');
-                IDs.Add(crr_line_words[1]);
-            }
+        //    for (int i = 0; i < num_records; i++)
+        //    {
+        //        line = data_reader.ReadLine();
+        //        crr_line_words = line.Split('\t');
+        //        IDs.Add(crr_line_words[1]);
+        //    }
 
-            data_reader.Close();
+        //    data_reader.Close();
 
-            String[] descriptions = ObjectLayer.Importer.getProgramDescByMID(IDs);
+        //    String[] descriptions = ObjectLayer.Importer.getProgramDescByMID(IDs);
 
-            data_reader = new StreamReader(@"C:\tv_program.tsv");
+        //    data_reader = new StreamReader(@"C:\tv_program.tsv");
 
-            // The sql transaction.
-            MySqlTransaction transaction;
+        //    // The sql transaction.
+        //    MySqlTransaction transaction;
 
-            // The SQL data command.
-            MySqlCommand cmd;
-            lock (m_lockObject)
-            {
-                line = data_reader.ReadLine(); ;
-                string query;
+        //    // The SQL data command.
+        //    MySqlCommand cmd;
+        //    lock (m_lockObject)
+        //    {
+        //        line = data_reader.ReadLine(); ;
+        //        string query;
 
-                m_connection.Open();
-                transaction = m_connection.BeginTransaction();
-                try
-                {
-                    for (int i = 0; i < num_records; i++)
-                    {
-                        line = data_reader.ReadLine();
-                        crr_line_words = line.Split('\t');
+        //        m_connection.Open();
+        //        transaction = m_connection.BeginTransaction();
+        //        try
+        //        {
+        //            for (int i = 0; i < num_records; i++)
+        //            {
+        //                line = data_reader.ReadLine();
+        //                crr_line_words = line.Split('\t');
 
-                        string program_freebase_id = crr_line_words[1];
-                        string description = descriptions[i];
+        //                string program_freebase_id = crr_line_words[1];
+        //                string description = descriptions[i];
 
-                        query = "INSERT IGNORE INTO Program (name, country_of_origin, freebase_id, description)" +
-                            "VALUES (@name, @country_of_origin, @freebase_id, @description)";
-                        cmd = new MySqlCommand(query, m_connection, transaction);
+        //                query = "INSERT IGNORE INTO Program (name, country_of_origin, freebase_id, description)" +
+        //                    "VALUES (@name, @country_of_origin, @freebase_id, @description)";
+        //                cmd = new MySqlCommand(query, m_connection, transaction);
 
-                        cmd.Parameters.AddWithValue("@name", crr_line_words[0]);
-                        cmd.Parameters.AddWithValue("@freebase_id", program_freebase_id);
-                        cmd.Parameters.AddWithValue("@country_of_origin", crr_line_words[7]);
-                        cmd.Parameters.AddWithValue("@description", description);
-                        cmd.ExecuteNonQuery();
+        //                cmd.Parameters.AddWithValue("@name", crr_line_words[0]);
+        //                cmd.Parameters.AddWithValue("@freebase_id", program_freebase_id);
+        //                cmd.Parameters.AddWithValue("@country_of_origin", crr_line_words[7]);
+        //                cmd.Parameters.AddWithValue("@description", description);
+        //                cmd.ExecuteNonQuery();
 
-                        // Get last inserted id
-                        query = "SELECT MAX(id) FROM Program";
-                        cmd = new MySqlCommand(query, m_connection, transaction);
-                        Object obj = cmd.ExecuteScalar();
-                        int program_id = Convert.ToInt32(obj);
+        //                // Get last inserted id
+        //                query = "SELECT MAX(id) FROM Program";
+        //                cmd = new MySqlCommand(query, m_connection, transaction);
+        //                Object obj = cmd.ExecuteScalar();
+        //                int program_id = Convert.ToInt32(obj);
 
-                        // Go through the actors and add to DB the connections between actors and programs
+        //                // Go through the actors and add to DB the connections between actors and programs
 
-                        //string[] actors = crr_line_words[13].Split(',');
-                        //long program_id = cmd.LastInsertedId; //Doen't work :-(
+        //                //string[] actors = crr_line_words[13].Split(',');
+        //                //long program_id = cmd.LastInsertedId; //Doen't work :-(
 
-                        string actors = "'" + crr_line_words[13].Replace(",", "','") + "'"; // Seperated by commas
+        //                string actors = "'" + crr_line_words[13].Replace(",", "','") + "'"; // Seperated by commas
 
-                        query = "SELECT id FROM Actor WHERE freebase_id IN (@actors)";
-                        cmd = new MySqlCommand(query, m_connection, transaction);
+        //                query = "SELECT id FROM Actor WHERE freebase_id IN (@actors)";
+        //                cmd = new MySqlCommand(query, m_connection, transaction);
 
-                        cmd.Parameters.AddWithValue("@actors", actors);
+        //                cmd.Parameters.AddWithValue("@actors", actors);
 
-                        MySqlDataReader reader = cmd.ExecuteReader();
+        //                MySqlDataReader reader = cmd.ExecuteReader();
 
-                        bool b = reader.Read();
-                        while (reader.Read())
-                        {
-                            query = "INSERT INTO ProgramActor (program_id, actor_id)" +
-                                "VALUES (@program_id, @actor_id)";
-                            int actor_id = reader.GetInt32(0);
+        //                bool b = reader.Read();
+        //                while (reader.Read())
+        //                {
+        //                    query = "INSERT INTO ProgramActor (program_id, actor_id)" +
+        //                        "VALUES (@program_id, @actor_id)";
+        //                    int actor_id = reader.GetInt32(0);
 
-                            cmd = new MySqlCommand(query, m_connection, transaction);
+        //                    cmd = new MySqlCommand(query, m_connection, transaction);
 
-                            cmd.Parameters.AddWithValue("@program_id", program_id);
-                            cmd.Parameters.AddWithValue("@actor_id", actor_id);
+        //                    cmd.Parameters.AddWithValue("@program_id", program_id);
+        //                    cmd.Parameters.AddWithValue("@actor_id", actor_id);
 
-                            cmd.ExecuteNonQuery();
-                        }
-                        reader.Close();
+        //                    cmd.ExecuteNonQuery();
+        //                }
+        //                reader.Close();
 
-                        progressEvent(i);
-                    }
-                    transaction.Commit();
-                }
+        //                progressEvent(i);
+        //            }
+        //            transaction.Commit();
+        //        }
 
-                catch
-                {
-                    transaction.Rollback();
-                    throw;
-                }
-                finally
-                {
-                    data_reader.Close();
-                    m_connection.Close();
-                }
-            }
-        }
+        //        catch
+        //        {
+        //            transaction.Rollback();
+        //            throw;
+        //        }
+        //        finally
+        //        {
+        //            data_reader.Close();
+        //            m_connection.Close();
+        //        }
+        //    }
+        //}
 
-        public void GetFreebaseActor(UpdateProgressEvent progressEvent, int num_records)
-        {
-            //  The dump file reader
-            StreamReader data_reader = new StreamReader(@"C:\tv_actor.tsv"); //Environment.CurrentDirectory
+        //public void GetFreebaseActor(UpdateProgressEvent progressEvent, int num_records)
+        //{
+        //    //  The dump file reader
+        //    StreamReader data_reader = new StreamReader(@"C:\tv_actor.tsv"); //Environment.CurrentDirectory
 
-            //List<String> IDs = new List<string>();
-            string[] crr_line_words;
-            string line = data_reader.ReadLine();
-            /*
-            for (int i = 0; i < num_records; i++)
-            {
-                line = data_reader.ReadLine();
-                crr_line_words = line.Split('\t');
-                IDs.Add(crr_line_words[1]);
-            }
+        //    //List<String> IDs = new List<string>();
+        //    string[] crr_line_words;
+        //    string line = data_reader.ReadLine();
+        //    /*
+        //    for (int i = 0; i < num_records; i++)
+        //    {
+        //        line = data_reader.ReadLine();
+        //        crr_line_words = line.Split('\t');
+        //        IDs.Add(crr_line_words[1]);
+        //    }
             
-            data_reader.Close();
+        //    data_reader.Close();
             
-            String[] descriptions = ObjectLayer.Importer.getProgramDescByMID(IDs);
-            */
-            data_reader = new StreamReader(@"C:\tv_actor.tsv");
+        //    String[] descriptions = ObjectLayer.Importer.getProgramDescByMID(IDs);
+        //    */
+        //    data_reader = new StreamReader(@"C:\tv_actor.tsv");
 
-            // The sql transaction.
-            MySqlTransaction transaction;
+        //    // The sql transaction.
+        //    MySqlTransaction transaction;
 
-            // The SQL data command.
-            MySqlCommand cmd;
-            lock (m_lockObject)
-            {
-                line = data_reader.ReadLine(); ;
-                string query;
+        //    // The SQL data command.
+        //    MySqlCommand cmd;
+        //    lock (m_lockObject)
+        //    {
+        //        line = data_reader.ReadLine(); ;
+        //        string query;
 
-                m_connection.Open();
-                transaction = m_connection.BeginTransaction();
-                try
-                {
-                    for (int i = 0; i < num_records; i++)
-                    {
-                        line = data_reader.ReadLine();
-                        crr_line_words = line.Split('\t');
+        //        m_connection.Open();
+        //        transaction = m_connection.BeginTransaction();
+        //        try
+        //        {
+        //            for (int i = 0; i < num_records; i++)
+        //            {
+        //                line = data_reader.ReadLine();
+        //                crr_line_words = line.Split('\t');
                   
-                        string id = crr_line_words[1];
-                        //string description = descriptions[i];
+        //                string id = crr_line_words[1];
+        //                //string description = descriptions[i];
 
-                        /*
-                         * query = "INSERT IGNORE INTO Actor (name, birth_date, gender, freebase_id, biography)" +
-                            "VALUES (@name, @birth_date, @gender, @freebase_id, @biography)";
-                         */
+        //                /*
+        //                 * query = "INSERT IGNORE INTO Actor (name, birth_date, gender, freebase_id, biography)" +
+        //                    "VALUES (@name, @birth_date, @gender, @freebase_id, @biography)";
+        //                 */
 
-                        query = "INSERT IGNORE INTO Actor (name, freebase_id)" +
-                            "VALUES (@name, @freebase_id)";
-                        cmd = new MySqlCommand(query, m_connection, transaction);
+        //                query = "INSERT IGNORE INTO Actor (name, freebase_id)" +
+        //                    "VALUES (@name, @freebase_id)";
+        //                cmd = new MySqlCommand(query, m_connection, transaction);
 
 
-                        cmd.Parameters.AddWithValue("@name", crr_line_words[0]);
-                        cmd.Parameters.AddWithValue("@freebase_id", id);
-                        //cmd.Parameters.AddWithValue("@birth_date", crr_line_words[0]);
-                        //cmd.Parameters.AddWithValue("@gender", crr_line_words[0]);
-                        //cmd.Parameters.AddWithValue("@biography", crr_line_words[7]);
+        //                cmd.Parameters.AddWithValue("@name", crr_line_words[0]);
+        //                cmd.Parameters.AddWithValue("@freebase_id", id);
+        //                //cmd.Parameters.AddWithValue("@birth_date", crr_line_words[0]);
+        //                //cmd.Parameters.AddWithValue("@gender", crr_line_words[0]);
+        //                //cmd.Parameters.AddWithValue("@biography", crr_line_words[7]);
 
-                        cmd.ExecuteNonQuery();
-                        progressEvent(i);
-                    }
-                    transaction.Commit();
-                }
+        //                cmd.ExecuteNonQuery();
+        //                progressEvent(i);
+        //            }
+        //            transaction.Commit();
+        //        }
 
-                catch
-                {
-                    transaction.Rollback();
-                    throw;
-                }
-                finally
-                {
-                    data_reader.Close();
-                    m_connection.Close();
-                }
-            }
-        }
+        //        catch
+        //        {
+        //            transaction.Rollback();
+        //            throw;
+        //        }
+        //        finally
+        //        {
+        //            data_reader.Close();
+        //            m_connection.Close();
+        //        }
+        //    }
+        //}
 
         public void insertUser(string name, string password){
             string query = "INSERT INTO User (name,password) VALUES (@name, @password)";
@@ -730,7 +730,8 @@ namespace DataLayer
                 object result = cmd.ExecuteScalar();
                 if (result != DBNull.Value && result != null)
                 {
-                    rating = (int)result;
+                    float resf = float.Parse(result.ToString());
+                    rating = (int)resf;
                 }
             }
             catch (Exception)
