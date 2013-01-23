@@ -409,26 +409,34 @@ namespace DataLayer
             throw new NotImplementedException();
         }
 
-        public void GetFreebaseData(UpdateProgressEvent progressEvent, int num_records/*, string dataFile*/)
+        public void GetFreebaseData(UpdateProgressEvent progressEvent, int num_records, string dataFile)
         {
             //  The dump file reader
-            StreamReader data_reader = new StreamReader(@"C:\data dumps\tv_program.tsv"); //Environment.CurrentDirectory
+            StreamReader data_reader = new StreamReader(dataFile); //Environment.CurrentDirectory
             String[] IDs = new String[num_records];
             string[] crr_line_words;
             string line = data_reader.ReadLine();
 
             for (int i = 0; i < num_records; i++)
             {
-                line = data_reader.ReadLine();
-                crr_line_words = line.Split('\t');
-                IDs[i] = crr_line_words[1];
+                try
+                {
+                    line = data_reader.ReadLine();
+                    crr_line_words = line.Split('\t');
+                    IDs[i] = crr_line_words[1];
+                }
+                catch (Exception)
+                {
+                    num_records = i;
+                    break;
+                }
             }
 
             data_reader.Close();
 
             String[] descriptions = ObjectLayer.Importer.getDescByMID(IDs);
 
-            data_reader = new StreamReader(@"C:\data dumps\tv_program.tsv");
+            data_reader = new StreamReader(dataFile);
 
             // The sql transaction.
             MySqlTransaction transaction;
@@ -500,7 +508,7 @@ namespace DataLayer
                         //}
                         //reader.Close();
 
-                        progressEvent(i);
+                        progressEvent("Save to database.", (int)(((double)i) / num_records * 100));
                     }
                     transaction.Commit();
                 }
@@ -517,10 +525,10 @@ namespace DataLayer
             }
         }
 
-        public void GetFreebaseActor(UpdateProgressEvent progressEvent, int num_records)
+        public void GetFreebaseActor(UpdateProgressEvent progressEvent, int num_records, string filePath)
         {
             //  The dump file reader
-            StreamReader data_reader = new StreamReader(@"C:\data dumps\tv_actor.tsv"); //Environment.CurrentDirectory
+            StreamReader data_reader = new StreamReader(filePath); //Environment.CurrentDirectory
             String[] IDs = new String[num_records];
             string[] crr_line_words;
             string line = data_reader.ReadLine();
@@ -536,7 +544,7 @@ namespace DataLayer
 
             String[] descriptions = ObjectLayer.Importer.getDescByMID(IDs);
 
-            data_reader = new StreamReader(@"C:\data dumps\tv_actor.tsv");
+            data_reader = new StreamReader(filePath);
 
             // The sql transaction.
             MySqlTransaction transaction;
@@ -577,7 +585,7 @@ namespace DataLayer
                         cmd.Parameters.AddWithValue("@biography", description);
 
                         cmd.ExecuteNonQuery();
-                        progressEvent(i);
+                        progressEvent("Save actors to database.", (int)(((double)i) / num_records * 100));
                     }
                     transaction.Commit();
                 }
@@ -594,10 +602,10 @@ namespace DataLayer
             }
         }
 
-        public void GetFreebaseActorProgram(UpdateProgressEvent progressEvent, int num_records)
+        public void GetFreebaseActorProgram(UpdateProgressEvent progressEvent, int num_records, string filePath)
         {
             //  The dump file reader
-            StreamReader data_reader = new StreamReader(@"C:\data dumps\regular_tv_appearance.tsv"); //Environment.CurrentDirectory
+            StreamReader data_reader = new StreamReader(filePath); //Environment.CurrentDirectory
             string[] crr_line_words;
             string line = data_reader.ReadLine();
 
@@ -652,7 +660,7 @@ namespace DataLayer
                         cmd.Parameters.AddWithValue("@actor_id", program_id);
 
                         cmd.ExecuteNonQuery();
-                        progressEvent(i);
+                        progressEvent("Save actors to database.", (int)(((double)i) / num_records * 100));
                     }
                     transaction.Commit();
                 }
