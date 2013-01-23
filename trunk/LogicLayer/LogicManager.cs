@@ -150,20 +150,22 @@ namespace LogicLayer
             return ret;
         }
 
-        public void rateProgram(string prog, int userID, int rating)
-        {
-            int progID = 0;
-            progID = DataManager.Instance.getProgID(prog);
-            try
-            {
-                DataManager.Instance.setProgRating(progID, userID, rating);
-            }
-            catch
-            {
-                throw;
-            }
+     public void rateProgram(string prog, int userID, int rating)
+     {
+         int progID = 0;
+         progID = DataManager.Instance.getProgID(prog);
+         try
+         {
+             int prev = DataManager.Instance.getProgRating(progID, userID);
+             DataManager.Instance.setProgRating(progID, userID, rating);
+             DataManager.Instance.setActorRating(progID, userID, rating, prev);
+         }
+         catch
+         {
+             throw;
+         }
 
-        }
+     }
 
         public void userRegister(string name, string password){
             string hash = Utils.GetHashedPassword(password);

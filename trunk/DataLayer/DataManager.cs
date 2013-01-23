@@ -745,13 +745,12 @@ namespace DataLayer
             return rating;
         }
 
-        public void setActorRating(int pid, int uid, int rating)
+        public void setActorRating(int pid, int uid, int rating, int prev)
         {
             MySqlDataReader dr = null;
-            string query = "SELECT actor_id FROM ProgramActor WHERE " +
-                            "ua.user_id=@user_id AND pa.program_id=@program_id";
+            string query = "SELECT actor_id From ProgramActor WHERE " +
+                            "program_id=@program_id";
             MySqlCommand cmd = new MySqlCommand(query, m_connection);
-            cmd.Parameters.AddWithValue("@user_id", uid);
             cmd.Parameters.AddWithValue("@program_id", pid);
             try
             {
@@ -762,27 +761,40 @@ namespace DataLayer
             {
                 throw;
             }
+            List<int> ids = new List<int>();
+            while (dr.Read())
+            {
+                ids.Add(dr.GetInt32(0));
+            }
             m_connection.Close();
 
             m_connection.Open();
             MySqlTransaction transaction = m_connection.BeginTransaction();
-            int i = 0;
-            while (dr.Read())
-            {
-                query = "INSERT IGNORE INTO UserActor (user_id,actor_id,rating,rated_num) " +
-                         "VALUES (@user_id, @actor_id,0,0);" +
-                          "UPDATE UserActor SET rating=((rating*rated_num)+2)/(rated_num+1)," +
-                         "rated_num=rated_num+1 where user_id=@user_id AND @actor_id";
-                cmd = new MySqlCommand(query, m_connection, transaction);
-                cmd.Parameters.AddWithValue("@user_id", uid);
-                cmd.Parameters.AddWithValue("@actor_id", dr.GetString(i));
-                cmd.Parameters.AddWithValue("@rating", rating);
-                i++;
-            }
             try
             {
-                m_connection.Open();
-                cmd.ExecuteNonQuery();
+                foreach (int i in ids)
+                {
+                    if (prev == -1)
+                    {
+                        query = "INSERT IGNORE INTO UserActor (user_id,actor_id,rating,rated_num) " +
+                             "VALUES (@user_id, @actor_id,0,0);" +
+                              "UPDATE UserActor SET rating=((rating*rated_num)+@rating)/(rated_num+1)," +
+                              "rated_num=rated_num+1 where user_id=@user_id AND actor_id=@actor_id";
+                        cmd = new MySqlCommand(query, m_connection, transaction);
+                    }
+                    else
+                    {
+                        query = "UPDATE UserActor SET rating=((rating*(rated_num))+@rating-@prev)/(rated_num)," +
+                             "rated_num=rated_num where user_id=@user_id AND actor_id=@actor_id";
+                        cmd = new MySqlCommand(query, m_connection, transaction);
+                        cmd.Parameters.AddWithValue("@prev", prev);
+                    }
+                    cmd.Parameters.AddWithValue("@user_id", uid);
+                    cmd.Parameters.AddWithValue("@actor_id", i);
+                    cmd.Parameters.AddWithValue("@rating", rating);
+                    cmd.ExecuteNonQuery();
+                }
+                transaction.Commit();
             }
             catch (Exception)
             {
