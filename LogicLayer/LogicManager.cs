@@ -8,6 +8,7 @@ using System.IO;
 using CommonLayer;
 using ObjectLayer;
 using System.Security.Cryptography;
+using System.Net;
 
 namespace LogicLayer
 {
@@ -254,17 +255,69 @@ namespace LogicLayer
         /// <summary>
         /// Reload data dumps.
         /// </summary>
-        public void ReloadDataDumps(UpdateProgressEvent progressEvent, int numRecords)
+        public void ReloadProgramDumps(UpdateProgressEvent progressEvent, int numRecords, string url, string outputFolder)
         {
-            DataManager.Instance.GetFreebaseData(progressEvent, numRecords);
+            WebClient client = new WebClient();
+            outputFolder = validateFolder(outputFolder);
+            string programFP = outputFolder + @"\programs.tsv";
+            progressEvent("Download program dumps.", 0);
+            client.DownloadFile(url, programFP);
+            progressEvent("Download program dumps finished.", 100);
+            DataManager.Instance.GetFreebaseData(progressEvent, numRecords, programFP);
         }
 
         /// <summary>
         /// Reload actors data dumps.
         /// </summary>
-        public void ReloadActorsDataDumps(UpdateProgressEvent progressEvent, int numRecords)
+        public void ReloadActorsDataDumps(UpdateProgressEvent progressEvent, int numRecords, string url, string outputFolder)
         {
-            DataManager.Instance.GetFreebaseActor(progressEvent, numRecords);
+            WebClient client = new WebClient();
+            outputFolder = validateFolder(outputFolder);
+            string actorsFP = outputFolder + @"\actors.tsv";
+            progressEvent("Download actors dumps.", 0);
+            client.DownloadFile(url, actorsFP);
+            progressEvent("Download actors dumps finished.", 100);
+            DataManager.Instance.GetFreebaseActor(progressEvent, numRecords, actorsFP);
+        }
+
+        /// <summary>
+        /// Full data dumps
+        /// </summary>
+        public void ReloadFullDataDumps(UpdateProgressEvent progressEvent, int numRecords, List<string> urls, string outputFolder)
+        {
+            WebClient client = new WebClient();
+            outputFolder = validateFolder(outputFolder);
+            string programFP = outputFolder + @"\programs.tsv";
+            progressEvent("Download program dumps.", 0);
+            client.DownloadFile(urls[0], programFP);
+            progressEvent("Download actors dumps." , 33);
+            string actorsFP = outputFolder + @"\actors.tsv";
+            client.DownloadFile(urls[1], actorsFP);
+            progressEvent("Download regular dumps.", 66);
+            string regFP = outputFolder + @"\reg.tsv";
+            client.DownloadFile(urls[2], regFP);
+            progressEvent("Get freebase programs data.", 0);
+            DataManager.Instance.GetFreebaseData(progressEvent, numRecords, programFP);
+            progressEvent("Get freebase actors data.", 0);
+            DataManager.Instance.GetFreebaseActor(progressEvent, numRecords, actorsFP);
+            progressEvent("Get freebase regular data.", 0);
+            DataManager.Instance.GetFreebaseActorProgram(progressEvent, numRecords, regFP);
+        }
+
+        /// <summary>
+        /// Validate the existence of the folder.
+        /// </summary>
+        /// <param name="outputFolder"></param>
+        private string validateFolder(string outputFolder)
+        {
+            outputFolder = Environment.CurrentDirectory + "\\" + outputFolder;
+            DirectoryInfo dir = new DirectoryInfo(outputFolder);
+            if (!dir.Exists)
+            {
+                dir.Create();
+            }
+
+            return outputFolder;
         }
     }
 
