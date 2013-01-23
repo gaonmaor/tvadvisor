@@ -16,7 +16,7 @@ using CommonLayer;
 using DataLayer;
 using System.Threading.Tasks;
 
-namespace TVAdvisor
+namespace GUILayer
 {
     /// <summary>
     /// Interaction logic for Configurator.xaml
