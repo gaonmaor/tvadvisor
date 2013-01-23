@@ -409,12 +409,11 @@ namespace DataLayer
             throw new NotImplementedException();
         }
 
-        public void GetFreebaseData(UpdateProgressEvent progressEvent, int num_records)
+        public void GetFreebaseData(UpdateProgressEvent progressEvent, int num_records/*, string dataFile*/)
         {
             //  The dump file reader
-            StreamReader data_reader = new StreamReader(@"C:\tv_program.tsv"); //Environment.CurrentDirectory
+            StreamReader data_reader = new StreamReader(@"C:\data dumps\tv_program.tsv"); //Environment.CurrentDirectory
             String[] IDs = new String[num_records];
-            //List<String> IDs = new List<string>();
             string[] crr_line_words;
             string line = data_reader.ReadLine();
 
@@ -423,14 +422,13 @@ namespace DataLayer
                 line = data_reader.ReadLine();
                 crr_line_words = line.Split('\t');
                 IDs[i] = crr_line_words[1];
-                //IDs.Add(crr_line_words[1]);
             }
 
             data_reader.Close();
 
             String[] descriptions = ObjectLayer.Importer.getDescByMID(IDs);
 
-            data_reader = new StreamReader(@"C:\tv_program.tsv");
+            data_reader = new StreamReader(@"C:\data dumps\tv_program.tsv");
 
             // The sql transaction.
             MySqlTransaction transaction;
@@ -476,7 +474,7 @@ namespace DataLayer
                         //long program_id = cmd.LastInsertedId; //Doen't work :-(
 
                         //string actors = "'" + crr_line_words[13].Replace(",", "','") + "'"; // Seperated by commas
-                        string[] apc = crr_line_words[13].Split(',');
+                        //string[] apc = crr_line_words[13].Split(',');
                         //insert actor-program connections
 
                         //query = "SELECT id FROM Actor WHERE freebase_id IN (@actors)";
@@ -487,26 +485,25 @@ namespace DataLayer
                         //MySqlDataReader reader = cmd.ExecuteReader();
 
                         //bool b = reader.Read();
-                        foreach (string a in apc)//while (reader.Read())
-                        {
-                            query = "INSERT INTO ProgramActor (program_id, apc_freebase_id)" +
-                                "VALUES (@program_id, @apc_freebase_id)";
-                            //int actor_id = reader.GetInt32(0);
+                        //foreach (string a in apc)//while (reader.Read())
+                        //{
+                        //    query = "INSERT INTO ProgramActor (program_id, apc_freebase_id)" +
+                        //        "VALUES (@program_id, @apc_freebase_id)";
+                        //    //int actor_id = reader.GetInt32(0);
 
-                            cmd = new MySqlCommand(query, m_connection, transaction);
+                        //    cmd = new MySqlCommand(query, m_connection, transaction);
 
-                            cmd.Parameters.AddWithValue("@program_id", program_id);
-                            cmd.Parameters.AddWithValue("@apc_freebase_id", a);
+                        //    cmd.Parameters.AddWithValue("@program_id", program_id);
+                        //    cmd.Parameters.AddWithValue("@apc_freebase_id", a);
 
-                            cmd.ExecuteNonQuery();
-                        }
+                        //    cmd.ExecuteNonQuery();
+                        //}
                         //reader.Close();
 
                         progressEvent(i);
                     }
                     transaction.Commit();
                 }
-
                 catch
                 {
                     transaction.Rollback();
@@ -523,24 +520,23 @@ namespace DataLayer
         public void GetFreebaseActor(UpdateProgressEvent progressEvent, int num_records)
         {
             //  The dump file reader
-            StreamReader data_reader = new StreamReader(@"C:\tv_actor.tsv"); //Environment.CurrentDirectory
-
-            //List<String> IDs = new List<string>();
+            StreamReader data_reader = new StreamReader(@"C:\data dumps\tv_actor.tsv"); //Environment.CurrentDirectory
+            String[] IDs = new String[num_records];
             string[] crr_line_words;
             string line = data_reader.ReadLine();
-            /*
+
             for (int i = 0; i < num_records; i++)
             {
                 line = data_reader.ReadLine();
                 crr_line_words = line.Split('\t');
-                IDs.Add(crr_line_words[1]);
+                IDs[i] = crr_line_words[1];
             }
-            
+
             data_reader.Close();
-            
-            String[] descriptions = ObjectLayer.Importer.getProgramDescByMID(IDs);
-            */
-            data_reader = new StreamReader(@"C:\tv_actor.tsv");
+
+            String[] descriptions = ObjectLayer.Importer.getDescByMID(IDs);
+
+            data_reader = new StreamReader(@"C:\data dumps\tv_actor.tsv");
 
             // The sql transaction.
             MySqlTransaction transaction;
@@ -562,15 +558,15 @@ namespace DataLayer
                         crr_line_words = line.Split('\t');
 
                         string id = crr_line_words[1];
-                        //string description = descriptions[i];
+                        string description = descriptions[i];
 
                         /*
                          * query = "INSERT IGNORE INTO Actor (name, birth_date, gender, freebase_id, biography)" +
                             "VALUES (@name, @birth_date, @gender, @freebase_id, @biography)";
                          */
 
-                        query = "INSERT IGNORE INTO Actor (name, freebase_id)" +
-                            "VALUES (@name, @freebase_id)";
+                        query = "INSERT IGNORE INTO Actor (name, freebase_id, biography)" +
+                            "VALUES (@name, @freebase_id, @biography)";
                         cmd = new MySqlCommand(query, m_connection, transaction);
 
 
@@ -578,14 +574,88 @@ namespace DataLayer
                         cmd.Parameters.AddWithValue("@freebase_id", id);
                         //cmd.Parameters.AddWithValue("@birth_date", crr_line_words[0]);
                         //cmd.Parameters.AddWithValue("@gender", crr_line_words[0]);
-                        //cmd.Parameters.AddWithValue("@biography", crr_line_words[7]);
+                        cmd.Parameters.AddWithValue("@biography", description);
 
                         cmd.ExecuteNonQuery();
                         progressEvent(i);
                     }
                     transaction.Commit();
                 }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+                finally
+                {
+                    data_reader.Close();
+                    m_connection.Close();
+                }
+            }
+        }
 
+        public void GetFreebaseActorProgram(UpdateProgressEvent progressEvent, int num_records)
+        {
+            //  The dump file reader
+            StreamReader data_reader = new StreamReader(@"C:\data dumps\regular_tv_appearance.tsv"); //Environment.CurrentDirectory
+            string[] crr_line_words;
+            string line = data_reader.ReadLine();
+
+            // The sql transaction.
+            MySqlTransaction transaction;
+
+            // The SQL data command.
+            MySqlCommand cmd;
+            lock (m_lockObject)
+            {
+                line = data_reader.ReadLine(); ;
+                string query;
+
+                m_connection.Open();
+                transaction = m_connection.BeginTransaction();
+                try
+                {
+                    for (int i = 0; i < num_records; i++)
+                    {
+                        line = data_reader.ReadLine();
+                        crr_line_words = line.Split('\t');
+
+                        string actor = crr_line_words[2];
+                        string program = crr_line_words[4];
+
+                        query = "SELECT id FROM Actor WHERE name = @name";
+                        cmd = new MySqlCommand(query, m_connection, transaction);
+
+                        cmd.Parameters.AddWithValue("@name", actor);
+
+                        Object obj = cmd.ExecuteScalar();
+                        int actor_id = Convert.ToInt32(obj);
+
+                        query = "SELECT id FROM Program WHERE name = @name";
+                        cmd = new MySqlCommand(query, m_connection, transaction);
+
+                        cmd.Parameters.AddWithValue("@name", program);
+
+                        obj = cmd.ExecuteScalar();
+                        int program_id = Convert.ToInt32(obj);
+
+                        /*
+                         * query = "INSERT IGNORE INTO Actor (name, birth_date, gender, freebase_id, biography)" +
+                            "VALUES (@name, @birth_date, @gender, @freebase_id, @biography)";
+                         */
+
+                        query = "INSERT IGNORE INTO ProgramActor (program_id, actor_id)" +
+                            "VALUES (@program_id, @actor_id)";
+                        cmd = new MySqlCommand(query, m_connection, transaction);
+
+                        cmd.Parameters.AddWithValue("@program_id", actor_id);
+                        cmd.Parameters.AddWithValue("@actor_id", program_id);
+
+                        cmd.ExecuteNonQuery();
+                        progressEvent(i);
+                    }
+                    transaction.Commit();
+                }
                 catch
                 {
                     transaction.Rollback();
