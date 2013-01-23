@@ -147,7 +147,7 @@ namespace DataLayer
             }
         }
 
-        public void BuildEPG(string oldFile, string newFile, tv epg)
+        public void BuildEPG(string oldFile, string newFile, tv epg, string defaultLang)
         {
             //server=localhost;User Id=DbMysql05;password=DbMysql05;Persist Security Info=True;port=3305;database=DbMysql05;Connect Timeout=30
             //string constr = "server=localhost;User Id=DbMysql05;password=DbMysql05;port=3305;database=DbMysql05;Connect Timeout=30";
@@ -156,7 +156,6 @@ namespace DataLayer
 
             //conn.Open();
 
-            string defaultLang = Settings.Default.DefaultLang;
             string defaultDesc = "";
             //tv epg = Utils.DeserializeXml<tv>(oldFile);
             programme[] ps = epg.programme;
