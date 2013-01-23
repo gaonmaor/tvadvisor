@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LogicLayer;
 using CommonLayer;
+using System.Threading.Tasks;
 
 namespace GUILayer
 {
@@ -52,50 +53,139 @@ namespace GUILayer
         {
             UserListBoxItem lbi = new UserListBoxItem();
             lbi.User = user;
-            Grid grd = new Grid();
-            CheckBox cbx = new CheckBox() { Content = "cbxAdmin" };
-            cbx.IsChecked = user.IsAdmin;
-            cbx.Checked += new RoutedEventHandler(cbx_Checked);
-            Label label = new Label() { Content = user.Name };
-            Button btn = new Button() { Content = "Delete" };
-            btn.Click += new RoutedEventHandler(btn_Click);
-
-            grd.Children.Add(label);
-            grd.Children.Add(cbx);
-            grd.Children.Add(btn);
-            lbi.Content = grd;
+            Label label = new Label() { Content = user.Name + (user.IsAdmin?"(Admin)":"") };
+            label.Width = 200;
+            lbi.Content = label;
             return lbi;
         }
 
         /// <summary>
-        /// Handle delete click.
+        /// Make the current user admin or reverse.
         /// </summary>
-        void btn_Click(object sender, RoutedEventArgs e)
+        private void btnAdmin_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                LogicManager.Instance.DeleteUser(((UserListBoxItem)(((Button)sender).Parent)).User.Id);
+                UserDetail user = ((UserListBoxItem)lstUsers.SelectedItem).User;
+                user.IsAdmin = !user.IsAdmin;
+                LogicManager.Instance.ChangeAdmin(user.Id, user.IsAdmin);
+                changeAdminText(user.IsAdmin);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            lstUsers.Items.Remove(((Button)sender).Parent);
         }
 
         /// <summary>
-        /// Handle admin checkbox changes.
+        /// Change the text of admin button
         /// </summary>
-        void cbx_Checked(object sender, RoutedEventArgs e)
+        /// <param name="isAdmin">The current admin value.</param>
+        private void changeAdminText(bool isAdmin)
+        {
+            UserDetail user = ((UserListBoxItem)lstUsers.SelectedItem).User;
+            ((Label)((ListBoxItem)lstUsers.SelectedItem).Content).Content = user.Name + (user.IsAdmin ? " (Admin)" : "");
+            if (isAdmin)
+            {
+                btnAdmin.Content = "Unmake Admin";
+            }
+            else
+            {
+                btnAdmin.Content = "Make Admin";
+            }
+        }
+
+        /// <summary>
+        /// Delete the current user.
+        /// </summary>
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                LogicManager.Instance.ChangeAdmin(((UserListBoxItem)(((CheckBox)sender).Parent)).User.Id, ((CheckBox)sender).IsChecked.Value);
+                UserDetail user = ((UserListBoxItem)lstUsers.SelectedItem).User;
+                LogicManager.Instance.DeleteUser(user.Id);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            lstUsers.Items.Remove(lstUsers.SelectedItem);
+        }
+
+        /// <summary>
+        /// Reload datadumps.
+        /// </summary>
+        private void btnDataDumps_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int num_records = 30;
+                pbData.Maximum = num_records;
+                Task t = new Task(new Action(() =>
+                {
+                    LogicManager.Instance.ReloadDataDumps(new UpdateProgressEvent(updateProgress), num_records);
+                }));
+                t.Start();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        /// <summary>
+        /// Reload actors datadumps.
+        /// </summary>
+        private void btnActorsDumps_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int num_records = 30;
+                pbData.Maximum = num_records;
+                Task t = new Task(new Action(() =>
+                {
+                    LogicManager.Instance.ReloadActorsDataDumps(new UpdateProgressEvent(updateProgress), num_records);
+                }));
+                t.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Update the progress.
+        /// </summary>
+        /// <param name="percent">The percent progress.</param>
+        private void updateProgress(int percent)
+        {
+            Dispatcher.Invoke(new Action(() =>
+            {
+                if (pbData.Value == 0)
+                {
+                    pbData.Visibility = System.Windows.Visibility.Visible;
+                }
+                pbData.Value = percent + 1;
+                if (pbData.Value == 100)
+                {
+                    pbData.Visibility = System.Windows.Visibility.Collapsed;
+                    pbData.Value = 0;
+                }
+            }));
+        }
+
+        /// <summary>
+        /// Reload actors to free base.
+        /// </summary>
+        private void btcGetActor_Click(object sender, RoutedEventArgs e)
+        {
+            int num_records = 55500;
+            pbData.Maximum = num_records;
+            Task t = new Task(new Action(() =>
+            {
+                LogicManager.Instance.ReloadActorsDataDumps(new UpdateProgressEvent(updateProgress), num_records);
+            }));
+            t.Start();
         }
     }
 
