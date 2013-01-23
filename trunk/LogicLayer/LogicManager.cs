@@ -26,7 +26,7 @@ namespace LogicLayer
         /// <summary>
         /// The singleton property.
         /// </summary>
-        public static LogicManager Instance 
+        public static LogicManager Instance
         {
             get
             {
