@@ -128,6 +128,7 @@ namespace LogicLayer
         {
             int ret = 0, progID = 0;
             progID = DataManager.Instance.getProgID(prog);
+            if (progID == -1) return 5;
             try
             {
                 ret = DataManager.Instance.getProgRating(progID, userID);
@@ -220,6 +221,34 @@ namespace LogicLayer
         public List<OrderDetail> LoadOrders(int userId)
         {
             return DataManager.Instance.LoadOrders(userId);
+        }
+
+        /// <summary>
+        /// Get the users.
+        /// </summary>
+        /// <returns></returns>
+        public List<UserDetail> GetUsers()
+        {
+            return DataManager.Instance.GetUsers();
+        }
+
+        /// <summary>
+        /// Delete a user.
+        /// </summary>
+        /// <param name="userId">The user to delete.</param>
+        public void DeleteUser(int userId)
+        {
+            DataManager.Instance.DeleteUser(userId);
+        }
+
+        /// <summary>
+        /// Update the admin value.
+        /// </summary>
+        /// <param name="userId">The user.</param>
+        /// <param name="isAdmin">The </param>
+        public void ChangeAdmin(int userId, bool isAdmin)
+        {
+            DataManager.Instance.ChangeAdmin(userId, isAdmin);
         }
     }
 
