@@ -30,7 +30,7 @@ namespace EPGGruberService
         /// </summary>
         private bool m_running = true;
 
-        private int userId;
+        private int userId = 2;
 
         #endregion
 

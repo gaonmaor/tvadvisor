@@ -177,6 +177,10 @@
       <Project>{6F3FFBDD-245A-484C-8293-12F348824767}</Project>
       <Name>CommonLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
+      <Project>{2DEB5294-C3F9-411F-80E0-7BA3ACF33E41}</Project>
+      <Name>DataLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LogicLayer\LogicLayer.csproj">
       <Project>{97433604-C920-4AAE-B634-2289DB6702E6}</Project>
       <Name>LogicLayer</Name>
