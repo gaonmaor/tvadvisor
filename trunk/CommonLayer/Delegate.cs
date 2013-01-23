@@ -8,6 +8,7 @@ namespace CommonLayer
     /// <summary>
     /// An event for updating progress
     /// </summary>
+    /// <param name="info">The info message.</param>
     /// <param name="percent">The new value</param>
-    public delegate void UpdateProgressEvent(int percent);
+    public delegate void UpdateProgressEvent(string info, int percent);
 }
