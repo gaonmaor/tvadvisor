@@ -417,21 +417,14 @@ namespace DataLayer
             String[] IDs = new String[num_records];
             string[] crr_line_words;
             string line = data_reader.ReadLine();
-
-            for (int i = 0; i < num_records; i++)
+            int i = 0;
+            for (; i < num_records && line != null; i++)
             {
-                try
-                {
-                    line = data_reader.ReadLine();
-                    crr_line_words = line.Split('\t');
-                    IDs[i] = crr_line_words[1];
-                }
-                catch (Exception)
-                {
-                    num_records = i;
-                    break;
-                }
+                line = data_reader.ReadLine();
+                crr_line_words = line.Split('\t');
+                IDs[i] = crr_line_words[1];
             }
+            num_records = i;
 
             data_reader.Close();
 
@@ -452,7 +445,7 @@ namespace DataLayer
             transaction = dbcon.con.BeginTransaction();
             try
             {
-                for (int i = 0; i < num_records; i++)
+                for (i = 0; i < num_records; i++)
                 {
                     line = data_reader.ReadLine();
                     crr_line_words = line.Split('\t');
@@ -532,13 +525,14 @@ namespace DataLayer
             String[] IDs = new String[num_records];
             string[] crr_line_words;
             string line = data_reader.ReadLine();
-
-            for (int i = 0; i < num_records; i++)
+            int i = 0;
+            for (; i < num_records && line != null; i++)
             {
                 line = data_reader.ReadLine();
                 crr_line_words = line.Split('\t');
                 IDs[i] = crr_line_words[1];
             }
+            num_records = i;
 
             data_reader.Close();
 
@@ -559,7 +553,7 @@ namespace DataLayer
             transaction = dbcon.con.BeginTransaction();
             try
             {
-                for (int i = 0; i < num_records; i++)
+                for (i = 0; i < num_records; i++)
                 {
                     line = data_reader.ReadLine();
                     crr_line_words = line.Split('\t');
@@ -614,7 +608,6 @@ namespace DataLayer
             // The SQL data command.
             MySqlCommand cmd;
 
-            line = data_reader.ReadLine(); ;
             string query;
 
             ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection(); 
@@ -622,7 +615,8 @@ namespace DataLayer
             transaction = dbcon.con.BeginTransaction();
             try
             {
-                for (int i = 0; i < num_records; i++)
+                int i = 0;
+                for (;i < num_records && line != null; i++)
                 {
                     line = data_reader.ReadLine();
                     crr_line_words = line.Split('\t');
