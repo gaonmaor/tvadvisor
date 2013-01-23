@@ -82,7 +82,7 @@ namespace EPGGruberService
                 InsertEPG();
 
                 // Build the new epg.
-                BuildEPG(userId);
+                BuildEPG(userId, Settings.Default.DefaultLang);
 
 #if (DEBUG)
                 m_running = false;
@@ -140,10 +140,10 @@ namespace EPGGruberService
             log("Insert to the database finished.");
         }
 
-        private void BuildEPG(int userId)
+        private void BuildEPG(int userId, string defaultLang)
         {
             log("Build the new EPG.");
-            LogicManager.Instance.BuildEPG(Settings.Default.OutputFile, Settings.Default.NewFile, userId, Settings.Default.DefaultLang);
+            LogicManager.Instance.BuildEPG(Settings.Default.OutputFile, Settings.Default.NewFile, userId, defaultLang);
             log("New epg was created saved in: " + Settings.Default.NewFile);
         }
 
