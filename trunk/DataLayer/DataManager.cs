@@ -913,6 +913,89 @@ namespace DataLayer
             }
         }
 
+        /// <summary>
+        /// Get the users.
+        /// </summary>
+        /// <returns></returns>
+        public List<UserDetail> GetUsers()
+        {
+            List<UserDetail> lstUsers = new List<UserDetail>();
+            string query = "SELECT id, name, admin FROM User";
+            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+
+            try
+            {
+                m_connection.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    UserDetail user = new UserDetail(
+                        reader.GetInt32(0),
+                        reader.GetString(1),
+                        reader.GetBoolean(2));
+                    lstUsers.Add(user);
+                }
+
+                return lstUsers;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                m_connection.Close();
+            }
+        }
+
+        public void DeleteUser(int userId)
+        {
+            string query = "DELETE FROM User WHERE id = @id";
+            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            cmd.Parameters.AddWithValue("@id", userId);
+
+            try
+            {
+                m_connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                m_connection.Close();
+            }
+        }
+
+        /// <summary>
+        /// Change the admin.
+        /// </summary>
+        /// <param name="userId">The user id.</param>
+        /// <param name="isAdmin">The admin value.</param>
+        public void ChangeAdmin(int userId, bool isAdmin)
+        {
+            string query = "UPDATE User SET admin = @admin WHERE id = @id";
+            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            cmd.Parameters.AddWithValue("@id", userId);
+            cmd.Parameters.AddWithValue("@admin", isAdmin);
+
+            try
+            {
+                m_connection.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                m_connection.Close();
+            }
+        }
+
         #endregion
     }
 }
