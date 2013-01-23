@@ -814,6 +814,10 @@ namespace DataLayer
         /// Save the user orders to the database.
         /// </summary>
         /// <param name="lstOrderDetails">The orders to sace.</param>
+         /// <summary>
+        /// Save the user orders to the database.
+        /// </summary>
+        /// <param name="lstOrderDetails">The orders to sace.</param>
         public void SaveOrders(List<OrderDetail> lstOrderDetails)
         {
             // Variables
@@ -832,31 +836,33 @@ namespace DataLayer
 
                 try
                 {
-                    cmd = new MySqlCommand("SELECT id FROM Channel WHERE xmltv_id = " +
-                        lstOrderDetails[0].ChanId, m_connection);
-                    object ret = cmd.ExecuteScalar();
-                    if (ret != DBNull.Value && ret != null && (ret is int))
-                    {
-                        int chanId = (int)ret;
-                        transaction = m_connection.BeginTransaction();
-                        cmd = new MySqlCommand("DELETE FROM UserOrderedPrograms WHERE userId = " +
-                       lstOrderDetails[0].UserId, m_connection, transaction);
-                        cmd.ExecuteNonQuery();
+                    
+                    transaction = m_connection.BeginTransaction();
+                    cmd = new MySqlCommand("DELETE FROM UserOrderedPrograms WHERE userId = @userId", m_connection, transaction);
+                    cmd.Parameters.AddWithValue("@userId", lstOrderDetails[0].UserId);
+                    cmd.ExecuteNonQuery();
 
-                        // Save the channels.
-                        foreach (var order in lstOrderDetails)
+                    // Save the channels.
+                    int i = 0;
+                    foreach (var order in lstOrderDetails)
+                    {
+                        cmd = new MySqlCommand("SELECT id FROM Channel WHERE xmltv_id = @xmltv_id", m_connection);
+                        cmd.Parameters.AddWithValue("@xmltv_id", lstOrderDetails[i++].ChanId);
+                        object ret = cmd.ExecuteScalar();
+                        if (ret != null && (ret is int))
                         {
+                            int chanId = (int)ret;
                             cmd = new MySqlCommand(
-                                "INSERT INTO UserOrderedPrograms (userId, channeId, start) VALUES (@userId, @channeId, @start)",
-                                m_connection, transaction);
+                            "INSERT INTO UserOrderedPrograms (userId, channeId, start) VALUES (@userId, @channeId, @start)",
+                            m_connection, transaction);
                             cmd.Parameters.AddWithValue("@userId", order.UserId);
                             cmd.Parameters.AddWithValue("@channeId", chanId);
                             cmd.Parameters.AddWithValue("@start", order.Start);
                             cmd.ExecuteNonQuery();
                         }
-
-                        transaction.Commit();
                     }
+
+                    transaction.Commit();
                 }
                 catch
                 {
@@ -872,6 +878,46 @@ namespace DataLayer
                 }
             }
         }
+
+        /// <summary>
+        /// Get the user orders.
+        /// </summary>
+        /// <param name="userId">The user id.</param>
+        /// <returns>The list of orders details.</returns>
+        public List<OrderDetail> LoadOrders(int userId)
+        {
+            List<OrderDetail> lstOrders = new List<OrderDetail>();
+            string query = "SELECT xmltv_id, start FROM View_UserOrderedPrograms WHERE userId = @userId";
+            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            cmd.Parameters.AddWithValue("@userId", userId);
+            
+            try
+            {
+                m_connection.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    OrderDetail order = new OrderDetail(userId,
+                        reader.GetString(0),
+                        reader.GetDateTime(1), true);
+                    lstOrders.Add(order);
+                }
+
+                return lstOrders;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                m_connection.Close();
+            }
+        }
+
+        #endregion
+    }
+}
 
         #endregion
     }
