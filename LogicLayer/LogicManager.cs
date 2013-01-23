@@ -250,6 +250,22 @@ namespace LogicLayer
         {
             DataManager.Instance.ChangeAdmin(userId, isAdmin);
         }
+
+        /// <summary>
+        /// Reload data dumps.
+        /// </summary>
+        public void ReloadDataDumps(UpdateProgressEvent progressEvent, int numRecords)
+        {
+            DataManager.Instance.GetFreebaseData(progressEvent, numRecords);
+        }
+
+        /// <summary>
+        /// Reload actors data dumps.
+        /// </summary>
+        public void ReloadActorsDataDumps(UpdateProgressEvent progressEvent, int numRecords)
+        {
+            DataManager.Instance.GetFreebaseActor(progressEvent, numRecords);
+        }
     }
 
     [Serializable]
