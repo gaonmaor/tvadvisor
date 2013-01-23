@@ -33,14 +33,5 @@ namespace DataLayer.Properties {
                 return ((string)(this["ConString"]));
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("en")]
-        public string DefaultLang {
-            get {
-                return ((string)(this["DefaultLang"]));
-            }
-        }
     }
 }
