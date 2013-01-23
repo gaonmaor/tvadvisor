@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TVAdvisor.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GUILayer.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="ChannelsInWindow" Type="System.Int32" Scope="Application">
@@ -12,6 +12,21 @@
   &lt;ProviderName&gt;MySql.Data.MySqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">server=localhost;User Id=DbMysql05;Persist Security Info=True;Ssl Mode=None;port=3305;database=DbMysql05</Value>
+    </Setting>
+    <Setting Name="DumpFolder" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">dump</Value>
+    </Setting>
+    <Setting Name="ProgramsDumpURL" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://download.freebase.com/datadumps/latest/browse/tv/tv_program.tsv</Value>
+    </Setting>
+    <Setting Name="ActorsDumpURL" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://download.freebase.com/datadumps/latest/browse/tv/tv_actor.tsv</Value>
+    </Setting>
+    <Setting Name="RegTVDumpURL" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://download.freebase.com/datadumps/latest/browse/tv/regular_tv_appearance.tsv</Value>
+    </Setting>
+    <Setting Name="PersonDumpURL" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://download.freebase.com/datadumps/latest/browse/people/person.tsv</Value>
     </Setting>
   </Settings>
 </SettingsFile>
