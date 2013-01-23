@@ -139,16 +139,14 @@ namespace LogicLayer
             if (ret != -1) return ret;
             try
             {
-                ret = DataManager.Instance.getActorsRating(progID, userID);
-             }
-             catch
+            }
+catch
              {
                 throw;
              }
             if (ret == -1)
                 return 5;
-            return ret;
-        }
+            return ret;        }
 
      public void rateProgram(string prog, int userID, int rating)
      {
@@ -210,6 +208,16 @@ namespace LogicLayer
         public void SaveOrders(List<OrderDetail> lstOrderDetails)
         {
             DataManager.Instance.SaveOrders(lstOrderDetails);
+        }
+
+        /// <summary>
+        /// Load the user orders from the database.
+        /// </summary>
+        /// <param name="userId">The user id.</param>
+        /// <returns>The orders.</returns>
+        public List<OrderDetail> LoadOrders(int userId)
+        {
+            return DataManager.Instance.LoadOrders(userId);
         }
     }
 
