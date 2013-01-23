@@ -13,7 +13,7 @@ using System.Windows.Shapes;
 using CommonLayer;
 using System.Timers;
 
-namespace TVAdvisor
+namespace GUILayer
 {
     /// <summary>
     /// Interaction logic for EPGViewerxaml.xaml
