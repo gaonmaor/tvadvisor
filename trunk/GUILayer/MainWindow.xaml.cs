@@ -13,6 +13,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading.Tasks;
 using CommonLayer;
+using EPGGruberService;
+using LogicLayer;
 
 namespace GUILayer
 {
@@ -58,6 +60,49 @@ namespace GUILayer
         public MainWindow()
         {
             InitializeComponent();
+            PleaseWaitWindow pw = new PleaseWaitWindow();
+            pw.lblMessage.Content = "Please wait while the epg is been generated.";
+            MessageBoxResult rest = MessageBox.Show("Do you want to reload the epg data?", "Reload data.", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
+            if (rest == MessageBoxResult.Yes)
+            {
+                Task t = new Task(new Action(() =>
+                {
+                    try
+                    {
+                        EPGUpdater updater = new EPGUpdater(UserID, Environment.CurrentDirectory);
+                        updater.start();
+                        Dispatcher.Invoke(new Action(() => pw.Close()));
+                    }
+                    catch (Exception ex)
+                    {
+                        Dispatcher.Invoke(new Action(() =>
+                        {
+                            pw.Close();
+                            MessageBox.Show(ex.Message);
+                        }));
+
+                    }
+
+                }));
+                t.Start();
+                pw.ShowDialog();
+            }
+        }
+
+        private void mainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                List<UserDetail> users = LogicManager.Instance.GetUsers();
+                UserDetail user = (from u in users where u.Id == UserID select u).First();
+                if (user.IsAdmin)
+                {
+                    tiConfigurator.Visibility = System.Windows.Visibility.Visible;
+                }
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }
