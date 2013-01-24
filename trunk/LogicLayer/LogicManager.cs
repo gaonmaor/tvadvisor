@@ -319,6 +319,16 @@ namespace LogicLayer
 
             return outputFolder;
         }
+
+        /// <summary>
+        /// Get the actor details.
+        /// </summary>
+        /// <param name="actorName">The actor name.</param>
+        /// <returns>The actor detail object.</returns>
+        public ActorDetail LoadActor(string actorName)
+        {
+            return DataManager.Instance.LoadActor(actorName);
+        }
     }
 
     [Serializable]
