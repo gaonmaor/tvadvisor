@@ -142,7 +142,7 @@ namespace DataLayer
             }
             finally
             {
-                dbcon.Close();
+                //dbcon.Close();
                 ConnectionPool.freeConnection(dbcon);
             }
         }
@@ -249,7 +249,7 @@ namespace DataLayer
                         actorsReader.Close();
                     }
 
-                    dbcon.Close();
+                    //dbcon.Close();
                     ConnectionPool.freeConnection(dbcon);
                 }
 
@@ -390,11 +390,11 @@ namespace DataLayer
             ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
             dbcon.Open();
             transaction = dbcon.con.BeginTransaction();
-
+            MySqlDataReader reader = null;
             try
             {
                 cmd = new MySqlCommand("");
-                MySqlDataReader reader = cmd.ExecuteReader();
+                reader = cmd.ExecuteReader();
                 transaction.Commit();
             }
             catch
@@ -404,7 +404,11 @@ namespace DataLayer
             }
             finally
             {
-                dbcon.Close();
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+                //dbcon.Close();
                 ConnectionPool.freeConnection(dbcon);
             }
             throw new NotImplementedException();
@@ -418,11 +422,17 @@ namespace DataLayer
             string[] crr_line_words;
             string line = data_reader.ReadLine();
             int i = 0;
-            for (; i < num_records && line != null; i++)
+            if (line != null)
             {
-                line = data_reader.ReadLine();
                 crr_line_words = line.Split('\t');
                 IDs[i] = crr_line_words[1];
+                line = data_reader.ReadLine();
+            }
+            for (; i < num_records && line != null; i++)
+            {
+                crr_line_words = line.Split('\t');
+                IDs[i] = crr_line_words[1];
+                line = data_reader.ReadLine();
             }
             num_records = i;
 
@@ -513,7 +523,7 @@ namespace DataLayer
             finally
             {
                 data_reader.Close();
-                dbcon.Close(); 
+                //dbcon.Close(); 
                 ConnectionPool.freeConnection(dbcon);
             }
         }
@@ -526,11 +536,17 @@ namespace DataLayer
             string[] crr_line_words;
             string line = data_reader.ReadLine();
             int i = 0;
-            for (; i < num_records && line != null; i++)
+            if (line != null)
             {
-                line = data_reader.ReadLine();
                 crr_line_words = line.Split('\t');
                 IDs[i] = crr_line_words[1];
+                line = data_reader.ReadLine();
+            }
+            for (; i < num_records && line != null; i++)
+            {
+                crr_line_words = line.Split('\t');
+                IDs[i] = crr_line_words[1];
+                line = data_reader.ReadLine();
             }
             num_records = i;
 
@@ -590,7 +606,7 @@ namespace DataLayer
             finally
             {
                 data_reader.Close();
-                dbcon.Close(); 
+                //dbcon.Close(); 
                 ConnectionPool.freeConnection(dbcon);
             }
         }
@@ -616,9 +632,18 @@ namespace DataLayer
             try
             {
                 int i = 0;
+                //for (; i < num_records; i++)
+                //{
+                //    line = data_reader.ReadLine();
+                //}
+                //num_records = 2 * num_records;
                 for (;i < num_records && line != null; i++)
                 {
                     line = data_reader.ReadLine();
+                    if (line == null)
+                    {
+                        break;
+                    }
                     crr_line_words = line.Split('\t');
 
                     string actor = crr_line_words[2];
@@ -639,7 +664,10 @@ namespace DataLayer
 
                     obj = cmd.ExecuteScalar();
                     int program_id = Convert.ToInt32(obj);
-
+                    if (actor_id == 0 || program_id == 0)
+                    {
+                        continue;
+                    }
                     /*
                      * query = "INSERT IGNORE INTO Actor (name, birth_date, gender, freebase_id, biography)" +
                         "VALUES (@name, @birth_date, @gender, @freebase_id, @biography)";
@@ -649,15 +677,15 @@ namespace DataLayer
                         "VALUES (@program_id, @actor_id)";
                     cmd = new MySqlCommand(query, dbcon.con, transaction);
 
-                    cmd.Parameters.AddWithValue("@program_id", actor_id);
-                    cmd.Parameters.AddWithValue("@actor_id", program_id);
+                    cmd.Parameters.AddWithValue("@program_id", program_id);
+                    cmd.Parameters.AddWithValue("@actor_id", actor_id);
 
                     cmd.ExecuteNonQuery();
                     progressEvent("Save actors to database.", (int)(((double)i) / num_records * 100));
                 }
                 transaction.Commit();
             }
-            catch
+            catch (Exception e)
             {
                 transaction.Rollback();
                 throw;
@@ -665,7 +693,8 @@ namespace DataLayer
             finally
             {
                 data_reader.Close();
-                dbcon.Close(); ConnectionPool.freeConnection(dbcon);
+                //dbcon.Close(); 
+                ConnectionPool.freeConnection(dbcon);
             }
         }
 
@@ -685,7 +714,7 @@ namespace DataLayer
             {
                 throw;
             }
-            dbcon.Close();
+            //dbcon.Close();
             ConnectionPool.freeConnection(dbcon);
         }
 
@@ -712,7 +741,7 @@ namespace DataLayer
             }
             finally
             {
-                dbcon.Close();
+                //dbcon.Close();
                 ConnectionPool.freeConnection(dbcon);
             }
             return id;
@@ -740,7 +769,7 @@ namespace DataLayer
             }
             finally
             {
-                dbcon.Close();
+                //dbcon.Close();
                 ConnectionPool.freeConnection(dbcon);
             }
             return id;
@@ -769,7 +798,7 @@ namespace DataLayer
             }
             finally
             {
-                dbcon.Close();
+                //dbcon.Close();
                 ConnectionPool.freeConnection(dbcon);
             }
             return rating;
@@ -794,7 +823,7 @@ namespace DataLayer
             }
             finally
             {
-                dbcon.Close();
+                //dbcon.Close();
                 ConnectionPool.freeConnection(dbcon);
             }
         }
@@ -824,7 +853,7 @@ namespace DataLayer
             }
             finally
             {
-                dbcon.Close();
+                //dbcon.Close();
                 ConnectionPool.freeConnection(dbcon);
             }
             return rating;
@@ -852,9 +881,9 @@ namespace DataLayer
             {
                 ids.Add(dr.GetInt32(0));
             }
-            dbcon.Close();
+            //dbcon.Close();
 
-            dbcon.Open();
+            //dbcon.Open();
             MySqlTransaction transaction = dbcon.con.BeginTransaction();
             try
             {
@@ -888,7 +917,11 @@ namespace DataLayer
             }
             finally
             {
-                dbcon.Close();
+                if (dr != null)
+                {
+                    dr.Close();
+                }
+                //dbcon.Close();
                 ConnectionPool.freeConnection(dbcon);
             }
         }
@@ -954,7 +987,7 @@ namespace DataLayer
             }
             finally
             {
-                dbcon.Close(); 
+                //dbcon.Close(); 
                 ConnectionPool.freeConnection(dbcon);
             }
         }
@@ -971,11 +1004,11 @@ namespace DataLayer
             string query = "SELECT xmltv_id, start FROM View_UserOrderedPrograms WHERE userId = @userId";
             MySqlCommand cmd = new MySqlCommand(query, dbcon.con);
             cmd.Parameters.AddWithValue("@userId", userId);
-            
+            MySqlDataReader reader = null;
             try
             {
                 dbcon.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
+                reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     OrderDetail order = new OrderDetail(userId,
@@ -992,7 +1025,11 @@ namespace DataLayer
             }
             finally
             {
-                dbcon.Close();
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+                //dbcon.Close();
                 ConnectionPool.freeConnection(dbcon);
             }
         }
@@ -1007,11 +1044,11 @@ namespace DataLayer
             ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
             string query = "SELECT id, name, admin FROM User";
             MySqlCommand cmd = new MySqlCommand(query, dbcon.con);
-
+            MySqlDataReader reader = null;
             try
             {
                 dbcon.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
+                reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     UserDetail user = new UserDetail(
@@ -1021,7 +1058,6 @@ namespace DataLayer
                     lstUsers.Add(user);
                 }
 
-                return lstUsers;
             }
             catch (Exception)
             {
@@ -1029,8 +1065,14 @@ namespace DataLayer
             }
             finally
             {
-                dbcon.Close();ConnectionPool.freeConnection(dbcon);
+                if (reader != null)
+                {
+                    reader.Close();
+                }
+                //dbcon.Close();
+                ConnectionPool.freeConnection(dbcon);
             }
+            return lstUsers;
         }
 
         public void DeleteUser(int userId)
@@ -1051,7 +1093,7 @@ namespace DataLayer
             }
             finally
             {
-                dbcon.Close();
+                //dbcon.Close();
                 ConnectionPool.freeConnection(dbcon);
             }
         }
@@ -1080,7 +1122,7 @@ namespace DataLayer
             }
             finally
             {
-                dbcon.Close();
+                //dbcon.Close();
                 ConnectionPool.freeConnection(dbcon);
             }
         }
@@ -1093,12 +1135,13 @@ namespace DataLayer
         public ActorDetail LoadActor(string actorName)
         {
             ActorDetail ret = null;
+            ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
             string query = "SELECT id, name, biography FROM Actor";
-            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+            MySqlCommand cmd = new MySqlCommand(query, dbcon.con);
 
             try
             {
-                m_connection.Open();
+                dbcon.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
                 if(reader.Read())
                 {
@@ -1118,7 +1161,8 @@ namespace DataLayer
             }
             finally
             {
-                m_connection.Close();
+                //dbcon.Close();
+                ConnectionPool.freeConnection(dbcon);
             }
         }
 
