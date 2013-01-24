@@ -128,6 +128,11 @@ namespace GUILayer
         public double WindowStep { get; set; }
 
         /// <summary>
+        /// Indicate if the window is closed or not.
+        /// </summary>
+        public bool IsClosed { get; set; }
+
+        /// <summary>
         /// The current selected program.
         /// </summary>
         public programme SelectedProgram
@@ -172,6 +177,7 @@ namespace GUILayer
         /// </summary>
         public UCEPGViewer()
         {
+            IsClosed = false;
             m_chanIdx = 0;
             InitializeComponent();
             SearchResults = new List<programme>();
@@ -185,33 +191,6 @@ namespace GUILayer
             WindowStop = new DateTime(WindowStart.Ticks);
             WindowStep = 30;
             WindowStop = WindowStop.AddMinutes(WindowStep * 3);
-
-            try
-            {
-                Epg = Utils.DeserializeXml<tv>(Environment.CurrentDirectory +  @"\epg.xml");
-
-                // Fix null stops.
-                if (Epg.programme[0].stop == null)
-                {
-                    foreach (var chan in Epg.channel)
-                    {
-                        var chanProg = (from p in Epg.programme
-                                        where p.channel == chan.id
-                                        select p).ToArray();
-
-                        for (int i = 0; i < chanProg.Length - 1; i++)
-                        {
-                            chanProg[i].stop = chanProg[i + 1].start;
-                        }
-                        chanProg[chanProg.Length - 1].stop = chanProg[chanProg.Length - 1].start;
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
         }
 
         /// <summary>
@@ -221,7 +200,12 @@ namespace GUILayer
         /// <param name="e"></param>
         void Instance_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            SaveOrders();
+            if (!IsClosed)
+            {
+                SaveOrders();
+                LogicManager.Instance.emptyPool();
+                IsClosed = true;
+            }
         }
 
         /// <summary>
@@ -712,7 +696,6 @@ namespace GUILayer
                     SelectedProgram.credits.actor != null &&
                     SelectedProgram.credits.actor.Length > 0)
                 {
-                    
                     List<actor> actors = new List<actor>();
                     foreach (actor a in SelectedProgram.credits.actor)
                     {
@@ -1019,6 +1002,33 @@ namespace GUILayer
 
         private void epgViewer_Loaded(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                Epg = Utils.DeserializeXml<tv>(Environment.CurrentDirectory + @"\epg.xml");
+
+                // Fix null stops.
+                if (Epg.programme[0].stop == null)
+                {
+                    foreach (var chan in Epg.channel)
+                    {
+                        var chanProg = (from p in Epg.programme
+                                        where p.channel == chan.id
+                                        select p).ToArray();
+
+                        for (int i = 0; i < chanProg.Length - 1; i++)
+                        {
+                            chanProg[i].stop = chanProg[i + 1].start;
+                        }
+                        chanProg[chanProg.Length - 1].stop = chanProg[chanProg.Length - 1].start;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
             try
             {
                 int userId = MainWindow.Instance.UserID;
