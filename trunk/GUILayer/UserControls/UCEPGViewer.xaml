@@ -28,7 +28,7 @@
                        HorizontalContentAlignment="Center" Background="#FFAFD2EB" />
                 <StackPanel Grid.Row="1" x:Name="grdDetails">
                     <StackPanel  Orientation="Horizontal">
-                        <Label Grid.Column="0" Content="ערוץ:"/>
+                        <Label Grid.Column="0" Content=""/>
                         <Label Grid.Column="1" Content="{Binding ElementName=epgViewer, Path=SelectedChannel.displayname[0].Value}"/>
                     </StackPanel>
                 </StackPanel>

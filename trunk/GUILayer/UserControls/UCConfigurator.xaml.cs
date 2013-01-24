@@ -38,6 +38,7 @@ namespace GUILayer
         /// <param name="e"></param>
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            lstUsers.Items.Clear();
             List<UserDetail> users = LogicManager.Instance.GetUsers();
             foreach (UserDetail user in users)
             {
@@ -121,7 +122,6 @@ namespace GUILayer
             try
             {
                 int num_records = 30;
-                pbData.Maximum = num_records;
                 Task t = new Task(new Action(() =>
                 {
                     try
@@ -151,7 +151,6 @@ namespace GUILayer
             try
             {
                 int num_records = 30;
-                pbData.Maximum = num_records;
                 Task t = new Task(new Action(() =>
                 {
                     try
@@ -202,7 +201,6 @@ namespace GUILayer
         private void btcGetActor_Click(object sender, RoutedEventArgs e)
         {
             int num_records = 55500;
-            pbData.Maximum = num_records;
             Task t = new Task(new Action(() =>
             {
                 LogicManager.Instance.ReloadActorsDataDumps(new UpdateProgressEvent(updateProgress), num_records,
@@ -223,7 +221,6 @@ namespace GUILayer
         private void btnFullDumps_Click(object sender, RoutedEventArgs e)
         {
             int num_records = 55500;
-            pbData.Maximum = num_records;
             Task t = new Task(new Action(() =>
             {
                 try

@@ -452,6 +452,7 @@ namespace GUILayer
                                 {
                                     BorderThickness = new Thickness(0.5),
                                     BorderBrush = Brushes.Gray,
+                                    Background = GetRatingColor(p.rating),
                                     HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center,
                                     Program = p,
                                     Channel = chan,
@@ -528,6 +529,26 @@ namespace GUILayer
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// Get the color for the current block.
+        /// </summary>
+        /// <param name="rating">The rating object,</param>
+        /// <returns></returns>
+        private Brush GetRatingColor(rating[] rating)
+        {
+            Brush b = Brushes.Gray;
+            if (rating != null && rating.Length > 0 && rating[0] != null)
+            {
+                Color c = Colors.Silver;
+                c.B = (byte)(c.B + (10 - Convert.ToByte(rating[0].value)) * 5);
+                c.R = (byte)(c.R + (10 - Convert.ToByte(rating[0].value)) * 5);
+                c.G = (byte)(c.G + (10 - Convert.ToByte(rating[0].value)) * 5);
+                b = new SolidColorBrush(c);
+            }
+
+            return b;
         }
 
         /// <summary>
@@ -691,12 +712,14 @@ namespace GUILayer
                     SelectedProgram.credits.actor != null &&
                     SelectedProgram.credits.actor.Length > 0)
                 {
-                    StringBuilder builder = new StringBuilder();
+                    
+                    List<actor> actors = new List<actor>();
                     foreach (actor a in SelectedProgram.credits.actor)
                     {
-                        builder.Append((a.role != null?"(" + a.role + ") ":"") + a.Value + " ");
+                        actors.Add(a);
+                        
                     }
-                    AddDetailPanel("Actors:", builder.ToString());
+                    AddActorsPanel("Actors:", actors);
                 }
                 if (SelectedProgram.country != null &&
                     SelectedProgram.country.Length > 0 &&
@@ -728,6 +751,52 @@ namespace GUILayer
             {
                 SelectedProgram = null;
             }
+        }
+
+        /// <summary>
+        /// Get stack pannel for the actors.
+        /// </summary>
+        /// <param name="title">The title for the actors.</param>
+        /// <param name="desc">The list of actors.</param>
+        private void AddActorsPanel(string title, List<actor> actors)
+        {
+            //StringBuilder builder = new StringBuilder();
+            //builder.Append((a.role != null ? "(" + a.role + ") " : "") + a.Value + " ");
+
+            Grid g = new Grid();
+            
+            g.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(0, GridUnitType.Auto) });
+            g.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
+            Label l = new Label() { Content = title };
+            l.FontSize = 18;
+            l.FontWeight = FontWeights.Bold;
+            l.SetValue(Grid.ColumnProperty, 0);
+            g.Children.Add(l);
+            WrapPanel sp = new WrapPanel() { Orientation = Orientation.Horizontal };
+            foreach (actor a in actors)
+            {
+                Label lblActor = new Label() { Content = a.Value };
+                lblActor.FontSize = 16;
+                lblActor.MouseDown += new MouseButtonEventHandler(lblActor_MouseDown);
+                sp.Children.Add(lblActor);
+            }
+            
+            sp.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+            sp.SetValue(Grid.ColumnProperty, 1);
+            g.Children.Add(sp);
+
+            grdDetails.Children.Add(new Label()
+            {
+                Content = g
+            });
+        }
+
+        void lblActor_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            string actorName = (string)(((Label)sender).Content);
+            ActorPopWindow actorWindow = new ActorPopWindow();
+            actorWindow.LoadActor(actorName);
+            actorWindow.ShowDialog();
         }
 
         /// <summary>
@@ -799,6 +868,16 @@ namespace GUILayer
                 SelectedProgram.rating[0] = new rating();
             }
             SelectedProgram.rating[0].value = ((RatingsControl)sender).Value.ToString();
+            try
+            {
+                ((ListBoxItem)lstChannels.SelectedItem).Background = GetRatingColor(SelectedProgram.rating);
+                LogicManager.Instance.rateProgram(SelectedProgram.title[0].Value, 
+                    MainWindow.Instance.UserID, (int)((RatingsControl)sender).Value);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);
+            }
         }
 
         /// <summary>
