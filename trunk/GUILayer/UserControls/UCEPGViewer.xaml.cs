@@ -238,7 +238,13 @@ namespace GUILayer
         /// </summary>
         private void SaveOrders()
         {
-            LogicManager.Instance.SaveOrders(lstOrderDetails);
+            try
+            {
+                LogicManager.Instance.SaveOrders(lstOrderDetails);
+            }
+            catch (Exception)
+            {
+            }
         }
 
         /// <summary>
@@ -764,9 +770,9 @@ namespace GUILayer
             {
                 Label lblActor = new Label() { Content = a.Value };
                 lblActor.FontSize = 16;
-                lblActor.Background = Brushes.Purple;
-                lblActor.MouseEnter += new MouseEventHandler((sender, e) => { lblActor.Background = Brushes.Blue; });
-                lblActor.MouseLeave += new MouseEventHandler((sender, e) => { lblActor.Background = Brushes.Purple; });
+                lblActor.Foreground = Brushes.DarkBlue;
+                lblActor.MouseEnter += new MouseEventHandler((sender, e) => { lblActor.Foreground = Brushes.Orange; });
+                lblActor.MouseLeave += new MouseEventHandler((sender, e) => { lblActor.Foreground = Brushes.DarkBlue; });
                 lblActor.MouseDown += new MouseButtonEventHandler(lblActor_MouseDown);
                 sp.Children.Add(lblActor);
             }

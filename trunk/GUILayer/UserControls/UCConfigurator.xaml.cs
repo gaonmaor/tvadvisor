@@ -39,11 +39,17 @@ namespace GUILayer
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             lstUsers.Items.Clear();
-            List<UserDetail> users = LogicManager.Instance.GetUsers();
-            foreach (UserDetail user in users)
+            try
             {
-                lstUsers.Items.Add(GetUserItem(user));
-            }            
+                List<UserDetail> users = LogicManager.Instance.GetUsers();
+                foreach (UserDetail user in users)
+                {
+                    lstUsers.Items.Add(GetUserItem(user));
+                }
+            }
+            catch (Exception)
+            {
+            }       
         }
 
         /// <summary>
