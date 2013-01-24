@@ -329,6 +329,14 @@ namespace LogicLayer
         {
             return DataManager.Instance.LoadActor(actorName);
         }
+
+        /// <summary>
+        /// Empty the connection pool.
+        /// </summary>
+        public void emptyPool()
+        {
+            ConnectionPool.emptyPool();
+        }
     }
 
     [Serializable]
