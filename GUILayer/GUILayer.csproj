@@ -69,11 +69,6 @@
     <Compile Include="Configurator.xaml.cs">
       <DependentUpon>Configurator.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DbMysql05DataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DbMysql05DataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="EPGViewer.xaml.cs">
       <DependentUpon>EPGViewer.xaml</DependentUpon>
     </Compile>
@@ -173,17 +168,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="DbMysql05DataSet.xsc">
-      <DependentUpon>DbMysql05DataSet.xsd</DependentUpon>
-    </None>
-    <None Include="DbMysql05DataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DbMysql05DataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DbMysql05DataSet.xss">
-      <DependentUpon>DbMysql05DataSet.xsd</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
