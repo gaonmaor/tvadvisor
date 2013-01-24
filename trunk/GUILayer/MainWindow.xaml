@@ -11,6 +11,9 @@
             <TabItem Header="Configurator"  x:Name="tiConfigurator" Visibility="Collapsed">
                 <my:UCConfigurator />
             </TabItem>
+            <TabItem Header="Help" x:Name="tiHelp">
+                <WebBrowser x:Name="wbHelp"/>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>
