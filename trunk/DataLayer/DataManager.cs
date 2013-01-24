@@ -1085,6 +1085,43 @@ namespace DataLayer
             }
         }
 
+        /// <summary>
+        /// Get the actor details.
+        /// </summary>
+        /// <param name="actorName">The actor name.</param>
+        /// <returns>The actor detail object.</returns>
+        public ActorDetail LoadActor(string actorName)
+        {
+            ActorDetail ret = null;
+            string query = "SELECT id, name, biography FROM Actor";
+            MySqlCommand cmd = new MySqlCommand(query, m_connection);
+
+            try
+            {
+                m_connection.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+                if(reader.Read())
+                {
+                    ret = new ActorDetail()
+                    {
+                       ID = reader.GetInt32(0),
+                       Name = reader.GetString(1),
+                       Biography = reader.GetString(2)
+                    };
+                }
+
+                return ret;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                m_connection.Close();
+            }
+        }
+
         #endregion
     }
 }
