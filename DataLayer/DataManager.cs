@@ -185,7 +185,7 @@ namespace DataLayer
 
                 ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
                 dbcon.Open();
-                //MySqlTransaction transaction = m_connection.BeginTransaction();
+                MySqlTransaction transaction = dbcon.con.BeginTransaction();
 
                 string d = null;
                 string countryOfOrigin = null;
@@ -221,25 +221,47 @@ namespace DataLayer
                     object dbresult2 = cmd3.ExecuteScalar();
                     actorsReader = cmd2.ExecuteReader();
                     //int i = 0;
+                    bool flag2 = false;
                     while (actorsReader.Read())
                     {
                         actorNames.Add(actorsReader.GetString(0));
+                        flag2 = true;
                         //i++;
                     }
                     if (dbresult != DBNull.Value && dbresult != null)
                     {
                         d = (string)dbresult;
+                        flag2 = true;
                     }
                     if (dbresult2 != DBNull.Value && dbresult2 != null)
                     {
                         countryOfOrigin = (string)dbresult2;
+                        flag2 = true;
                     }
-                    //transaction.Commit();
+                    if (flag2 == false)
+                    {
+                        string query4 = "SELECT name FROM Program WHERE name=@name";
+                        MySqlCommand cmd4 = new MySqlCommand(query, dbcon.con);
+                        cmd4.Parameters.AddWithValue("@name", name);
+                        object dbresult4 = cmd.ExecuteScalar();
+                        if (dbresult4 == DBNull.Value || dbresult4 == null)
+                        {
+                            string query5 = "INSERT IGNORE INTO Program (name, freebase_id)" +
+                                    "VALUES (@name, @freebase_id)";
+                            MySqlCommand cmd5 = new MySqlCommand(query, dbcon.con, transaction);
+
+                            cmd5.Parameters.AddWithValue("@name", name);
+                            cmd5.Parameters.AddWithValue("@freebase_id", p.channel+p.start);
+                            cmd5.ExecuteNonQuery();
+                        }
+
+                    }
+                    transaction.Commit();
 
                 }
                 catch
                 {
-                    //transaction.Rollback();
+                    transaction.Rollback();
                     throw;
                 }
                 finally
