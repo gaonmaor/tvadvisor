@@ -10,6 +10,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using LogicLayer;
+using CommonLayer;
 
 namespace GUILayer
 {
@@ -36,6 +38,25 @@ namespace GUILayer
                     Close();
                     break;
             }
+        }
+
+        /// <summary>
+        ///  Load the content of the actor from the database.
+        /// </summary>
+        /// <param name="actorName">The actor name.</param>
+        public void LoadActor(string actorName)
+        {
+            lblName.Content = actorName;
+            try
+            {
+                ActorDetail detail = LogicManager.Instance.LoadActor(actorName);
+                lblBiography.Text = detail.Biography;
+            }
+            catch (Exception)
+            {
+                lblBiography.Text = "";
+            }
+             
         }
     }
 }
