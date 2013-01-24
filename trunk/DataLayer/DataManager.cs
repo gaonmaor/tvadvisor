@@ -182,10 +182,12 @@ namespace DataLayer
                     //return;
                     continue;
                 }
+                ConnectionPool.DBPoolCon dbcon = null;
+                //MySqlTransaction transaction = null;
 
-                ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
-                dbcon.Open();
-                MySqlTransaction transaction = dbcon.con.BeginTransaction();
+                    dbcon = ConnectionPool.getConnection();
+                    dbcon.Open();
+                    //transaction = dbcon.con.BeginTransaction()
 
                 string d = null;
                 string countryOfOrigin = null;
@@ -252,7 +254,7 @@ namespace DataLayer
                         {
                             string query5 = "INSERT IGNORE INTO Program (name, freebase_id)" +
                                     "VALUES (@name, @freebase_id)";
-                            MySqlCommand cmd5 = new MySqlCommand(query, dbcon.con, transaction);
+                            MySqlCommand cmd5 = new MySqlCommand(query, dbcon.con);//, transaction);
 
                             cmd5.Parameters.AddWithValue("@name", name);
                             cmd5.Parameters.AddWithValue("@freebase_id", p.channel+p.start);
@@ -260,12 +262,12 @@ namespace DataLayer
                         }
 
                     }
-                    transaction.Commit();
+                    //transaction.Commit();
 
                 }
                 catch
                 {
-                    transaction.Rollback();
+                    //transaction.Rollback();
                     throw;
                 }
                 finally
