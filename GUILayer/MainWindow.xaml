@@ -2,13 +2,13 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Name="mainWindow"  Title="TVadvisor" WindowState="Maximized" Width="800" Height="600"
-        FocusManager.FocusedElement = "{Binding ElementName=ucEPGViewer}" MinWidth="300">
+        FocusManager.FocusedElement = "{Binding ElementName=ucEPGViewer}" MinWidth="300" Loaded="mainWindow_Loaded">
     <Grid>
         <TabControl x:Name="tcPanels" >
-            <TabItem Header="EPG Viewer" Name="tiEPG">
+            <TabItem Header="EPG Viewer" x:Name="tiEPG">
                 <my:UCEPGViewer x:Name="ucEPGViewer"/>
             </TabItem>
-            <TabItem Header="Configurator" Name="tiConfigurator">
+            <TabItem Header="Configurator"  x:Name="tiConfigurator" Visibility="Collapsed">
                 <my:UCConfigurator />
             </TabItem>
         </TabControl>
