@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using LogicLayer;
 using CommonLayer;
+using System.Threading.Tasks;
 
 namespace GUILayer
 {
@@ -49,8 +50,18 @@ namespace GUILayer
             lblName.Content = actorName;
             try
             {
-                ActorDetail detail = LogicManager.Instance.LoadActor(actorName);
-                lblBiography.Text = detail.Biography;
+                //Task t = new Task(new Action(()=>{
+                //    try
+                //    {
+                //        ActorDetail detail = LogicManager.Instance.LoadActor(actorName);
+                //        Dispatcher.Invoke(new Action(() => lblBiography.Text = detail.Biography));
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        MessageBox.Show(ex.Message);
+                //    }
+                //}));
+                //t.Start();
             }
             catch (Exception)
             {
