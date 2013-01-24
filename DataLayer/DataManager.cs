@@ -228,6 +228,10 @@ namespace DataLayer
                         flag2 = true;
                         //i++;
                     }
+                    if (actorsReader != null)
+                    {
+                        actorsReader.Close();
+                    }
                     if (dbresult != DBNull.Value && dbresult != null)
                     {
                         d = (string)dbresult;
