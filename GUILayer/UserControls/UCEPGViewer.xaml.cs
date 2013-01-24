@@ -318,6 +318,10 @@ namespace GUILayer
         /// <param name="e"></param>
         private void epgViewer_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            if (Epg == null)
+            {
+                Epg = Utils.DeserializeXml<tv>(Environment.CurrentDirectory + @"\epg.xml");
+            }
             updateEPG(Dir.Left);
         }
 
@@ -760,6 +764,9 @@ namespace GUILayer
             {
                 Label lblActor = new Label() { Content = a.Value };
                 lblActor.FontSize = 16;
+                lblActor.Background = Brushes.Purple;
+                lblActor.MouseEnter += new MouseEventHandler((sender, e) => { lblActor.Background = Brushes.Blue; });
+                lblActor.MouseLeave += new MouseEventHandler((sender, e) => { lblActor.Background = Brushes.Purple; });
                 lblActor.MouseDown += new MouseButtonEventHandler(lblActor_MouseDown);
                 sp.Children.Add(lblActor);
             }
@@ -1004,7 +1011,10 @@ namespace GUILayer
         {
             try
             {
-                Epg = Utils.DeserializeXml<tv>(Environment.CurrentDirectory + @"\epg.xml");
+                if (Epg == null)
+                {
+                    Epg = Utils.DeserializeXml<tv>(Environment.CurrentDirectory + @"\epg.xml");
+                }
 
                 // Fix null stops.
                 if (Epg.programme[0].stop == null)
