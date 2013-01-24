@@ -54,7 +54,7 @@ namespace ObjectLayer
             try
             {
                 HttpWebRequest hreq = (HttpWebRequest)WebRequest.Create(url);
-
+                hreq.Timeout = -1;
                 UTF8Encoding encoding = new UTF8Encoding();
                 byte[] bytes = encoding.GetBytes(qw);
                 hreq.ContentLength = bytes.Length;
