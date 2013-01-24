@@ -16,7 +16,7 @@ namespace EPGGruberService
     /// <summary>
     /// This class update the EPG into the database each given interval.
     /// </summary>
-    class EPGUpdater
+    public class EPGUpdater
     {
         #region Fields
 
@@ -32,9 +32,23 @@ namespace EPGGruberService
 
         private int userId = 2;
 
+        /// <summary>
+        /// Alternate directory to use if not null.
+        /// </summary>
+        private string m_directory = null;
+
         #endregion
 
         #region Constructors
+
+        /// <summary>
+        /// Constructor from other application
+        /// </summary>
+        public EPGUpdater(int userId, string directory)
+        {
+            m_directory = directory;
+            this.userId = userId;
+        }
 
         /// <summary>
         /// Create the EPG Uploader.
@@ -143,7 +157,8 @@ namespace EPGGruberService
         private void BuildEPG(int userId, string defaultLang)
         {
             log("Build the new EPG.");
-            LogicManager.Instance.BuildEPG(Settings.Default.OutputFile, Settings.Default.NewFile, userId, defaultLang);
+            LogicManager.Instance.BuildEPG(Settings.Default.OutputFile, 
+                (m_directory == null?Settings.Default.NewFile:m_directory + @"\epg.xml"), userId, defaultLang);
             log("New epg was created saved in: " + Settings.Default.NewFile);
         }
 
