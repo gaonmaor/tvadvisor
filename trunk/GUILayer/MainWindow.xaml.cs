@@ -103,6 +103,9 @@ namespace GUILayer
             catch (Exception)
             {
             }
+
+            
+            wbHelp.Navigate("file:///" + Environment.CurrentDirectory + "/help.pdf");
         }
     }
 }
