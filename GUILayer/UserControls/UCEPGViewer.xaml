@@ -18,14 +18,14 @@
                 <ColumnDefinition Width="80*" />
             </Grid.ColumnDefinitions>
             <ListBox x:Name="lstOrders" Grid.Column="0" SelectionChanged="lstOrders_SelectionChanged" />
-            <Grid x:Name="contentGrid" Grid.Column="1">
+            <Grid x:Name="contentGrid" Grid.Column="1" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Label x:Name="lblTitle" Grid.Row="0" Content="{Binding ElementName=epgViewer, Path=SelectedProgram.title[0].Value}" 
-                       HorizontalContentAlignment="Center" Background="#FFAFD2EB" />
+                       HorizontalContentAlignment="Center" Background="#FFAFD2EB" FontWeight="Bold" FontSize="15" />
                 <StackPanel Grid.Row="1" x:Name="grdDetails">
                     <StackPanel  Orientation="Horizontal">
                         <Label Grid.Column="0" Content=""/>
