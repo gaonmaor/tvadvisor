@@ -1160,39 +1160,39 @@ namespace DataLayer
         /// </summary>
         /// <param name="actorName">The actor name.</param>
         /// <returns>The actor detail object.</returns>
-        //public ActorDetail LoadActor(string actorName)
-        //{
-        //    ActorDetail ret = null;
-        //    ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
-        //    string query = "SELECT id, name, biography FROM Actor";
-        //    MySqlCommand cmd = new MySqlCommand(query, dbcon.con);
+        public ActorDetail LoadActor(string actorName)
+        {
+            ActorDetail ret = null;
+            ConnectionPool.DBPoolCon dbcon = ConnectionPool.getConnection();
+            string query = "SELECT id, name, biography FROM Actor";
+            MySqlCommand cmd = new MySqlCommand(query, dbcon.con);
 
-        //    try
-        //    {
-        //        dbcon.Open();
-        //        MySqlDataReader reader = cmd.ExecuteReader();
-        //        if(reader.Read())
-        //        {
-        //            ret = new ActorDetail()
-        //            {
-        //               ID = reader.GetInt32(0),
-        //               Name = reader.GetString(1),
-        //               Biography = reader.GetString(2)
-        //            };
-        //        }
+            try
+            {
+                dbcon.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    ret = new ActorDetail()
+                    {
+                        ID = reader.GetInt32(0),
+                        Name = reader.GetString(1),
+                        Biography = reader.GetString(2)
+                    };
+                }
 
-        //        return ret;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //    finally
-        //    {
-        //        //dbcon.Close();
-        //        ConnectionPool.freeConnection(dbcon);
-        //    }
-        //}
+                return ret;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                //dbcon.Close();
+                ConnectionPool.freeConnection(dbcon);
+            }
+        }
 
         #endregion
     }

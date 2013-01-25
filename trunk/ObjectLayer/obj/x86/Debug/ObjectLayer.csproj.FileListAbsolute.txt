@@ -18,3 +18,10 @@ D:\TVAdvisor\ObjectLayer\obj\x86\Debug\ObjectLayer.Properties.Resources.resource
 D:\TVAdvisor\ObjectLayer\obj\x86\Debug\ObjectLayer.csproj.GenerateResource.Cache
 D:\TVAdvisor\ObjectLayer\obj\x86\Debug\ObjectLayer.dll
 D:\TVAdvisor\ObjectLayer\obj\x86\Debug\ObjectLayer.pdb
+C:\Users\Ran\Desktop\TVAdvisor2\ObjectLayer\bin\Debug\ObjectLayer.dll
+C:\Users\Ran\Desktop\TVAdvisor2\ObjectLayer\bin\Debug\ObjectLayer.pdb
+C:\Users\Ran\Desktop\TVAdvisor2\ObjectLayer\obj\x86\Debug\ObjectLayer.csprojResolveAssemblyReference.cache
+C:\Users\Ran\Desktop\TVAdvisor2\ObjectLayer\obj\x86\Debug\ObjectLayer.Properties.Resources.resources
+C:\Users\Ran\Desktop\TVAdvisor2\ObjectLayer\obj\x86\Debug\ObjectLayer.csproj.GenerateResource.Cache
+C:\Users\Ran\Desktop\TVAdvisor2\ObjectLayer\obj\x86\Debug\ObjectLayer.dll
+C:\Users\Ran\Desktop\TVAdvisor2\ObjectLayer\obj\x86\Debug\ObjectLayer.pdb

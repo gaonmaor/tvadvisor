@@ -17,3 +17,8 @@ D:\TVAdvisor\CommonLayer\bin\Debug\CommonLayer.pdb
 D:\TVAdvisor\CommonLayer\obj\Debug\CommonLayer.csprojResolveAssemblyReference.cache
 D:\TVAdvisor\CommonLayer\obj\Debug\CommonLayer.dll
 D:\TVAdvisor\CommonLayer\obj\Debug\CommonLayer.pdb
+C:\Users\Ran\Desktop\TVAdvisor2\CommonLayer\bin\Debug\CommonLayer.dll
+C:\Users\Ran\Desktop\TVAdvisor2\CommonLayer\bin\Debug\CommonLayer.pdb
+C:\Users\Ran\Desktop\TVAdvisor2\CommonLayer\obj\Debug\CommonLayer.csprojResolveAssemblyReference.cache
+C:\Users\Ran\Desktop\TVAdvisor2\CommonLayer\obj\Debug\CommonLayer.dll
+C:\Users\Ran\Desktop\TVAdvisor2\CommonLayer\obj\Debug\CommonLayer.pdb
