@@ -251,68 +251,74 @@ namespace GUILayer
         /// Load the user orders.
         /// </summary>
         /// <param name="userId">The user id.</param>
+        bool bOrdersLoaded = false;
         private void LoadOrders(int userId)
         {
-            List<OrderDetail> retList = LogicManager.Instance.LoadOrders(userId);
-            NeedToSave = false;
-            foreach (OrderDetail order in retList)
+            if (bOrdersLoaded == false)
             {
-                if (order.Start >= DateTime.Now)
+                bOrdersLoaded = true;
+
+                List<OrderDetail> retList = LogicManager.Instance.LoadOrders(userId);
+                NeedToSave = false;
+                foreach (OrderDetail order in retList)
                 {
-                    programme orderedProgram = null;
-                    channel chan = null;
-                    try
+                    if (order.Start >= DateTime.Now)
                     {
-                        orderedProgram = (from p in Epg.programme
-                                                    where p.channel == order.ChanId && order.Start == Utils.GetEPGDate(p.start)
-                                                    select p).First();
-                    }
-                    catch (Exception)
-                    {
-
-                        continue;
-                    }
-
-                    try
-                    {
-                        chan = (from c in Epg.channel where c.id == order.ChanId select c).First();
-                    }
-                    catch (Exception)
-                    {
-                        continue;
-                    }
-
-                    DateTime windowStart = new DateTime(order.Start.Year, order.Start.Month, order.Start.Day, order.Start.Hour, (order.Start.Minute > 30) ? 30 : 0, 0, DateTimeKind.Local);
-                    DateTime windowStop = new DateTime(WindowStart.Ticks, DateTimeKind.Local);
-                    WindowStep = 30;
-                    windowStop = WindowStop.AddMinutes(WindowStep * 3);
-
-                    OrderedItemContent ordered = new OrderedItemContent()
-                    {
-                        ParentWindow = epgViewer,
-                        LinkedContent = null,
-                        Content = Utils.GetEPGDate(orderedProgram.start).ToShortTimeString() + " : " +
-                            chan.displayname[0].Value + " : " + orderedProgram.title[0].Value,
-                        WindowStart = windowStart,
-                        WindowStop = windowStop,
-                        ChanIdx = m_chanIdx,
-                        OrderedDetail = order,
-                        Program = orderedProgram,
-                        Channel = chan
-                    };
-                    
-                    lstOrderDetails.Add(ordered.OrderedDetail);
-                    //item.Background = OrderedBrush;
-                    int i = 0;
-                    for (; i < lstOrders.Items.Count; ++i)
-                    {
-                        if (((OrderedItemContent)lstOrders.Items[i]).OrderedDetail.Start > order.Start)
+                        programme orderedProgram = null;
+                        channel chan = null;
+                        try
                         {
-                            break;
+                            orderedProgram = (from p in Epg.programme
+                                              where p.channel == order.ChanId && order.Start == Utils.GetEPGDate(p.start)
+                                              select p).First();
                         }
+                        catch (Exception)
+                        {
+
+                            continue;
+                        }
+
+                        try
+                        {
+                            chan = (from c in Epg.channel where c.id == order.ChanId select c).First();
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
+
+                        DateTime windowStart = new DateTime(order.Start.Year, order.Start.Month, order.Start.Day, order.Start.Hour, (order.Start.Minute > 30) ? 30 : 0, 0, DateTimeKind.Local);
+                        DateTime windowStop = new DateTime(WindowStart.Ticks, DateTimeKind.Local);
+                        WindowStep = 30;
+                        windowStop = WindowStop.AddMinutes(WindowStep * 3);
+
+                        OrderedItemContent ordered = new OrderedItemContent()
+                        {
+                            ParentWindow = epgViewer,
+                            LinkedContent = null,
+                            Content = Utils.GetEPGDate(orderedProgram.start).ToShortTimeString() + " : " +
+                                chan.displayname[0].Value + " : " + orderedProgram.title[0].Value,
+                            WindowStart = windowStart,
+                            WindowStop = windowStop,
+                            ChanIdx = m_chanIdx,
+                            OrderedDetail = order,
+                            Program = orderedProgram,
+                            Channel = chan
+                        };
+
+                        lstOrderDetails.Add(ordered.OrderedDetail);
+                        //item.Background = OrderedBrush;
+                        int i = 0;
+                        for (; i < lstOrders.Items.Count; ++i)
+                        {
+                            if (((OrderedItemContent)lstOrders.Items[i]).OrderedDetail.Start > order.Start)
+                            {
+                                break;
+                            }
+                        }
+                        lstOrders.Items.Insert(i, ordered);
+                        ordered.SetTimer();
                     }
-                    lstOrders.Items.Insert(i, ordered);
-                    ordered.SetTimer();
                 }
             }
         }
