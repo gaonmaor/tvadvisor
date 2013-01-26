@@ -99,30 +99,6 @@ namespace LogicLayer
                 p.rating = new rating[1] { rate };
             }
             DataManager.Instance.BuildEPG(oldFile, newFile, epg, defaultLang);
-            //DataManager.Instance.BuildEPG2(oldFile, newFile);
-
-            //// Variables
-            //tv epg;
-
-            //// Code
-
-            //epg = new tv();
-            //programme p = new programme();
-            //List<desc> l = new List<desc>();
-            //desc d = new desc();
-            //BinaryFormatter b = new BinaryFormatter();
-            //d.lang = "TVAdviser";
-            //MemoryStream ms = new MemoryStream();
-            //CostumeData c = new CostumeData();
-            //c.Rating = 9;
-            //b.Serialize(ms, c);
-            //d.Value = Convert.ToString((ms.ToArray()));
-            //l.Add(d);
-            //p.desc = l.ToArray();
-            //DataManager.Instance.GetRating();
-
-            //// Create the new file.
-            //Utils.SerializeXML<tv>(epg, newFile);
         }
 
         public int calculateRating(string prog, int userID)

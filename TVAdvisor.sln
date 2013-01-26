@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicLayer", "LogicLayer\LogicLayer.csproj", "{97433604-C920-4AAE-B634-2289DB6702E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testings", "Testings\Testings.csproj", "{66F6E656-4AFD-4661-9A2F-E557B5211259}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLayer", "CommonLayer\CommonLayer.csproj", "{6F3FFBDD-245A-484C-8293-12F348824767}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPGUpdaterService", "EPGUpdaterService\EPGUpdaterService.csproj", "{F76F1C15-B355-44FC-88D0-3F6DB66617EA}"
@@ -55,16 +53,6 @@ Global
 		{97433604-C920-4AAE-B634-2289DB6702E6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{97433604-C920-4AAE-B634-2289DB6702E6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{97433604-C920-4AAE-B634-2289DB6702E6}.Release|x86.ActiveCfg = Release|Any CPU
-		{66F6E656-4AFD-4661-9A2F-E557B5211259}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{66F6E656-4AFD-4661-9A2F-E557B5211259}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{66F6E656-4AFD-4661-9A2F-E557B5211259}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{66F6E656-4AFD-4661-9A2F-E557B5211259}.Debug|x86.ActiveCfg = Debug|x86
-		{66F6E656-4AFD-4661-9A2F-E557B5211259}.Debug|x86.Build.0 = Debug|x86
-		{66F6E656-4AFD-4661-9A2F-E557B5211259}.Release|Any CPU.ActiveCfg = Release|x86
-		{66F6E656-4AFD-4661-9A2F-E557B5211259}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{66F6E656-4AFD-4661-9A2F-E557B5211259}.Release|Mixed Platforms.Build.0 = Release|x86
-		{66F6E656-4AFD-4661-9A2F-E557B5211259}.Release|x86.ActiveCfg = Release|x86
-		{66F6E656-4AFD-4661-9A2F-E557B5211259}.Release|x86.Build.0 = Release|x86
 		{6F3FFBDD-245A-484C-8293-12F348824767}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6F3FFBDD-245A-484C-8293-12F348824767}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F3FFBDD-245A-484C-8293-12F348824767}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

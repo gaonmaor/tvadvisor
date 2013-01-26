@@ -78,8 +78,8 @@ namespace ObjectLayer
                     {
                         fr = m.result.result;
                         result[count] = fr;
-                        count++;
                     }
+                    count++;
                 }
             }
             catch (System.Net.WebException)
@@ -184,100 +184,5 @@ namespace ObjectLayer
             return fro;
         }
 
-        public static TVProducer.TVProducerJSON getProducerByName(String name)
-        {
-            String mid = getProducerMIDByName(name);
-            TVProducer.TVProducerJSON result = null;
-            if (mid != null)
-            {
-                result = getProducerByMID(mid);
-            }
-            return result;
-        }
-
-        public static String getProducerMIDByName(String name)
-        {
-            String pQuery = "\"type\":\"/tv/tv_producer\",\"name\":\"" + name + "\",\"mid\":null";
-            String version = Properties.Resources.queryVersion2;//MQL format query
-            String fq = Properties.Resources.APIURL + version + "?query={" + pQuery + "}&key=" + Properties.Resources.APIkey;
-            String fr = null;
-            try
-            {
-                fr = executeAPIQuery(fq);
-                fr = process(fr);
-            }
-            catch (System.Net.WebException)
-            {
-                fr = null;// "Bad Request";
-            }
-            return fr;
-        }
-
-        public static TVProducer.TVProducerJSON getProducerByMID(String mid)
-        {
-            String version = Properties.Resources.queryVersion5;//topic search query
-            String fq = Properties.Resources.APIURL + version + mid + "?key=" + Properties.Resources.APIkey;
-            TVProducer.TVProducerJSON fro = null;
-            try
-            {
-                String fr = executeAPIQuery(fq);
-                fr = process3(fr);
-                fro = new TVProducer.TVProducerJSON(fr);
-            }
-            catch (System.Net.WebException)
-            {
-                fro = null;
-            }
-            return fro;
-        }
-
-        public static TVWriter.TVWriterJSON getWriterByName(String name)
-        {
-            String mid = getWriterMIDByName(name);
-            TVWriter.TVWriterJSON result = null;
-            if (mid != null)
-            {
-                result = getWriterByMID(mid);
-            }
-            return result;
-        }
-
-        public static String getWriterMIDByName(String name)
-        {
-            String pQuery = "\"type\":\"/tv/tv_writer\",\"name\":\"" + name + "\",\"mid\":null";
-            String version = Properties.Resources.queryVersion2;//MQL format query
-            String fq = Properties.Resources.APIURL + version + "?query={" + pQuery + "}&key=" + Properties.Resources.APIkey;
-            String fr = null;
-            try
-            {
-                fr = executeAPIQuery(fq);
-                fr = process(fr);
-            }
-            catch (System.Net.WebException)
-            {
-                fr = null;// "Bad Request";
-            }
-            return fr;
-        }
-
-        public static TVWriter.TVWriterJSON getWriterByMID(String mid)
-        {
-            String version = Properties.Resources.queryVersion5;//topic search query
-            String fq = Properties.Resources.APIURL + version + mid + "?key=" + Properties.Resources.APIkey;
-            TVWriter.TVWriterJSON fro = null;
-            try
-            {
-                String fr = executeAPIQuery(fq);
-                fr = process3(fr);
-                fro = new TVWriter.TVWriterJSON(fr);
-            }
-            catch (System.Net.WebException)
-            {
-                fro = null;
-            }
-            return fro;
-        }
-
-        //genres
     }
 }

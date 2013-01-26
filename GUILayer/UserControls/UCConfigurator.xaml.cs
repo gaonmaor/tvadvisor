@@ -127,7 +127,7 @@ namespace GUILayer
         {
             try
             {
-                int num_records = 30;
+                int num_records = 55500;
                 Task t = new Task(new Action(() =>
                 {
                     try
@@ -156,7 +156,7 @@ namespace GUILayer
         {
             try
             {
-                int num_records = 30;
+                int num_records = 55500;
                 Task t = new Task(new Action(() =>
                 {
                     try
