@@ -6,7 +6,7 @@
       <Value Profile="(Default)">500</Value>
     </Setting>
     <Setting Name="XMLTVPath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\Users\Ran\Desktop\TVAdvisor2\xmltv\xmltv.exe</Value>
+      <Value Profile="(Default)">\xmltv\xmltv.exe</Value>
     </Setting>
     <Setting Name="GrabSource" Type="System.String" Scope="Application">
       <Value Profile="(Default)">tv_grab_uk_bleb</Value>

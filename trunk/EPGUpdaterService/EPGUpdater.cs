@@ -113,7 +113,7 @@ namespace EPGGruberService
         {
             log("Grabbing epg: source = " + Settings.Default.OutputFile + " days = " + Settings.Default.Days);
             ProcessStartInfo psi = new ProcessStartInfo();
-            psi.FileName = Settings.Default.XMLTVPath;
+            psi.FileName = Environment.CurrentDirectory + Settings.Default.XMLTVPath;
             psi.Arguments = String.Format("{0} --days {1} --output {2}", Settings.Default.GrabSourceEn, Settings.Default.Days, Settings.Default.OutputFile);
             //psi.Arguments = String.Format("{0} --configure", Settings.Default.GrabSourceEn);
             //psi.Verb = @"runas";

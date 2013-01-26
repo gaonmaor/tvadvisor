@@ -61,9 +61,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="TVActorJSON.cs" />
-    <Compile Include="TVProducerJSON.cs" />
     <Compile Include="TVProgramJSON.cs" />
-    <Compile Include="TVWriterJSON.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

@@ -34,7 +34,7 @@ namespace EPGGruberService.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Ran\\Desktop\\TVAdvisor2\\xmltv\\xmltv.exe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\xmltv\\xmltv.exe")]
         public string XMLTVPath {
             get {
                 return ((string)(this["XMLTVPath"]));
