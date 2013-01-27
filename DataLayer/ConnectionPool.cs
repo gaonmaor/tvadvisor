@@ -61,6 +61,7 @@ namespace DataLayer
                 {
                     result = pool.ElementAt(i);
                     result.busy = true;
+                    break;
                 }
             }
             if (result == null)
